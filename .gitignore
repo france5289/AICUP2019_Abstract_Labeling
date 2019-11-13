@@ -4,3 +4,4 @@ glove/
 *.ini
 model/
 test_experiment/
+submission_*.csv
