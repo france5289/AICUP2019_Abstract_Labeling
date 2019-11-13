@@ -2,3 +2,5 @@ venv_Abstract_Labeling/
 glove/
 .vscode/
 *.ini
+model/
+test_experiment/
