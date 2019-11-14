@@ -9,8 +9,12 @@ import pandas as pd
 import requests, zipfile, io
 import torch
 import numpy as np
+from tqdm import tqdm
 
-def _collect_words(data_path, n_workers=4):
+PAD_TOKEN = 0
+UNK_TOKEN = 1
+
+def collect_words(data_path, n_workers=4):
     df = pd.read_csv(data_path, dtype=str)
     # create a list for storing sentences
     sent_list = []
@@ -31,16 +35,15 @@ def _collect_words(data_path, n_workers=4):
 
 def Create_Vocabulary(data_path):
     '''
-    Given input dataset path and create relative word vocabulary and dump it to picke file \n
+    Given input dataset path and create relative word vocabulary and dump it to picke file 
+    
     Args:
         data_path(string) : path of input dataset
     '''
     assert data_path is not '', 'Please give input dataset path!'
     CPUNUM = os.cpu_count() // 2
     words = set()
-    words |= _collect_words(data_path, n_workers=CPUNUM)
-    PAD_TOKEN = 0
-    UNK_TOKEN = 1
+    words |= collect_words(data_path, n_workers=CPUNUM)
     word_dict = {'<pad>':PAD_TOKEN, '<unk>':UNK_TOKEN}
     for word in words:
         word_dict[word] = len(word_dict)
@@ -67,8 +70,9 @@ def Download_Glove():
 
 def Create_Glove_embedding_matrix(filename, word_dict, embedding_dim):
     '''
-    Given word vocabulary, embedding dimension and pretrained Glove word vector path \n
-    return relative word embedding matrix \n
+    Given word vocabulary, embedding dimension and pretrained Glove word vector path and
+    return relative word embedding matrix 
+
     Args:
         filename( string ): glove word-embedding filename e.g glove.6B.100d.txt
         word_dict( dictionary obj ) : word vocabulary
@@ -95,3 +99,86 @@ def Create_Glove_embedding_matrix(filename, word_dict, embedding_dim):
             embedding_matrix[i] = embedding_vector
     
     return torch.FloatTensor(embedding_matrix)
+
+def label_to_onehot(labels):
+    """ Convert label to onehot .
+
+        Args:
+            labels (string): sentence's labels.
+        Return:
+            outputs (onehot list): sentence's onehot label.
+    """
+    label_dict = {'BACKGROUND': 0, 'OBJECTIVES':1, 'METHODS':2, 'RESULTS':3, 'CONCLUSIONS':4, 'OTHERS':5}
+    onehot = [0,0,0,0,0,0]
+    for l in labels.split('/'):
+        onehot[label_dict[l]] = 1
+    return onehot
+        
+def sentence_to_indices(sentence, word_dict):
+    """ Convert sentence to its word indices.
+
+    Args:
+        sentence (str): One string.
+    Return:
+        indices (list of int): List of word indices.
+    """
+    return [word_dict.get(word,UNK_TOKEN) for word in word_tokenize(sentence)]
+    
+def get_dataset(data_path, word_dict, n_workers=4):
+    """ Load data and return dataset for training and validating.
+
+    Args:
+        data_path (str): Path to the data.
+    """
+    dataset = pd.read_csv(data_path, dtype=str)
+
+    results = [None] * n_workers
+    with Pool(processes=n_workers) as pool:
+        for i in range(n_workers):
+            batch_start = (len(dataset) // n_workers) * i
+            if i == n_workers - 1:
+                batch_end = len(dataset)
+            else:
+                batch_end = (len(dataset) // n_workers) * (i + 1)
+            
+            batch = dataset[batch_start: batch_end]
+            results[i] = pool.apply_async(preprocess_samples, args=(batch,word_dict))
+
+        pool.close()
+        pool.join()
+
+    processed = []
+    for result in results:
+        processed += result.get()
+    return processed
+
+def preprocess_samples(dataset, word_dict):
+    """ Worker function.
+
+    Args:
+        dataset (list of dict)
+    Returns:
+        list of processed dict.
+    """
+    processed = []
+    for sample in tqdm(dataset.iterrows(), total=len(dataset)):
+        processed.append(preprocess_sample(sample[1], word_dict))
+
+    return processed
+
+def preprocess_sample(data, word_dict):
+    """
+    Args:
+        data (dict)
+    Returns:
+        dict
+    """
+    ## clean abstracts by removing $$$
+    processed = {}
+    processed['Abstract'] = [sentence_to_indices(sent, word_dict) for sent in data['Abstract'].split('$$$')]
+    
+    ## convert the labels into one-hot encoding
+    if 'Task 1' in data:
+        processed['Label'] = [label_to_onehot(label) for label in data['Task 1'].split(' ')]
+        
+    return processed
