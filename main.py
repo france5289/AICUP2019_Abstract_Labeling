@@ -18,7 +18,7 @@ from tqdm import trange
 
 from gensim.parsing import remove_stopwords
 
-from model import Net1, F1 # import all model object
+from model import Net1, F1 
 from config_writer import write_config
 from DataPreprocessor import Download_Glove, Create_Vocabulary, Create_Glove_embedding_matrix, Get_dataset
 
@@ -66,10 +66,14 @@ class AbstractDataset(Dataset):
 
 
 if __name__ == '__main__':
+    PAD_TOKEN = 0
+    UNK_TOKEN = 1
+    
     # Get data path and cpu num
     CWD = os.getcwd()
     DATA_PATH = os.path.join(CWD, 'data')
-    CPUNUM = os.cpu_count() // 2
+    WORKERS = os.cpu_count() // 2
+
     # set hyperparameter
     embedding_dim = 100 # word embedding dim for Glove
     hidden_dim = 512
@@ -77,10 +81,16 @@ if __name__ == '__main__':
     max_epoch = 10
     batch_size = 16
     drop_p = 0.3
+    layer_num = 2
+
+    # set device
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
     # set config file name and write out 
     
     config_fname = 'Experiment1_config'
-    write_config(config_fname, embd_dim=embedding_dim, hidden_dim=hidden_dim, lrate=learning_rate, epoch=max_epoch, batch_size=batch_size, drop=drop_p)
+    write_config(config_fname, embd_dim=embedding_dim, hidden_dim=hidden_dim, lrate=learning_rate, epoch=max_epoch, 
+                batch_size=batch_size, drop=drop_p, layer_num=layer_num)
     
     # read training set
     dataset = pd.read_csv( os.path.join( DATA_PATH,'task1_trainset.csv' ), dtype=str )
@@ -113,4 +123,33 @@ if __name__ == '__main__':
     dataset.to_csv(os.path.join(DATA_PATH, 'testset.csv'), index=False)
 
     #---------------now we have generate training, validation, testing set-----------
+
+    # Collect words and create the vocabulary set
+    word_dict = Create_Vocabulary(os.path.join(DATA_PATH, 'trainset.csv'))
+
+    # download Glove pretrained word embedding
+    Download_Glove()
     
+    # Generate word embedding matrix
+    embedding_matrix = Create_Glove_embedding_matrix('glove.6B.100d.txt', word_dict, embedding_dim)
+
+    # Data formatting
+    print('[INFO] Start processing trainset...')
+    train = Get_dataset(os.path.join(DATA_PATH,'trainset.csv'), word_dict, n_workers=WORKERS)
+    print('[INFO] Start processing validset...')
+    valid = Get_dataset(os.path.join(DATA_PATH,'validset.csv'), word_dict, n_workers=WORKERS)
+    print('[INFO] Start processing testset...')
+    test = Get_dataset(os.path.join(DATA_PATH,'testset.csv'), word_dict, n_workers=WORKERS)
+
+    # Create AbstractDataset object
+    trainData = AbstractDataset(train, PAD_TOKEN, max_len = 64)
+    validData = AbstractDataset(valid, PAD_TOKEN, max_len = 64)
+    testData = AbstractDataset(test, PAD_TOKEN, max_len = 64)
+
+    # create model
+    model = Net1(len(word_dict), embedding_dim, hidden_dim, embedding_matrix, layer_num, drop_p, True)
+
+    opt = torch.optim.AdamW(model.parameters(), lr=learning_rate)
+    criteria = torch.nn.BCELoss()
+    model.to(device)
+    history = {'train':[],'valid':[]}
