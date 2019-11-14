@@ -124,7 +124,7 @@ def sentence_to_indices(sentence, word_dict):
     """
     return [word_dict.get(word,UNK_TOKEN) for word in word_tokenize(sentence)]
     
-def get_dataset(data_path, word_dict, n_workers=4):
+def Get_dataset(data_path, word_dict, n_workers=4):
     """ Load data and return dataset for training and validating.
 
     Args:
