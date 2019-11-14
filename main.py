@@ -63,6 +63,35 @@ class AbstractDataset(Dataset):
         return torch.LongTensor(batch_abstract), torch.FloatTensor(batch_label), sent_len
 
 
+def Run_Epoch(epoch, mode, model, dataset, workers=4):
+    '''
+    run this function to start training or validation process
+
+    Args:
+        epoch(int) : num of epoch
+        mode(string) : train or validate
+        model(nn.Module) : your model
+        dataset(AbstracDataset obj.) : your dataset object
+        workers(int) : how many CPU are used when handle data
+    Return:
+        history(dict) : a dictionary which record f1 score and loss
+    '''
+    model.train(True)
+    if mode == "train":
+        description = 'Train'
+        shuffle = True
+    else:
+        description = 'Valid'
+        shuffle = False
+    
+    dataloader = DataLoader(dataset=dataset,
+                            batch_size=batch_size,
+                            shuffle=shuffle,
+                            collate_fn=dataset.collate_fn,
+                            num_workers=8)
+    
+    
+
 
 
 if __name__ == '__main__':
@@ -152,4 +181,4 @@ if __name__ == '__main__':
     opt = torch.optim.AdamW(model.parameters(), lr=learning_rate)
     criteria = torch.nn.BCELoss()
     model.to(device)
-    history = {'train':[],'valid':[]}
+    
