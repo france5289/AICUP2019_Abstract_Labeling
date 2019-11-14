@@ -14,6 +14,7 @@ def write_config(filename, **kwargs):
         **kwargs : a set of hyperparameters 
     '''
     assert filename is not '', 'Please give this set of hyperparameters an identifier!' 
+    assert not os.path.exists(f'{filename}.json'), 'Please use another file name! This config has already existed!'
     model_config = {'Hyperparameters':{}}
     
     for para, value in kwargs.items():
