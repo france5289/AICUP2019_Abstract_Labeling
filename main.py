@@ -66,6 +66,51 @@ class AbstractDataset(Dataset):
 
 
 if __name__ == '__main__':
+    # Get data path and cpu num
     CWD = os.getcwd()
     DATA_PATH = os.path.join(CWD, 'data')
     CPUNUM = os.cpu_count() // 2
+    # set hyperparameter
+    embedding_dim = 100 # word embedding dim for Glove
+    hidden_dim = 512
+    learning_rate = 1e-4
+    max_epoch = 10
+    batch_size = 16
+    drop_p = 0.3
+    # set config file name and write out 
+    
+    config_fname = 'Experiment1_config'
+    write_config(config_fname, embd_dim=embedding_dim, hidden_dim=hidden_dim, lrate=learning_rate, epoch=max_epoch, batch_size=batch_size, drop=drop_p)
+    
+    # read training set
+    dataset = pd.read_csv( os.path.join( DATA_PATH,'task1_trainset.csv' ), dtype=str )
+    
+    # Remove redundant columns
+    dataset.drop('Title',axis=1,inplace=True)
+    dataset.drop('Categories',axis=1,inplace=True)
+    dataset.drop('Created Date',axis=1, inplace=True)
+    dataset.drop('Authors',axis=1,inplace=True)
+    dataset['Abstract'] = dataset['Abstract'].str.lower()
+    
+    # Remove stop words
+    dataset['Abstract'] = dataset['Abstract'].apply(func=remove_stopwords)
+
+    # split training and validation set
+    trainset, validset = train_test_split(dataset, test_size=0.1, random_state=42)
+    trainset.to_csv(os.path.join(DATA_PATH,'trainset.csv'),index=False)
+    validset.to_csv(os.path.join(DATA_PATH,'validset.csv'),index=False)
+
+    # read testing set and remove redundant columns 
+    dataset = pd.read_csv(os.path.join(DATA_PATH, 'task1_public_testset.csv'), dtype=str)
+    dataset.drop('Title', axis=1, inplace=True)
+    dataset.drop('Categories', axis=1, inplace=True)
+    dataset.drop('Created Date', axis=1, inplace=True)
+    dataset.drop('Authors', axis=1, inplace=True)
+    dataset['Abstract'] = dataset['Abstract'].str.lower()
+    # remove stop words
+    dataset['Abstract'] = dataset['Abstract'].apply(func=remove_stopwords)
+
+    dataset.to_csv(os.path.join(DATA_PATH, 'testset.csv'), index=False)
+
+    #---------------now we have generate training, validation, testing set-----------
+    
