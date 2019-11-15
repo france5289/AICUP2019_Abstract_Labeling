@@ -33,6 +33,23 @@ def collect_words(data_path, n_workers=4):
 
     return words
 
+def Remove_Redundant_Columns(filename):
+    '''
+    Read dataset and remove Title, Categories, Created Date, Authors columns
+
+    Args:
+        filename(sting)
+    Return:
+        dataset(DataFrame)
+    '''
+    dataset = pd.read_csv(filename, dtype=str)
+    dataset.drop('Title',axis=1,inplace=True)
+    dataset.drop('Categories',axis=1,inplace=True)
+    dataset.drop('Created Date',axis=1, inplace=True)
+    dataset.drop('Authors',axis=1,inplace=True)
+
+    return dataset
+
 def Create_Vocabulary(data_path):
     '''
     Given input dataset path and create relative word vocabulary and dump it to picke file 
