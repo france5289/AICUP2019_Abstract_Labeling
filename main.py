@@ -203,6 +203,30 @@ def Plot_Figure(history):
 
     print('Best F1 score ', max([[l['f1'], idx] for idx, l in enumerate(history['valid'])]))
 
+def Run_Predict(best_model, model):
+    '''
+    use the best model status to run prediction
+
+    Args:
+        best_model(int) : which epoch has the best model
+        model(nn.Module) : your model 
+    '''
+    model.load_state_dict(state_dict=torch.load(os.path.join(CWD,f'model/model.pkl.{best_model}')))
+    model.train(False)
+    # start testing
+    dataloader = DataLoader(dataset=testData,
+                            batch_size=16,
+                            shuffle=False,
+                            collate_fn=testData.collate_fn,
+                            num_workers=8)
+    trange = tqdm(enumerate(dataloader), total=len(dataloader), desc='Predict')
+    prediction = []
+    for i, (x, y, sent_len) in trange:
+        o_labels = model(x.to(DEVICE))
+        o_labels = o_labels > 0.5
+        for idx, o_label in enumerate(o_labels):
+            prediction.append(o_label[:sent_len[idx]].to('cpu'))
+    prediction = torch.cat(prediction).detach().numpy().astype(int)
 
 if __name__ == '__main__':
     # set hyperparameter
@@ -289,3 +313,5 @@ if __name__ == '__main__':
     
     # Plot the training results
     Plot_Figure(history)
+    
+    # run prediction process
