@@ -298,8 +298,10 @@ if __name__ == '__main__':
         Run_Epoch(epoch, 'valid', model, criteria, opt, validData, tf_writer, history, WORKERS)
         Save(epoch, model, history, config_fname)
     
+    best_model = max([[l['f1'], idx] for idx, l in enumerate(history['valid'])])
+    print(f'Best F1 score epoch : {best_model}')
+    print(f'Run prediction on model {best_model}')
     # run prediction process
-    best_model = int(input('Please insert epoch for best model:'))
     prediction = Run_Predict(best_model, model, config_fname)
 
     # Output csv for submission
