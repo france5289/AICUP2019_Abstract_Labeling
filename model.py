@@ -28,6 +28,9 @@ class Net1(nn.Module):
     '''
     def __init__(self, vocabulary_size, embedding_dim, hidden_dim, embedding_matrix, layer_num=1, drop_pb=0.5, bidirect=False):
         super(Net1, self).__init__()
+        if layer_num == 1: # prevent user warning cause GRU only have one layer !
+            drop_pb = 0
+
         self.embedding = nn.Embedding(vocabulary_size, embedding_dim, _weight=embedding_matrix)
         self.sent_rnn = nn.GRU(embedding_dim, hidden_dim, num_layers=layer_num, dropout=drop_pb, bidirectional=bidirect, batch_first=True)
         self.FCLayer = nn.Sequential(OrderedDict([
