@@ -176,34 +176,6 @@ def SubmitGenerator(prediction, sampleFile, public=True, filename='prediction.cs
     df = pd.DataFrame.from_dict(submit) 
     df.to_csv(filename,index=False)
 
-def Plot_Figure(history):
-    '''
-    Pass in training and validation loss and f1 score and plot a figure
-
-    Args:
-        history ( dictionary obj ) : a dictionary object that record f1 and loss 
-    '''
-    train_loss = [l['loss'] for l in history['train']]
-    valid_loss = [l['loss'] for l in history['valid']]
-    train_f1 = [l['f1'] for l in history['train']]
-    valid_f1 = [l['f1'] for l in history['valid']]
-
-    plt.figure(figsize=(7,5))
-    plt.title('Loss')
-    plt.plot(train_loss, label='train')
-    plt.plot(valid_loss, label='valid')
-    plt.legend()
-    plt.show()
-
-    plt.figure(figsize=(7,5))
-    plt.title('F1 Score')
-    plt.plot(train_f1, label='train')
-    plt.plot(valid_f1, label='valid')
-    plt.legend()
-    plt.show()
-
-    print('Best F1 score ', max([[l['f1'], idx] for idx, l in enumerate(history['valid'])]))
-
 def Run_Predict(best_model, model):
     '''
     use the best model status to run prediction and return result
@@ -324,8 +296,6 @@ if __name__ == '__main__':
         Run_Epoch(epoch, 'valid', model, criteria, opt, validData, tf_writer, history, WORKERS)
         Save(epoch, model, history)
     
-    # Plot the training results
-    Plot_Figure(history)
     # run prediction process
     best_model = int(input('Please insert epoch for best model'))
     prediction = Run_Predict(best_model, model)
