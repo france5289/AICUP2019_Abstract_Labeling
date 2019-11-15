@@ -33,22 +33,17 @@ def collect_words(data_path, n_workers=4):
 
     return words
 
-def Remove_Redundant_Columns(filename):
+def Remove_Redundant_Columns(dataset):
     '''
     Read dataset and remove Title, Categories, Created Date, Authors columns
 
     Args:
-        filename(sting)
-    Return:
-        dataset(DataFrame)
+        dataset(DataFrame) : original dataset
     '''
-    dataset = pd.read_csv(filename, dtype=str)
     dataset.drop('Title',axis=1,inplace=True)
     dataset.drop('Categories',axis=1,inplace=True)
     dataset.drop('Created Date',axis=1, inplace=True)
     dataset.drop('Authors',axis=1,inplace=True)
-
-    return dataset
 
 def Create_Vocabulary(data_path):
     '''
