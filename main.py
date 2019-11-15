@@ -320,8 +320,8 @@ if __name__ == '__main__':
 
     for epoch in range(max_epoch):
         print(f'Epoch:{epoch}')
-        Run_Epoch(epoch, 'train', model, criteria, opt, trainData, history, tf_writer, WORKERS)
-        Run_Epoch(epoch, 'valid', model, criteria, opt, validData, history, tf_writer, WORKERS)
+        Run_Epoch(epoch, 'train', model, criteria, opt, trainData, tf_writer, history, WORKERS)
+        Run_Epoch(epoch, 'valid', model, criteria, opt, validData, tf_writer, history, WORKERS)
         Save(epoch, model, history)
     
     # Plot the training results
