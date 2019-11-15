@@ -14,8 +14,18 @@ python3 main.py -cfname={config_filename} -ebd={embedding_dimension}
 -drop={dropour probability} -lnum={num of GRU layer}
 ```
 # Tensorboard
+## Local tensorboard server
 Type the following command to start tensorboard  
 ``` bash
 tensorboard --logdir=test_experiment
 ```
-
+## Use tensorboard remotely
+#### Launch Tensorboard on your remote machine
+```
+tensorboard --logdir=path/to/log/dir --port={which port you want to use}
+```
+#### set up ssh port forwarding
+set up ssh port forwarding to one of your unused local ports  
+``` bash
+ssh -Nfl localhost:xxxx:localhost:{remote tfboard port} user@remote
+```
