@@ -5,6 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import json
 import os
+import argparse
 
 import torch
 from torch.utils.data import Dataset, DataLoader
@@ -229,19 +230,27 @@ def Run_Predict(best_model, model):
     prediction = torch.cat(prediction).detach().numpy().astype(int)
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-cfname', '--config_file_name', help='config filename', type=str, default='experiment1_config')
+    parser.add_argument('-ebd', '--embedding_dim', help='embedding layer dimension', type=int, default=100)
+    parser.add_argument('-hid', '--hidden_dim', help='hidden layer dimension', type=int, default=512)
+    parser.add_argument('-lrate', '--learning_rate', help='learning rate', type=float, default=1e-4)
+    parser.add_argument('-mepoch', '--max_epoch', help='Max epoch number', type=int, default=10)
+    parser.add_argument('-bsize', '--batch_size', help='batch size', type=int, default=16)
+    parser.add_argument('-drop', '--drop_prob', help='drop probability', type=float, default=0.3)
+    parser.add_argument('-lnum', '--layer_num', help='GRU layer num', type=int, default=1)
+    args = parser.parse_args()
+
     # set hyperparameter
-    embedding_dim = 100 # word embedding dim for Glove
-    hidden_dim = 512
-    learning_rate = 1e-4
-    max_epoch = 10
-    batch_size = 16
-    drop_p = 0.3
-    layer_num = 2
-
-
+    embedding_dim = args.embedding_dim # word embedding dim for Glove
+    hidden_dim = args.hidden_dim
+    learning_rate = args.learning_rate
+    max_epoch = args.max_epoch
+    batch_size = args.batch_size
+    drop_p = args.drop_prob
+    layer_num = args.layer_num
     # set config file name and write out 
-    
-    config_fname = 'Experiment1_config'
+    config_fname = args.config_file_name
     write_config(config_fname, embd_dim=embedding_dim, hidden_dim=hidden_dim, lrate=learning_rate, epoch=max_epoch, 
                 batch_size=batch_size, drop=drop_p, layer_num=layer_num)
     
@@ -313,5 +322,5 @@ if __name__ == '__main__':
     
     # Plot the training results
     Plot_Figure(history)
-    
     # run prediction process
+    
