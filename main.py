@@ -139,7 +139,7 @@ def Run_Epoch(epoch, mode, model, criteria, opt, dataset, writer, history, worke
         writer.add_scalar('F1_score/valid', f1_score.get_score(), epoch)
     trange.close()
 
-def Save(epoch, model, history):
+def Save(epoch, model, history, config_fname):
     '''
     Save model status to a pikcle file and dump f1 and loss history to JSON
 
@@ -147,11 +147,12 @@ def Save(epoch, model, history):
         epoch( int ) : epoch number
         model( nn.Module ) : your model
         history( dictionary obj. ) : a dictionary which record f1 and loss history
+        config_fname( string ) : JSON filename
     '''
-    if not os.path.exists(os.path.join(CWD,'model')):
-        os.makedirs(os.path.join(CWD,'model'))
-    torch.save(model.state_dict(), os.path.join( CWD,'model/model.pkl.'+str(epoch) ))
-    with open( os.path.join( CWD,'model/history.json'), 'w') as f:
+    if not os.path.exists(os.path.join(CWD,'model', config_fname)):
+        os.makedirs(os.path.join(CWD,'model', config_fname))
+    torch.save(model.state_dict(), os.path.join( CWD,f'model/{config_fname}/model.pkl.'+str(epoch) ))
+    with open( os.path.join( CWD,f'model/{config_fname}/history.json'), 'w') as f:
         json.dump(history, f, indent=4)
 
 def SubmitGenerator(prediction, sampleFile, public=True, filename='prediction.csv'):
@@ -176,17 +177,18 @@ def SubmitGenerator(prediction, sampleFile, public=True, filename='prediction.cs
     df = pd.DataFrame.from_dict(submit) 
     df.to_csv(filename,index=False)
 
-def Run_Predict(best_model, model):
+def Run_Predict(best_model, model, config_fname):
     '''
     use the best model status to run prediction and return result
 
     Args:
         best_model(int) : which epoch has the best model
         model(nn.Module) : your model 
+        config_fname(string)
     Return:
         prediction(np.array) : prediction result
     '''
-    model.load_state_dict(state_dict=torch.load(os.path.join(CWD,f'model/model.pkl.{best_model}')))
+    model.load_state_dict(state_dict=torch.load(os.path.join(CWD,f'model/{config_fname}/model.pkl.{best_model}')))
     model.train(False)
     # start testing
     dataloader = DataLoader(dataset=testData,
@@ -294,11 +296,11 @@ if __name__ == '__main__':
         print(f'Epoch:{epoch}')
         Run_Epoch(epoch, 'train', model, criteria, opt, trainData, tf_writer, history, WORKERS)
         Run_Epoch(epoch, 'valid', model, criteria, opt, validData, tf_writer, history, WORKERS)
-        Save(epoch, model, history)
+        Save(epoch, model, history, config_fname)
     
     # run prediction process
-    best_model = int(input('Please insert epoch for best model'))
-    prediction = Run_Predict(best_model, model)
+    best_model = int(input('Please insert epoch for best model:'))
+    prediction = Run_Predict(best_model, model, config_fname)
 
     # Output csv for submission
     SubmitGenerator(prediction, os.path.join(DATA_PATH, 'task1_sample_submission.csv'),
