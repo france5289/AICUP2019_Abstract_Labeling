@@ -206,11 +206,13 @@ def Plot_Figure(history):
 
 def Run_Predict(best_model, model):
     '''
-    use the best model status to run prediction
+    use the best model status to run prediction and return result
 
     Args:
         best_model(int) : which epoch has the best model
         model(nn.Module) : your model 
+    Return:
+        prediction(np.array) : prediction result
     '''
     model.load_state_dict(state_dict=torch.load(os.path.join(CWD,f'model/model.pkl.{best_model}')))
     model.train(False)
@@ -228,6 +230,8 @@ def Run_Predict(best_model, model):
         for idx, o_label in enumerate(o_labels):
             prediction.append(o_label[:sent_len[idx]].to('cpu'))
     prediction = torch.cat(prediction).detach().numpy().astype(int)
+
+    return prediction
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -323,4 +327,10 @@ if __name__ == '__main__':
     # Plot the training results
     Plot_Figure(history)
     # run prediction process
-    
+    best_model = int(input('Please insert epoch for best model'))
+    prediction = Run_Predict(best_model, model)
+
+    # Output csv for submission
+    SubmitGenerator(prediction, os.path.join(DATA_PATH, 'task1_sample_submission.csv'),
+                    True,
+                    os.path.join(CWD, f'submission_{config_fname}.csv'))
