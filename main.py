@@ -3,7 +3,7 @@ Run this file to train, valid and test model
 '''
 import pandas as pd
 import matplotlib.pyplot as plt
-import re
+import json
 import os
 
 import torch
@@ -20,9 +20,17 @@ from gensim.parsing import remove_stopwords
 
 from model import Net1, F1 
 from config_writer import write_config
-from DataPreprocessor import Download_Glove, Create_Vocabulary, Create_Glove_embedding_matrix, Get_dataset
+from DataPreprocessor import Download_Glove, Create_Vocabulary, Create_Glove_embedding_matrix, Get_dataset, Remove_Redundant_Columns
 
+# set device
+DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+PAD_TOKEN = 0
+UNK_TOKEN = 1
 
+# Get data path and cpu num
+CWD = os.getcwd()
+DATA_PATH = os.path.join(CWD, 'data')
+WORKERS = os.cpu_count() // 2
 
 class AbstractDataset(Dataset):
     def __init__(self, data, pad_idx, max_len = 64):
@@ -63,19 +71,31 @@ class AbstractDataset(Dataset):
         return torch.LongTensor(batch_abstract), torch.FloatTensor(batch_label), sent_len
 
 
-def Run_Epoch(epoch, mode, model, dataset, workers=4):
+def Run_Epoch(epoch, mode, model, criteria, opt, dataset, writer, history, workers=4):
     '''
-    run this function to start training or validation process
+    run this function to start training or validation process \n
+    if given tensorboard summary writer object, then it will write loss and F1_Score to tf board \n
 
     Args:
         epoch(int) : num of epoch
         mode(string) : train or validate
         model(nn.Module) : your model
+        criteria : your loss evaluation criterion
+        opt : your optimizer 
         dataset(AbstracDataset obj.) : your dataset object
         workers(int) : how many CPU are used when handle data
-    Return:
-        history(dict) : a dictionary which record f1 score and loss
+        writer(SummaryWriter) : tensorboard summary writer object
+        history(dictionary) : a dictionary object which record f1 and loss
     '''
+
+    def run_iter(x, y):
+        abstract = x.to(DEVICE)
+        labels = y.to(DEVICE)
+        o_labels = model(abstract)
+        l_loss = criteria(o_labels, labels)
+        return o_labels, l_loss
+
+
     model.train(True)
     if mode == "train":
         description = 'Train'
@@ -90,19 +110,75 @@ def Run_Epoch(epoch, mode, model, dataset, workers=4):
                             collate_fn=dataset.collate_fn,
                             num_workers=8)
     
+    trange = tqdm(enumerate(dataloader), total=len(dataloader), desc=description)
+    loss = 0
+    f1_score = F1()
     
+    for i, (x, y, sent_len) in trange:
+        if epoch == 0:
+            writer.add_graph(model, x.to(DEVICE))
+        
+        o_labels, batch_loss = run_iter(x, y)
+        if mode=="train":
+            opt.zero_grad()
+            batch_loss.backward()
+            opt.step()
+        
+        loss += batch_loss.item()
+        f1_score.update(o_labels.cpu(), y)
+
+        trange.set_postfix( loss = loss / ( i + 1 ), f1 = f1_score.print_score() )
+    
+    if mode == "train":
+        history['train'].append({'f1':f1_score.get_score(), 'loss':loss/ len(trange)})
+        writer.add_scalar('Loss/train', loss/ len(trange), epoch)
+        writer.add_scalar('F1_score/train', f1_score.get_score(), epoch)
+    else:
+        history['valid'].append({'f1':f1_score.get_score(), 'loss':loss/ len(trange)})
+        writer.add_scalar('Loss/valid', loss/ len(trange), epoch)
+        writer.add_scalar('F1_score/valid', f1_score.get_score(), epoch)
+    trange.close()
+
+def Save(epoch, model, history):
+    '''
+    Save model status to a pikcle file and dump f1 and loss history to JSON
+
+    Args:
+        epoch( int ) : epoch number
+        model( nn.Module ) : your model
+        history( dictionary obj. ) : a dictionary which record f1 and loss history
+    '''
+    if not os.path.exists(os.path.join(CWD,'model')):
+        os.makedirs(os.path.join(CWD,'model'))
+    torch.save(model.state_dict(), os.path.join( CWD,'model/model.pkl.'+str(epoch) ))
+    with open( os.path.join( CWD,'model/history.json'), 'w') as f:
+        json.dump(history, f, indent=4)
+
+def SubmitGenerator(prediction, sampleFile, public=True, filename='prediction.csv'):
+    sample = pd.read_csv(sampleFile)
+    submit = {}
+    submit['order_id'] = list(sample.order_id.values)
+    redundant = len(sample) - prediction.shape[0]
+    if public:
+        submit['BACKGROUND'] = list(prediction[:,0]) + [0]*redundant
+        submit['OBJECTIVES'] = list(prediction[:,1]) + [0]*redundant
+        submit['METHODS'] = list(prediction[:,2]) + [0]*redundant
+        submit['RESULTS'] = list(prediction[:,3]) + [0]*redundant
+        submit['CONCLUSIONS'] = list(prediction[:,4]) + [0]*redundant
+        submit['OTHERS'] = list(prediction[:,5]) + [0]*redundant
+    else:
+        submit['BACKGROUND'] = [0]*redundant + list(prediction[:,0])
+        submit['OBJECTIVES'] = [0]*redundant + list(prediction[:,1])
+        submit['METHODS'] = [0]*redundant + list(prediction[:,2])
+        submit['RESULTS'] = [0]*redundant + list(prediction[:,3])
+        submit['CONCLUSIONS'] = [0]*redundant + list(prediction[:,4])
+        submit['OTHERS'] = [0]*redundant + list(prediction[:,5])
+    df = pd.DataFrame.from_dict(submit) 
+    df.to_csv(filename,index=False)
 
 
 
 if __name__ == '__main__':
-    PAD_TOKEN = 0
-    UNK_TOKEN = 1
-    
-    # Get data path and cpu num
-    CWD = os.getcwd()
-    DATA_PATH = os.path.join(CWD, 'data')
-    WORKERS = os.cpu_count() // 2
-
     # set hyperparameter
     embedding_dim = 100 # word embedding dim for Glove
     hidden_dim = 512
@@ -112,8 +188,6 @@ if __name__ == '__main__':
     drop_p = 0.3
     layer_num = 2
 
-    # set device
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     # set config file name and write out 
     
@@ -125,12 +199,8 @@ if __name__ == '__main__':
     dataset = pd.read_csv( os.path.join( DATA_PATH,'task1_trainset.csv' ), dtype=str )
     
     # Remove redundant columns
-    dataset.drop('Title',axis=1,inplace=True)
-    dataset.drop('Categories',axis=1,inplace=True)
-    dataset.drop('Created Date',axis=1, inplace=True)
-    dataset.drop('Authors',axis=1,inplace=True)
+    Remove_Redundant_Columns(dataset)
     dataset['Abstract'] = dataset['Abstract'].str.lower()
-    
     # Remove stop words
     dataset['Abstract'] = dataset['Abstract'].apply(func=remove_stopwords)
 
@@ -141,16 +211,11 @@ if __name__ == '__main__':
 
     # read testing set and remove redundant columns 
     dataset = pd.read_csv(os.path.join(DATA_PATH, 'task1_public_testset.csv'), dtype=str)
-    dataset.drop('Title', axis=1, inplace=True)
-    dataset.drop('Categories', axis=1, inplace=True)
-    dataset.drop('Created Date', axis=1, inplace=True)
-    dataset.drop('Authors', axis=1, inplace=True)
+    Remove_Redundant_Columns(dataset)
     dataset['Abstract'] = dataset['Abstract'].str.lower()
     # remove stop words
     dataset['Abstract'] = dataset['Abstract'].apply(func=remove_stopwords)
-
     dataset.to_csv(os.path.join(DATA_PATH, 'testset.csv'), index=False)
-
     #---------------now we have generate training, validation, testing set-----------
 
     # Collect words and create the vocabulary set
@@ -180,5 +245,40 @@ if __name__ == '__main__':
 
     opt = torch.optim.AdamW(model.parameters(), lr=learning_rate)
     criteria = torch.nn.BCELoss()
-    model.to(device)
+    model.to(DEVICE)
+
+    # Tensorboard 
+    # save path: test_experiment/
+    tf_path = os.path.join(CWD, 'test_experiment')
+    if not os.path.exists(tf_path):
+        os.mkdir(tf_path)
+    tf_writer = SummaryWriter(os.path.join(tf_path,config_fname))
+    history = {'train':[],'valid':[]}
+
+    for epoch in range(max_epoch):
+        print(f'Epoch:{epoch}')
+        Run_Epoch(epoch, 'train', model, criteria, opt, trainData, history, tf_writer, WORKERS)
+        Run_Epoch(epoch, 'valid', model, criteria, opt, validData, history, tf_writer, WORKERS)
+        Save(epoch, model, history)
     
+    # Plot the training results
+    train_loss = [l['loss'] for l in history['train']]
+    valid_loss = [l['loss'] for l in history['valid']]
+    train_f1 = [l['f1'] for l in history['train']]
+    valid_f1 = [l['f1'] for l in history['valid']]
+
+    plt.figure(figsize=(7,5))
+    plt.title('Loss')
+    plt.plot(train_loss, label='train')
+    plt.plot(valid_loss, label='valid')
+    plt.legend()
+    plt.show()
+
+    plt.figure(figsize=(7,5))
+    plt.title('F1 Score')
+    plt.plot(train_f1, label='train')
+    plt.plot(valid_f1, label='valid')
+    plt.legend()
+    plt.show()
+
+    print('Best F1 score ', max([[l['f1'], idx] for idx, l in enumerate(history['valid'])]))
