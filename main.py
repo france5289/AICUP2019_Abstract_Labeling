@@ -302,7 +302,7 @@ if __name__ == '__main__':
     print(f'Best F1 score epoch : {best_model}')
     print(f'Run prediction on model {best_model}')
     # run prediction process
-    prediction = Run_Predict(best_model, model, config_fname)
+    prediction = Run_Predict(best_model[1], model, config_fname)
 
     # Output csv for submission
     SubmitGenerator(prediction, os.path.join(DATA_PATH, 'task1_sample_submission.csv'),
