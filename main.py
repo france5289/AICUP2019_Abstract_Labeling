@@ -95,7 +95,6 @@ def Run_Epoch(epoch, mode, model, criteria, opt, dataset, writer, history, worke
         l_loss = criteria(o_labels, labels)
         return o_labels, l_loss
 
-
     model.train(True)
     if mode == "train":
         description = 'Train'
@@ -176,6 +175,33 @@ def SubmitGenerator(prediction, sampleFile, public=True, filename='prediction.cs
     df = pd.DataFrame.from_dict(submit) 
     df.to_csv(filename,index=False)
 
+def Plot_Figure(history):
+    '''
+    Pass in training and validation loss and f1 score and plot a figure
+
+    Args:
+        history ( dictionary obj ) : a dictionary object that record f1 and loss 
+    '''
+    train_loss = [l['loss'] for l in history['train']]
+    valid_loss = [l['loss'] for l in history['valid']]
+    train_f1 = [l['f1'] for l in history['train']]
+    valid_f1 = [l['f1'] for l in history['valid']]
+
+    plt.figure(figsize=(7,5))
+    plt.title('Loss')
+    plt.plot(train_loss, label='train')
+    plt.plot(valid_loss, label='valid')
+    plt.legend()
+    plt.show()
+
+    plt.figure(figsize=(7,5))
+    plt.title('F1 Score')
+    plt.plot(train_f1, label='train')
+    plt.plot(valid_f1, label='valid')
+    plt.legend()
+    plt.show()
+
+    print('Best F1 score ', max([[l['f1'], idx] for idx, l in enumerate(history['valid'])]))
 
 
 if __name__ == '__main__':
@@ -262,23 +288,4 @@ if __name__ == '__main__':
         Save(epoch, model, history)
     
     # Plot the training results
-    train_loss = [l['loss'] for l in history['train']]
-    valid_loss = [l['loss'] for l in history['valid']]
-    train_f1 = [l['f1'] for l in history['train']]
-    valid_f1 = [l['f1'] for l in history['valid']]
-
-    plt.figure(figsize=(7,5))
-    plt.title('Loss')
-    plt.plot(train_loss, label='train')
-    plt.plot(valid_loss, label='valid')
-    plt.legend()
-    plt.show()
-
-    plt.figure(figsize=(7,5))
-    plt.title('F1 Score')
-    plt.plot(train_f1, label='train')
-    plt.plot(valid_f1, label='valid')
-    plt.legend()
-    plt.show()
-
-    print('Best F1 score ', max([[l['f1'], idx] for idx, l in enumerate(history['valid'])]))
+    Plot_Figure(history)
