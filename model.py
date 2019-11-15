@@ -41,7 +41,7 @@ class Net1(nn.Module):
             ('Sigmoid', nn.Sigmoid())
         ]))
         torch.nn.init.xavier_normal_(self.FCLayer[0].weight)
-        
+        torch.nn.init.xavier_normal_(self.FCLayer[3].weight)
     def forward(self, x):
         '''
         Args:
