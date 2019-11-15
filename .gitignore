@@ -5,3 +5,6 @@ glove/
 model/
 test_experiment/
 submission_*.csv
+__pycache__/
+model_config/
+*.pkl/
