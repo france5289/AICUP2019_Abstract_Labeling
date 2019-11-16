@@ -300,11 +300,18 @@ if __name__ == '__main__':
     
     best_model = max([[l['f1'], idx] for idx, l in enumerate(history['valid'])])
     print(f'Best F1 score epoch : {best_model}')
-    print(f'Run prediction on model {best_model}')
+    print(f'Run prediction on model {best_model[1]}')
     # run prediction process
     prediction = Run_Predict(best_model[1], model, config_fname)
-
     # Output csv for submission
     SubmitGenerator(prediction, os.path.join(DATA_PATH, 'task1_sample_submission.csv'),
                     True,
                     os.path.join(CWD, f'submission_{config_fname}.csv'))
+    best_valid_f1 = best_model[0]
+    best_train_f1 = max( [ l['f1'] for idx, l in  enumerate( history['train'] ) ] )
+    best_valid_loss = min( [ l['loss'] for idx, l in  enumerate( history['valid'] ) ] )
+    best_train_loss = min( [ l['loss'] for idx, l in  enumerate( history['train'] ) ] )
+    hparams = {'embedding_dim':embedding_dim, 'hidden_dim':hidden_dim, 'learning_rate':learning_rate, 'epoch':max_epoch, 'batch_size':batch_size, 'drop':drop_p, 'GRU_Layer':layer_num}
+    metrics={'loss/valid':best_valid_loss, 'loss/train':best_train_loss, 'f1/valid':best_valid_f1, 'f1/train':best_train_f1}
+    tf_writer.add_hparams(hparam_dict=hparams, metric_dict=metrics)
+    tf_writer.close()
