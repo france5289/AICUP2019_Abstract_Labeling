@@ -36,12 +36,16 @@ class Net1(nn.Module):
         self.FCLayer = nn.Sequential(OrderedDict([
             ('FC1', nn.Linear(hidden_dim*2, hidden_dim)),
             ('DropOut1', nn.Dropout(drop_pb)),
-            ('ReLU1', nn.ReLU()),
-            ('FC2', nn.Linear(hidden_dim, 6)),
+            ('LeakyReLU1', nn.LeakyReLU()),
+            ('FC2', nn.Linear(hidden_dim, hidden_dim // 2)),
+            ('DropOut2', nn.Dropout(drop_pb)),
+            ('LeakyReLU2', nn.LeakyReLU()),
+            ('FC3', nn.Linear(hidden_dim // 2, 6)),
             ('Sigmoid', nn.Sigmoid())
         ]))
         torch.nn.init.xavier_normal_(self.FCLayer[0].weight)
         torch.nn.init.xavier_normal_(self.FCLayer[3].weight)
+        torch.nn.init.xavier_normal_(self.FCLayer[6].weight)
     def forward(self, x):
         '''
         Args:
