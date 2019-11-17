@@ -8,3 +8,4 @@ submission_*.csv
 __pycache__/
 model_config/
 *.pkl
+.DS_Store
