@@ -59,12 +59,12 @@ class Net1(nn.Module):
         # e: embedding_dim
         # x : 12x12x40
         x = self.embedding(x)
-        b,s,w,e = x.shape # x : 12x12x40x100
-        x = x.view(b,s*w,e) # x : 12x480x100
-        x, __ = self.sent_rnn(x) # x : 12x480x1024  # 1024 = hidden state (512) * num of directions (2)
-        x = x.view(b,s,w,-1) # 12x12x40x1024
+        b,s,w,e = x.shape 
+        x = x.view(b,s*w,e) 
+        x, __ = self.sent_rnn(x) # x : b*(s*w)*1024  # 1024 = hidden state (512) * num of directions (2)
+        x = x.view(b,s,w,-1) # b*s*w*1024
         x = torch.max(x,dim=2)[0] # torch.max(input, dim) -> output :(values, indices)
-        y = self.FCLayer(x) # x : 12x12x1024
+        y = self.FCLayer(x)
         return y
 
 class F1():
