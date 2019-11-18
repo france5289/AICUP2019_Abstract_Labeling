@@ -29,3 +29,15 @@ set up ssh port forwarding to one of your unused local ports
 ``` bash
 ssh -Nfl localhost:xxxx:localhost:{remote tfboard port} user@remote
 ```
+# Model Ver 4 info
+重新對資料做 pre processing 以及採用新的模型架構。
+
+### TO-DO
+- [ ] Data Pre Processing
+- [ ] Re Contruct Model ( Prefer GRU + Linear )
+- [ ] Fine tuned Model
+- [ ] Use *Transformers ( self attention )*
+- [ ] Fine tuned Model  
+
+### Data Preprocessing
+
