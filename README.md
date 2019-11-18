@@ -39,5 +39,10 @@ ssh -Nfl localhost:xxxx:localhost:{remote tfboard port} user@remote
 - [ ] Use *Transformers ( self attention )*
 - [ ] Fine tuned Model  
 
-### Data Preprocessing
-
+### Data Preprocessing TO-DO
+- [ ] NLTK 是否 support 過濾掉 '(' ')' ',' '.' '\' 等符號？
+  - [ ] 嘗試 NLTK 中的 RegexpTokenizer
+- [ ] 已知 $$$ 斷句符號會被 NLTK tokenizer 斷成 $ $ $ 是否有其他替代的斷句符號(e.x 只使用 '$' ?)
+- [ ] Remove StopWords
+- [ ] 紀錄斷句符號位置
+- [ ] 建立 word vocabulary
