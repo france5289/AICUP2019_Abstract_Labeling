@@ -11,7 +11,7 @@ This program also provide the following options to help you fine tune your model
 ``` bash
 python3 main.py -cfname={config_filename} -ebd={embedding_dimension} 
 -hid={hidden_dimension} -lrate={learning rate} -mepoch={max epoch} -bsize={batch size} 
--drop={dropour probability} -lnum={num of GRU layer}
+-drop={dropout probability} -lnum={num of GRU layer}
 ```
 # Tensorboard
 ## Local tensorboard server
