@@ -22,6 +22,7 @@ WORKERS = os.cpu_count() // 2
 
 
 if __name__ == '__main__':
-
+    if not os.path.exists(TRAIN_DATA_PATH) or not os.path.exists(VALID_DATA_PATH) or not os.path.exists(TEST_DATA_PATH):
+        os.system('python3 gendata.py')
 
     
