@@ -32,15 +32,15 @@ def SplitSent(doc):
 
 
 def GenDict(train, valid):
+    global Tokenizer
     if os.path.exists(DICT_PATH):
-        Tokenizer.load_from_file(DICT_PATH)
+        Tokenizer = NLTKTokenizer.load_from_file(DICT_PATH)
     else:
         for item in train['Abstract']:
             Tokenizer.build_dict(item)
 
         for item in valid['Abstract']:
             Tokenizer.build_dict(item)
-
         Tokenizer.save_to_file(DICT_PATH)
 
 
@@ -55,4 +55,3 @@ if __name__ == '__main__':
     train['Abstract'] = train['Abstract'].apply(func=SplitSent)
     valid['Abstract'] = valid['Abstract'].apply(func=SplitSent)
     GenDict(train, valid)
-    
