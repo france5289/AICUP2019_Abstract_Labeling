@@ -13,6 +13,7 @@ def Remove_Redundant_Columns(dataset):
     Args:
         dataset(DataFrame) : original dataset
     '''
+    dataset.drop('Id', axis=1, inplace=True)
     dataset.drop('Title', axis=1, inplace=True)
     dataset.drop('Categories', axis=1, inplace=True)
     dataset.drop('Created Date', axis=1, inplace=True)
