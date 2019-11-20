@@ -4,6 +4,8 @@ import pickle
 
 import torch
 from torch.utils.tensorboard import SummaryWriter
+from torch.utils.data import Dataset, DataLoader
+from torch.nn.utils.rnn import pad_sequence
 
 from tqdm import tqdm
 from tqdm import trange
@@ -24,7 +26,45 @@ DICT_PATH = os.path.join(CWD, 'data', 'dictionary.pkl')
 
 WORKERS = os.cpu_count() // 2
 # default Tokenizer
-Tokenizer = NLTKTokenizer()
+PAD_TOKEN = '[PAD]'
+PAD_TOKEN_ID = 0
+EOS_TOKEN = '[EOS]'
+EOS_TOKEN_ID = 3
+
+
+Tokenizer = NLTKTokenizer(pad_token=PAD_TOKEN, pad_token_id=PAD_TOKEN_ID,
+                          eos_token=EOS_TOKEN, eos_token_id=EOS_TOKEN_ID)
+
+
+class Abstract(Dataset):
+    def __init__(self, data, pad_idx, eos_id):
+        self.data = data
+        self.pad_idx = pad_idx
+        self.eos_token = eos_id
+
+    def __len__(self):
+        return len(self.data.index)
+
+    def __getitem__(self, index):
+        return self.data.iloc[index]
+
+    def collate_fn(self, datas):
+        abstracts = [torch.as_tensor(abstract, dtype=torch.long)
+                     for data in datas for abstract in data['Abstract']]
+        batch_abstracts = pad_sequence(
+            abstracts, batch_first=True, padding_value=self.pad_idx)
+
+        labels = [label for data in datas for label in data['Task 1']]
+        batch_labels = torch.as_tensor(labels, dtype=torch.float)
+        batch_labels = batch_labels.view(-1, 6)
+
+        batch_eos = batch_abstracts == 3
+        eos_index_matrix = batch_eos.nonzero()
+        eos_index_list = list()
+        for row in eos_index_matrix:
+            eos_index_list.append(row[1].item())
+
+        return batch_abstracts, batch_labels, eos_index_list
 
 
 def SplitSent(doc):
@@ -43,6 +83,7 @@ def GenDict(train, valid):
             Tokenizer.build_dict(item)
         Tokenizer.save_to_file(DICT_PATH)
 
+
 def labels_to_onehot(labels):
     '''
     Convert labels to one-hot encoding
@@ -54,14 +95,16 @@ def labels_to_onehot(labels):
     '''
     one_hot_labels = []
     label_list = labels.split(' ')
-    label_dict = {'BACKGROUND': 0, 'OBJECTIVES':1, 'METHODS':2, 'RESULTS':3, 'CONCLUSIONS':4, 'OTHERS':5}
+    label_dict = {'BACKGROUND': 0, 'OBJECTIVES': 1, 'METHODS': 2,
+                  'RESULTS': 3, 'CONCLUSIONS': 4, 'OTHERS': 5}
     for label in label_list:
-        onehot = [0,0,0,0,0,0]
+        onehot = [0, 0, 0, 0, 0, 0]
         for l in label.split('/'):
             onehot[label_dict[l]] = 1
         one_hot_labels.append(onehot)
-    
+
     return one_hot_labels
+
 
 def encode_data(dataset):
     '''
@@ -70,17 +113,11 @@ def encode_data(dataset):
 
     Args:
         dataset(pd.DataFrame)
-    Return:
-        abstract(pd.Series)
-        labels(pd.Series) : if dataset dosen't contain label, then return None 
     '''
     global Tokenizer
-    abstract = dataset['Abstract'].apply(func=Tokenizer.encode)
-    labels = None
+    dataset['Abstract'] = dataset['Abstract'].apply(func=Tokenizer.encode)
     if 'Task 1' in dataset.columns:
-        labels = dataset['Task 1'].apply(func=labels_to_onehot)
-
-    return abstract, labels
+        dataset['Task 1'] = dataset['Task 1'].apply(func=labels_to_onehot)
 
 
 if __name__ == '__main__':
@@ -97,6 +134,10 @@ if __name__ == '__main__':
     GenDict(train, valid)
 
     # encode 'Abstract' and convert label to one_hot
-    train_encode, train_label = encode_data(train)
-    valid_encode, valid_label = encode_data(valid)
-    test_encode, _ = encode_data(test)
+    print('Start encoding train, valid, test dataset')
+    encode_data(train)
+    encode_data(valid)
+    encode_data(test)
+    print('Encoding process complete!')
+
+    
