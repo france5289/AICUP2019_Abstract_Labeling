@@ -10,7 +10,7 @@ from torch.nn.utils.rnn import pad_sequence
 from tqdm import tqdm
 from tqdm import trange
 
-from model import Net1, F1
+from model import GRUNet, F1
 from DataPreprocessor import Download_Glove, Create_Glove_embedding_matrix
 from tokenizer import NLTKTokenizer
 
@@ -139,5 +139,5 @@ if __name__ == '__main__':
     encode_data(valid)
     encode_data(test)
     print('Encoding process complete!')
-
+    
     
