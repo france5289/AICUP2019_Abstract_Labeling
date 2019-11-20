@@ -6,6 +6,18 @@ import torch.nn as nn
 import torch.nn.functional as F
 from collections import OrderedDict
 
+class GRUNet(nn.Module):
+    def __init__(self, vocab_size, embedding_dim, hidden_dim, layer_num=1, drop_pb=0.5, bidirect=False):
+        super(GRUNet, self).__init__()
+        GRU_drop_pb = drop_pb
+        if layer_num == 1:
+            GRU_drop_pb = 0
+
+        self.embedding = nn.Embedding(vocab_size, embedding_dim)
+        self.sent_rnn = nn.GRU()
+
+
+
 class Net1(nn.Module):
     ''' 
     Args:
