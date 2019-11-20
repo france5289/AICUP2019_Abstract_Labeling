@@ -71,8 +71,8 @@ def encode_data(dataset):
     Args:
         dataset(pd.DataFrame)
     Return:
-        abstract(pd.Series)
-        labels(pd.Series) : if dataset dosen't contain label, then return None 
+        abstract(np.array)
+        labels(np.array) : if dataset dosen't contain label, then return None 
     '''
     global Tokenizer
     abstract = dataset['Abstract'].apply(func=Tokenizer.encode)
@@ -80,6 +80,9 @@ def encode_data(dataset):
     if 'Task 1' in dataset.columns:
         labels = dataset['Task 1'].apply(func=labels_to_onehot)
 
+    abstract = abstract.to_numpy()
+    if labels is not None:
+        labels = labels.to_numpy()
     return abstract, labels
 
 
