@@ -186,7 +186,7 @@ def Run_Epoch(epoch,
                             num_workers=workers)
     trange = tqdm(enumerate(dataloader),
                   total=len(dataloader),
-                  dec=description)
+                  desc=description)
     loss = 0
     f1_score = F1()
 
