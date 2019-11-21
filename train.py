@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import pickle
+import json
 
 import torch
 from torch.utils.tensorboard import SummaryWriter
@@ -58,7 +59,7 @@ class Abstract(Dataset):
                                        batch_first=True,
                                        padding_value=self.pad_idx)
 
-        b, s = batch_abstracts.size()  # b: batch, s:sequence length
+        _, s = batch_abstracts.size()  # b: batch, s:sequence length
         batch_eos = batch_abstracts == self.eos_token
         eos_index_matrix = batch_eos.nonzero()
         eos_index_list = list()
@@ -76,7 +77,7 @@ class Abstract(Dataset):
             batch_labels = torch.as_tensor(labels, dtype=torch.float)
             batch_labels = batch_labels.view(-1, 6)
 
-        return batch_abstracts, batch_labels, eos_index_list
+        return batch_abstracts, batch_labels, torch.as_tensor(eos_index_list)
 
 
 def SplitSent(doc):
@@ -138,6 +139,135 @@ def encode_data(dataset):
         dataset['Task 1'] = dataset['Task 1'].apply(func=labels_to_onehot)
 
 
+def Run_Epoch(epoch,
+              mode,
+              model,
+              criteria,
+              opt,
+              dataset,
+              batch,
+              writer,
+              history,
+              workers=WORKERS):
+    '''
+    run this function to start training or validation process
+
+    Args:
+        epoch(int) : current epoch
+        mode(string) : train or validate
+        model(nn.Module) : your model
+        criteria : yout loss evaluation criterion
+        opt : your optimizer
+        dataset(Dataset obj.) : dataset object
+        batch : batch size
+        writer(SummaryWriter) : tensorboard summary writer object
+        history(dict obj) : a dictionary record loss and f1 score
+        workers(int) : how many CPU cores are used when processing data
+    '''
+    def run_iter(x, y, indexlist):
+        abstract = x.to(DEVICE)
+        labels = y.to(DEVICE)
+        indexes = indexlist.to(DEVICE)
+        o_labels = model(abstract, indexes)
+        l_loss = criteria(o_labels, labels)
+        return o_labels, l_loss
+
+    model.train(True)
+    if mode == 'train':
+        description = 'Train'
+        shuffle = True
+    else:
+        description = 'Valid'
+        shuffle = False
+    dataloader = DataLoader(dataset=dataset,
+                            batch_size=batch,
+                            shuffle=shuffle,
+                            collate_fn=dataset.collate_fn,
+                            num_workers=workers)
+    trange = tqdm(enumerate(dataloader),
+                  total=len(dataloader),
+                  dec=description)
+    loss = 0
+    f1_score = F1()
+
+    for i, (x, y, index_list) in trange:
+        if epoch == 0:
+            writer.add_graph(model, [x.to(DEVICE), index_list.to(DEVICE)])
+        o_labels, batch_loss = run_iter(x, y, index_list)
+        if mode == 'train':
+            opt.zero_grad()
+            batch_loss.backward()
+            opt.step()
+
+        loss += batch_loss.item()
+        f1_score.update(o_labels.cpu(), y)
+
+        trange.set_postfix(loss=loss / (i + 1), f1=f1_score.print_score())
+    if mode == 'train':
+        history['train'].append({
+            'f1': f1_score.get_score(),
+            'loss': loss / len(trange)
+        })
+        writer.add_scalar('Loss/train', loss / len(trange), epoch)
+        writer.add_scalar('F1_score/train', f1_score.get_score(), epoch)
+    else:
+        history['valid'].append({
+            'f1': f1_score.get_score(),
+            'loss': loss / len(trange)
+        })
+        writer.add_scalar('Loss/valid', loss / len(trange), epoch)
+        writer.add_scalar('F1_score/valid', f1_score.get_score(), epoch)
+    trange.close()
+
+
+def Save(epoch, model, history, config_fname):
+    '''
+    Save model status to a pikcle file and dump f1 and loss history to JSON
+
+    Args:
+        epoch( int ) : epoch number
+        model( nn.Module ) : your model
+        history( dictionary obj. ) : a dictionary which record f1 and loss history
+        config_fname( string ) : JSON filename
+    '''
+    if not os.path.exists(os.path.join(CWD, 'model', config_fname)):
+        os.makedirs(os.path.join(CWD, 'model', config_fname))
+    torch.save(
+        model.state_dict(),
+        os.path.join(CWD, f'model/{config_fname}/model.pkl.' + str(epoch)))
+    with open(os.path.join(CWD, f'model/{config_fname}/history.json'),
+              'w') as f:
+        json.dump(history, f, indent=4)
+
+
+def SubmitGenerator(prediction,
+                    sampleFile,
+                    public=True,
+                    filename='prediction.csv'):
+    sample = pd.read_csv(sampleFile)
+    submit = {}
+    submit['order_id'] = list(sample.order_id.values)
+    redundant = len(sample) - prediction.shape[0]
+    if public:
+        submit['BACKGROUND'] = list(prediction[:, 0]) + [0] * redundant
+        submit['OBJECTIVES'] = list(prediction[:, 1]) + [0] * redundant
+        submit['METHODS'] = list(prediction[:, 2]) + [0] * redundant
+        submit['RESULTS'] = list(prediction[:, 3]) + [0] * redundant
+        submit['CONCLUSIONS'] = list(prediction[:, 4]) + [0] * redundant
+        submit['OTHERS'] = list(prediction[:, 5]) + [0] * redundant
+    else:
+        submit['BACKGROUND'] = [0] * redundant + list(prediction[:, 0])
+        submit['OBJECTIVES'] = [0] * redundant + list(prediction[:, 1])
+        submit['METHODS'] = [0] * redundant + list(prediction[:, 2])
+        submit['RESULTS'] = [0] * redundant + list(prediction[:, 3])
+        submit['CONCLUSIONS'] = [0] * redundant + list(prediction[:, 4])
+        submit['OTHERS'] = [0] * redundant + list(prediction[:, 5])
+    df = pd.DataFrame.from_dict(submit)
+    df.to_csv(filename, index=False)
+
+
+#TODO:implement Run_Predict function
+
 if __name__ == '__main__':
     if not os.path.exists(TRAIN_DATA_PATH) or not os.path.exists(
             VALID_DATA_PATH) or not os.path.exists(TEST_DATA_PATH):
@@ -163,7 +293,7 @@ if __name__ == '__main__':
     validset = Abstract(data=valid, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
     testset = Abstract(data=test, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
 
-    #-----------------------hyperparameter setting block-------------------
+    #-----------------------Hyperparameter setting block-------------------
     # TO-DO : use a object or other data structure to pack hyperparameters
     embedding_dim = 100
     hidden_dim = 512
@@ -173,4 +303,44 @@ if __name__ == '__main__':
     drop_pb = 0.25
     layers = 1
     expname = 'modelVer4_test1'
-    #-----------------------hyperparameter setting block-------------------
+    #-----------------------Hyperparameter setting block-------------------
+    #-----------------------Model configuration----------------------------
+    model = GRUNet(vocab_size=Tokenizer.vocab_size(),
+                   embedding_dim=embedding_dim,
+                   hidden_dim=hidden_dim,
+                   layer_num=layers,
+                   drop_pb=drop_pb,
+                   bidirect=True)
+    opt = torch.optim.AdamW(model.parameters(), lr=lrate)
+    criteria = torch.nn.BCELoss()
+    model.to(DEVICE)
+    #-----------------------Model configuration----------------------------
+
+    #-----------------------Tensorboard configuration----------------------
+    tf_path = os.path.join(CWD, 'test_experiment')
+    if not os.path.exists(tf_path):
+        os.mkdir(tf_path)
+    writer = SummaryWriter(os.path.join(tf_path, expname))
+    #-----------------------Tensorboard configuration----------------------
+    history = {'train': [], 'valid': []}
+    for epoch in range(max_epoch):
+        print(f'Epoch:{epoch}')
+        Run_Epoch(epoch, 'train', model, criteria, opt, trainset, batch,
+                  writer, history)
+        Run_Epoch(epoch, 'train', model, criteria, opt, validset, batch,
+                  writer, history)
+        Save(epoch, model, history, expname)
+    # TODO :
+    # -[ ] : find best model epoch and run predicttion
+    # -[ ] : Submit Result
+    hparams = {
+        'embedding_dim': embedding_dim,
+        'hidden_dim': hidden_dim,
+        'learning_rate': lrate,
+        'epoch': max_epoch,
+        'batch_size': batch,
+        'drop': drop_pb,
+        'GRU_Layer': layers
+    }
+    writer.add_hparams(hparams)
+    writer.close()

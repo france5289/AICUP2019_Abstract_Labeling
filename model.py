@@ -40,7 +40,7 @@ class GRUNet(nn.Module):
         torch.nn.init.xavier_normal_(self.FCLayer[3].weight)
         torch.nn.init.xavier_normal_(self.FCLayer[6].weight)
 
-    def forward(self, x, eos_indexes):
+    def forward(self, x, eos_indices):
         '''
         Args:
             x(Tensor): input tensor with shape b*s
@@ -50,8 +50,7 @@ class GRUNet(nn.Module):
         x = self.sent_rnn(x)
         __, _, h = x.size()
         x = x.view(-1, h)  # (b*s)*(hidden_dim * direction_num)
-        indices = torch.tensor(eos_indexes)
-        x = torch.index_select(x, 0, indices)
+        x = torch.index_select(x, 0, eos_indices)
         y = self.FCLayer(x)
         return y
 
