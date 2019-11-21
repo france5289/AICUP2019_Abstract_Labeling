@@ -49,7 +49,7 @@ class GRUNet(nn.Module):
         x = self.embedding(x)
         x, _ = self.sent_rnn(x)
         b, s, h = x.size()
-        x = x.view((b * s), h)  # (b*s)*(hidden_dim * direction_num)
+        x = x.contiguous().view(-1, h)  # (b*s)*(hidden_dim * direction_num)
         x = torch.index_select(x, 0, eos_indices)
         y = self.FCLayer(x)
         return y
