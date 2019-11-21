@@ -31,9 +31,10 @@ PAD_TOKEN_ID = 0
 EOS_TOKEN = '[EOS]'
 EOS_TOKEN_ID = 3
 
-
-Tokenizer = NLTKTokenizer(pad_token=PAD_TOKEN, pad_token_id=PAD_TOKEN_ID,
-                          eos_token=EOS_TOKEN, eos_token_id=EOS_TOKEN_ID)
+Tokenizer = NLTKTokenizer(pad_token=PAD_TOKEN,
+                          pad_token_id=PAD_TOKEN_ID,
+                          eos_token=EOS_TOKEN,
+                          eos_token_id=EOS_TOKEN_ID)
 
 
 class Abstract(Dataset):
@@ -49,23 +50,28 @@ class Abstract(Dataset):
         return self.data.iloc[index]
 
     def collate_fn(self, datas):
-        abstracts = [torch.as_tensor(abstract, dtype=torch.long)
-                     for data in datas for abstract in data['Abstract']]
-        batch_abstracts = pad_sequence(
-            abstracts, batch_first=True, padding_value=self.pad_idx)
-        
-        b, s = batch_abstracts.size() # b: batch, s:sequence length
-        batch_eos = batch_abstracts == 3
+        abstracts = [
+            torch.as_tensor(abstract, dtype=torch.long) for data in datas
+            for abstract in data['Abstract']
+        ]
+        batch_abstracts = pad_sequence(abstracts,
+                                       batch_first=True,
+                                       padding_value=self.pad_idx)
+
+        b, s = batch_abstracts.size()  # b: batch, s:sequence length
+        batch_eos = batch_abstracts == self.eos_token
         eos_index_matrix = batch_eos.nonzero()
         eos_index_list = list()
         prev = 0
         for row in eos_index_matrix:
-            eos_index_list.append(row[1].item()+prev)
-            prev = prev + s    
+            eos_index_list.append(row[1].item() + prev)
+            prev = prev + s
 
         batch_labels = None
         labels = [
-            label for data in datas if 'Task 1' in data for label in data['Task 1']]
+            label for data in datas if 'Task 1' in data
+            for label in data['Task 1']
+        ]
         if len(labels) != 0:
             batch_labels = torch.as_tensor(labels, dtype=torch.float)
             batch_labels = batch_labels.view(-1, 6)
@@ -101,8 +107,14 @@ def labels_to_onehot(labels):
     '''
     one_hot_labels = []
     label_list = labels.split(' ')
-    label_dict = {'BACKGROUND': 0, 'OBJECTIVES': 1, 'METHODS': 2,
-                  'RESULTS': 3, 'CONCLUSIONS': 4, 'OTHERS': 5}
+    label_dict = {
+        'BACKGROUND': 0,
+        'OBJECTIVES': 1,
+        'METHODS': 2,
+        'RESULTS': 3,
+        'CONCLUSIONS': 4,
+        'OTHERS': 5
+    }
     for label in label_list:
         onehot = [0, 0, 0, 0, 0, 0]
         for l in label.split('/'):
@@ -127,7 +139,8 @@ def encode_data(dataset):
 
 
 if __name__ == '__main__':
-    if not os.path.exists(TRAIN_DATA_PATH) or not os.path.exists(VALID_DATA_PATH) or not os.path.exists(TEST_DATA_PATH):
+    if not os.path.exists(TRAIN_DATA_PATH) or not os.path.exists(
+            VALID_DATA_PATH) or not os.path.exists(TEST_DATA_PATH):
         os.system('python3 gendata.py')
 
     train = pd.read_csv(TRAIN_DATA_PATH)
