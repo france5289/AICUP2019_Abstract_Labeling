@@ -53,16 +53,22 @@ class Abstract(Dataset):
                      for data in datas for abstract in data['Abstract']]
         batch_abstracts = pad_sequence(
             abstracts, batch_first=True, padding_value=self.pad_idx)
-
-        labels = [label for data in datas for label in data['Task 1']]
-        batch_labels = torch.as_tensor(labels, dtype=torch.float)
-        batch_labels = batch_labels.view(-1, 6)
-
+        
+        b, s = batch_abstracts.size() # b: batch, s:sequence length
         batch_eos = batch_abstracts == 3
         eos_index_matrix = batch_eos.nonzero()
         eos_index_list = list()
+        prev = 0
         for row in eos_index_matrix:
-            eos_index_list.append(row[1].item())
+            eos_index_list.append(row[1].item()+prev)
+            prev = prev + s    
+
+        batch_labels = None
+        labels = [
+            label for data in datas if 'Task 1' in data for label in data['Task 1']]
+        if len(labels) != 0:
+            batch_labels = torch.as_tensor(labels, dtype=torch.float)
+            batch_labels = batch_labels.view(-1, 6)
 
         return batch_abstracts, batch_labels, eos_index_list
 
@@ -139,5 +145,19 @@ if __name__ == '__main__':
     encode_data(valid)
     encode_data(test)
     print('Encoding process complete!')
-    
-    
+
+    trainset = Abstract(data=train, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
+    validset = Abstract(data=valid, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
+    testset = Abstract(data=test, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
+
+    #-----------------------hyperparameter setting block-------------------
+    # TO-DO : use a object or other data structure to pack hyperparameters
+    embedding_dim = 100
+    hidden_dim = 512
+    lrate = 1e-4
+    max_epoch = 10
+    batch = 16
+    drop_pb = 0.25
+    layers = 1
+    expname = 'modelVer4_test1'
+    #-----------------------hyperparameter setting block-------------------

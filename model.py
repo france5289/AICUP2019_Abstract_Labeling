@@ -31,6 +31,9 @@ class GRUNet(nn.Module):
         torch.nn.init.xavier_normal_(self.FCLayer[3].weight)
         torch.nn.init.xavier_normal_(self.FCLayer[6].weight)
 
+    def forward(self, x, eos_indexes):
+        pass
+
 
 
 
