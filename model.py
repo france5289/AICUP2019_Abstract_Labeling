@@ -48,8 +48,6 @@ class GRUNet(nn.Module):
         '''
         x = self.embedding(x)
         x = self.sent_rnn(x)
-        print(type(x))
-        input('Breakpoint')
         __, _, h = x.size()
         x = x.view(-1, h)  # (b*s)*(hidden_dim * direction_num)
         x = torch.index_select(x, 0, eos_indices)
