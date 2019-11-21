@@ -330,9 +330,8 @@ if __name__ == '__main__':
         Run_Epoch(epoch, 'train', model, criteria, opt, validset, batch,
                   writer, history)
         Save(epoch, model, history, expname)
-    # TODO :
-    # -[ ] : find best model epoch and run predicttion
-    # -[ ] : Submit Result
+    # TODO : find best model epoch and run predicttion 
+    # TODO : Submit Result
     hparams = {
         'embedding_dim': embedding_dim,
         'hidden_dim': hidden_dim,
