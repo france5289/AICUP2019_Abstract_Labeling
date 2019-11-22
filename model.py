@@ -59,7 +59,6 @@ class F1():
     '''
     This object provide some method to evaluate F1 score 
     '''
-
     def __init__(self):
         self.threshold = 0.5
         self.n_precision = 0
@@ -76,8 +75,7 @@ class F1():
         predicts = predicts > self.threshold
         self.n_precision += torch.sum(predicts).data.item()
         self.n_recall += torch.sum(groundTruth).data.item()
-        self.n_corrects += torch.sum(groundTruth.type(torch.bool) *
-                                     predicts).data.item()
+        self.n_corrects += torch.sum(groundTruth.type(torch.bool) *predicts).data.item()
 
     def get_score(self):
         recall = self.n_corrects / self.n_recall
