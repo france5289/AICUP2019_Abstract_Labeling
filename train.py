@@ -134,9 +134,10 @@ def encode_data(dataset):
         dataset(pd.DataFrame)
     '''
     global Tokenizer
-    dataset['Abstract'] = dataset['Abstract'].apply(func=Tokenizer.encode)
+    tqdm.pandas()
+    dataset['Abstract'] = dataset['Abstract'].progress_apply(func=Tokenizer.encode)
     if 'Task 1' in dataset.columns:
-        dataset['Task 1'] = dataset['Task 1'].apply(func=labels_to_onehot)
+        dataset['Task 1'] = dataset['Task 1'].progress_apply(func=labels_to_onehot)
 
 
 def Run_Epoch(epoch,
