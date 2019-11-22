@@ -6,67 +6,54 @@ import torch.nn as nn
 import torch.nn.functional as F
 from collections import OrderedDict
 
-class Net1(nn.Module):
-    ''' 
-    Args:
-        vocabulary_size(int) : size of vocabulary
-        embedding_dim(int) : dimentionality of embedding layer
-        hidden_dim(int) : dimentionality of hidden layer
-        embedding_matrix(Tensor) : pretrained word vector matrix
-        layer_num(int) : depth of GRU layer
-        drop_pb(float) : drop out probability
-        bidirect(bool) : bidirectional GRU or not 
-    
-    Network Architecture:
-        Embedding Layer( vocab_size, embedding_dim, embedding_matrix ) \n
-        GRU Layer( embedding_dim, hidden_dim, layer_num, drop_pb, bidirect) \n
-        Linear1(hiddem_dim*2, hiddem_dim) with xavier_normal \n
-        Dropout( drop_pb ) \n
-        ReLU() \n
-        Linear( hidden_dim, 6 ) \n
-        Sigmoid() \n   
-    '''
-    def __init__(self, vocabulary_size, embedding_dim, hidden_dim, embedding_matrix, layer_num=1, drop_pb=0.5, bidirect=False):
-        super(Net1, self).__init__()
-        if layer_num == 1:
-            # prevent user warning cause GRU only have one layer !
-            GRU_drop = 0
 
-        self.embedding = nn.Embedding(vocabulary_size, embedding_dim, _weight=embedding_matrix)
-        self.sent_rnn = nn.GRU(embedding_dim, hidden_dim, num_layers=layer_num, dropout=GRU_drop, bidirectional=bidirect, batch_first=True)
-        self.FCLayer = nn.Sequential(OrderedDict([
-            ('FC1', nn.Linear(hidden_dim*2, hidden_dim)),
-            ('DropOut1', nn.Dropout(drop_pb)),
-            ('LeakyReLU1', nn.LeakyReLU()),
-            ('FC2', nn.Linear(hidden_dim, hidden_dim // 2)),
-            ('DropOut2', nn.Dropout(drop_pb)),
-            ('LeakyReLU2', nn.LeakyReLU()),
-            ('FC3', nn.Linear(hidden_dim // 2, 6)),
-            ('Sigmoid', nn.Sigmoid())
-        ]))
+class GRUNet(nn.Module):
+    def __init__(self,
+                 vocab_size,
+                 embedding_dim,
+                 hidden_dim,
+                 layer_num=1,
+                 drop_pb=0.5,
+                 bidirect=False):
+        super(GRUNet, self).__init__()
+        GRU_drop_pb = drop_pb
+        if layer_num == 1:
+            GRU_drop_pb = 0
+        # TODO : use Glove pre trained word embedding to init embedding layet weight
+        self.embedding = nn.Embedding(vocab_size, embedding_dim)
+        self.sent_rnn = nn.GRU(embedding_dim,
+                               hidden_dim,
+                               num_layers=layer_num,
+                               dropout=GRU_drop_pb,
+                               bidirectional=bidirect,
+                               batch_first=True)
+        self.FCLayer = nn.Sequential(
+            OrderedDict([('FC1', nn.Linear(hidden_dim * 2, hidden_dim)),
+                         ('DropOut1', nn.Dropout(drop_pb)),
+                         ('ReLU1', nn.ReLU()),
+                         ('FC2', nn.Linear(hidden_dim, hidden_dim // 2)),
+                         ('DropOut2', nn.Dropout(drop_pb)),
+                         ('ReLU2', nn.ReLU()),
+                         ('FC3', nn.Linear(hidden_dim // 2, 6)),
+                         ('Sigmoid', nn.Sigmoid())]))
         torch.nn.init.xavier_normal_(self.FCLayer[0].weight)
         torch.nn.init.xavier_normal_(self.FCLayer[3].weight)
         torch.nn.init.xavier_normal_(self.FCLayer[6].weight)
-    def forward(self, x):
+
+    def forward(self, x, eos_indices):
         '''
         Args:
-            x(Tensor) : input tensor
-        Return:
-            y(Tensor) : output tensor
+            x(Tensor): input tensor with shape b*s
+            eos_indexes(list): list which record positions of every eos tokens
         '''
-        # b: batch_size
-        # s: number of sentences
-        # w: number of words
-        # e: embedding_dim
-        # x : 12x12x40
         x = self.embedding(x)
-        b,s,w,e = x.shape 
-        x = x.view(b,s*w,e) 
-        x, __ = self.sent_rnn(x) # x : b*(s*w)*1024  # 1024 = hidden state (512) * num of directions (2)
-        x = x.view(b,s,w,-1) # b*s*w*1024
-        x = torch.max(x,dim=2)[0] # torch.max(input, dim) -> output :(values, indices)
+        x, _ = self.sent_rnn(x)
+        b, s, h = x.size()
+        x = x.contiguous().view(-1, h)  # (b*s)*(hidden_dim * direction_num)
+        x = torch.index_select(x, 0, eos_indices)
         y = self.FCLayer(x)
         return y
+
 
 class F1():
     '''
@@ -88,7 +75,7 @@ class F1():
         predicts = predicts > self.threshold
         self.n_precision += torch.sum(predicts).data.item()
         self.n_recall += torch.sum(groundTruth).data.item()
-        self.n_corrects += torch.sum(groundTruth.type(torch.bool) * predicts).data.item()
+        self.n_corrects += torch.sum(groundTruth.type(torch.bool) *predicts).data.item()
 
     def get_score(self):
         recall = self.n_corrects / self.n_recall
