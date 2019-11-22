@@ -7,7 +7,8 @@ python3 train.py
 ```
 # Note
 **現在暫時不強迫config檔名不能重複 做實驗時請注意**  
-**目前沒有將hyperparameter 寫出到config file**
+**目前沒有將hyperparameter 寫出到config file**  
+**目前還沒有實做 Prediction function**
 
 # Tensorboard
 ## Local tensorboard server
@@ -29,9 +30,10 @@ ssh -Nfl localhost:xxxx:localhost:{remote tfboard port} user@remote
 重新對資料做 pre processing 以及採用新的模型架構。
 
 ### TO-DO
-- [x] Data Pre Processing
-- [x] 使用 tensorboard 紀錄 loss / f1 並作圖
-- [x] Re Contruct Model ( Prefer GRU + Linear )
+- [x] ~~Data Pre Processing~~
+- [x] ~~使用 tensorboard 紀錄 loss / f1 並作圖~~
+- [x] ~~Re Contruct Model ( Prefer GRU + Linear )~~
+- [ ] 完成 Prediction function 與 Submit result
 - [ ] Use Glove Pre trained word embedding  
         **這邊我將在另一個branch: model Ver4.0實驗**
 - [ ] 使用 tensorboard 紀錄 hyperparameter
