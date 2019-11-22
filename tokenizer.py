@@ -124,6 +124,8 @@ class BaseTokenizer:
 
         for sentence in all_sentences:
             for token in sentence:
+                if token in self.token_to_id:
+                    continue
                 if token not in token_counter:
                     token_counter[token] = 0
                 token_counter[token] += 1
