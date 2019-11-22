@@ -77,7 +77,7 @@ class Abstract(Dataset):
             batch_labels = torch.as_tensor(labels, dtype=torch.float)
             batch_labels = batch_labels.view(-1, 6)
 
-        return batch_abstracts, batch_labels, torch.as_tensor(eos_index_list)
+        return batch_abstracts, batch_labels, torch.as_tensor(eos_index_list, dtype=torch.long)
 
 
 def SplitSent(doc):
