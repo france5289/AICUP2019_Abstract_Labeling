@@ -3,16 +3,12 @@ Repository for AICUP2019 Abstract Labeling test
 # How to use
 Type the following command to train and evaluate model
 ``` bash
-python3 main.py -cfname={your config_filename}
+python3 train.py
 ```
-Note that you should provide different config filename between every experiment.  
-It can help you to log different model hyperparameter and model status etc.  
-This program also provide the following options to help you fine tune your model:
-``` bash
-python3 main.py -cfname={config_filename} -ebd={embedding_dimension} 
--hid={hidden_dimension} -lrate={learning rate} -mepoch={max epoch} -bsize={batch size} 
--drop={dropout probability} -lnum={num of GRU layer}
-```
+# Note
+**現在暫時不強迫config檔名不能重複 做實驗時請注意**  
+**目前沒有將hyperparameter 寫出到config file**
+
 # Tensorboard
 ## Local tensorboard server
 Type the following command to start tensorboard  
@@ -33,8 +29,22 @@ ssh -Nfl localhost:xxxx:localhost:{remote tfboard port} user@remote
 重新對資料做 pre processing 以及採用新的模型架構。
 
 ### TO-DO
-- [ ] Data Pre Processing
-- [ ] Re Contruct Model ( Prefer GRU + Linear )
+- [x] Data Pre Processing
+- [x] 使用 tensorboard 紀錄 loss / f1 並作圖
+- [x] Re Contruct Model ( Prefer GRU + Linear )
+- [ ] Use Glove Pre trained word embedding  
+        **這邊我將在另一個branch: model Ver4.0實驗**
+- [ ] 使用 tensorboard 紀錄 hyperparameter
 - [ ] Fine tuned Model
 - [ ] Use *Transformers ( self attention )*
 - [ ] Fine tuned Model  
+
+## 開發計畫
+1. 先處理 Glove word embedding
+2. 重新整理 code
+   1. 簡化 code
+   2. 讓tensorboard紀錄更多資訊  
+`以上預計都在 modelVer4.0 branch 中實驗`
+3. Merge master branch and modelVer4 branch 
+4. Fine tuned model
+5. Use *Transformers layer* 
