@@ -9,3 +9,4 @@ __pycache__/
 model_config/
 *.pkl
 .DS_Store
+.ipynb_checkpoints/
