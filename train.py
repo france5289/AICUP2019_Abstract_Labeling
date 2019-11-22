@@ -266,7 +266,7 @@ def SubmitGenerator(prediction,
     df.to_csv(filename, index=False)
 
 
-#TODO:implement Run_Predict function
+# TODO:implement Run_Predict function
 
 if __name__ == '__main__':
     if not os.path.exists(TRAIN_DATA_PATH) or not os.path.exists(
@@ -288,23 +288,23 @@ if __name__ == '__main__':
     encode_data(valid)
     encode_data(test)
     print('Encoding process complete!')
-
+    # TODO : use Glove pre trained word embedding
     trainset = Abstract(data=train, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
     validset = Abstract(data=valid, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
     testset = Abstract(data=test, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
-
-    #-----------------------Hyperparameter setting block-------------------
-    # TO-DO : use a object or other data structure to pack hyperparameters
+    # -----------------------Hyperparameter setting block-------------------
+    # TODO : use a object or other data structure to pack hyperparameters
+    # TODO : hidden_dim should be twice as embedding_dim
     embedding_dim = 100
     hidden_dim = 512
     lrate = 1e-4
-    max_epoch = 10
+    max_epoch = 50
     batch = 16
     drop_pb = 0.25
     layers = 1
-    expname = 'modelVer4_test1'
-    #-----------------------Hyperparameter setting block-------------------
-    #-----------------------Model configuration----------------------------
+    expname = 'modelVer4_test2_epoch_50'
+    # -----------------------Hyperparameter setting block-------------------
+    # -----------------------Model configuration----------------------------
     model = GRUNet(vocab_size=Tokenizer.vocab_size(),
                    embedding_dim=embedding_dim,
                    hidden_dim=hidden_dim,
@@ -314,23 +314,23 @@ if __name__ == '__main__':
     opt = torch.optim.AdamW(model.parameters(), lr=lrate)
     criteria = torch.nn.BCELoss()
     model.to(DEVICE)
-    #-----------------------Model configuration----------------------------
+    # -----------------------Model configuration----------------------------
 
-    #-----------------------Tensorboard configuration----------------------
+    # -----------------------Tensorboard configuration----------------------
     tf_path = os.path.join(CWD, 'test_experiment')
     if not os.path.exists(tf_path):
         os.mkdir(tf_path)
     writer = SummaryWriter(os.path.join(tf_path, expname))
-    #-----------------------Tensorboard configuration----------------------
+    # -----------------------Tensorboard configuration----------------------
     history = {'train': [], 'valid': []}
     for epoch in range(max_epoch):
         print(f'Epoch:{epoch}')
         Run_Epoch(epoch, 'train', model, criteria, opt, trainset, batch,
                   writer, history)
-        Run_Epoch(epoch, 'train', model, criteria, opt, validset, batch,
+        Run_Epoch(epoch, 'valid', model, criteria, opt, validset, batch,
                   writer, history)
         Save(epoch, model, history, expname)
-    # TODO : find best model epoch and run predicttion 
+    # TODO : find best model epoch and run predicttion
     # TODO : Submit Result
     hparams = {
         'embedding_dim': embedding_dim,
@@ -341,5 +341,5 @@ if __name__ == '__main__':
         'drop': drop_pb,
         'GRU_Layer': layers
     }
-    writer.add_hparams(hparams)
+    # writer.add_hparams(hparams)
     writer.close()

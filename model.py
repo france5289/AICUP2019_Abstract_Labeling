@@ -19,7 +19,7 @@ class GRUNet(nn.Module):
         GRU_drop_pb = drop_pb
         if layer_num == 1:
             GRU_drop_pb = 0
-
+        # TODO : use Glove pre trained word embedding to init embedding layet weight
         self.embedding = nn.Embedding(vocab_size, embedding_dim)
         self.sent_rnn = nn.GRU(embedding_dim,
                                hidden_dim,
@@ -49,7 +49,7 @@ class GRUNet(nn.Module):
         x = self.embedding(x)
         x, _ = self.sent_rnn(x)
         b, s, h = x.size()
-        x = x.contiguous().view(-1,h)  # (b*s)*(hidden_dim * direction_num)
+        x = x.contiguous().view(-1, h)  # (b*s)*(hidden_dim * direction_num)
         x = torch.index_select(x, 0, eos_indices)
         y = self.FCLayer(x)
         return y
@@ -59,6 +59,7 @@ class F1():
     '''
     This object provide some method to evaluate F1 score 
     '''
+
     def __init__(self):
         self.threshold = 0.5
         self.n_precision = 0
