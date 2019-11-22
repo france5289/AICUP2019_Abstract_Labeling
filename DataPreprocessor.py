@@ -102,6 +102,7 @@ def Create_Glove_embedding_matrix(filename, word_dict, embedding_dim):
             word = values[0]
             coef = np.asarray(values[1:], dtype='float32')
             embedding_index[word] = coef
+            
     # Preparing the GloVe word-embeddings matrix
     max_words = len(word_dict)
     embedding_matrix = np.zeros((max_words, embedding_dim))
