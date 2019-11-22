@@ -143,6 +143,40 @@ class BaseTokenizer:
     def vocab_size(self):
         return len(self.token_to_id)
 
+    def reset_special_token(self):
+        # padding token
+        index = self.vocab_size()
+        self.pad_token = '[PAD]'
+        self.pad_token_id = index
+        self.token_to_id[self.pad_token] = self.pad_token_id
+        self.id_to_token[self.pad_token_id] = self.pad_token
+        # class token
+        index = self.vocab_size()
+        self.cls_token = '[CLS]'
+        self.cls_token_id = index
+        self.token_to_id[self.cls_token] = self.cls_token_id
+        self.id_to_token[self.cls_token_id] = self.cls_token
+        # separation token
+        index = self.vocab_size()
+        self.sep_token = '[SEP]'
+        self.sep_token_id = index
+        self.token_to_id[self.sep_token] = self.sep_token_id
+        self.id_to_token[self.sep_token_id] = self.sep_token
+        # end-of-sentence token
+        index = self.vocab_size()
+        self.eos_token = '[EOS]'
+        self.eos_token_id = index
+        self.token_to_id[self.eos_token] = self.eos_token_id
+        self.id_to_token[self.eos_token_id] = self.eos_token
+        # unknown token
+        index = self.vocab_size()
+        self.unk_token = '[UNK]'
+        self.unk_token_id = index
+        self.token_to_id[self.unk_token] = self.unk_token_id
+        self.id_to_token[self.unk_token_id] = self.unk_token
+
+        return self
+
 class CharTokenizer(BaseTokenizer):
     def __init__(self, **kwargs):
         super(CharTokenizer, self).__init__(**kwargs)
