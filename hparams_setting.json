@@ -1,5 +1,5 @@
 {
-    "expname":"test8",
+    "expname":"test8_1direct_GRU",
     "embedding_dim":100,
     "hidden_dim":200,
     "lrate":1e-5,
