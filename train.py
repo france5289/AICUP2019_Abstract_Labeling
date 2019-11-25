@@ -55,9 +55,7 @@ class Abstract(Dataset):
             torch.as_tensor(abstract, dtype=torch.long) for data in datas
             for abstract in data['Abstract']
         ]
-        batch_abstracts = pad_sequence(abstracts,
-                                       batch_first=True,
-                                       padding_value=self.pad_idx)
+        batch_abstracts = pad_sequence(abstracts, batch_first=True, padding_value=self.pad_idx)
 
         _, s = batch_abstracts.size()  # b: batch, s:sequence length
         batch_eos = batch_abstracts == self.eos_token
@@ -140,16 +138,7 @@ def encode_data(dataset):
         dataset['Task 1'] = dataset['Task 1'].progress_apply(func=labels_to_onehot)
 
 
-def Run_Epoch(epoch,
-              mode,
-              model,
-              criteria,
-              opt,
-              dataset,
-              batch,
-              writer,
-              history,
-              workers=WORKERS):
+def Run_Epoch(epoch, mode, model, criteria, opt, dataset, batch, writer, history, workers=WORKERS):
     '''
     run this function to start training or validation process
 
@@ -185,9 +174,8 @@ def Run_Epoch(epoch,
                             shuffle=shuffle,
                             collate_fn=dataset.collate_fn,
                             num_workers=workers)
-    trange = tqdm(enumerate(dataloader),
-                  total=len(dataloader),
-                  desc=description)
+
+    trange = tqdm(enumerate(dataloader),total=len(dataloader),desc=description)
     loss = 0
     f1_score = F1()
 
@@ -236,15 +224,11 @@ def Save(epoch, model, history, config_fname):
     torch.save(
         model.state_dict(),
         os.path.join(CWD, f'model/{config_fname}/model.pkl.' + str(epoch)))
-    with open(os.path.join(CWD, f'model/{config_fname}/history.json'),
-              'w') as f:
+    with open(os.path.join(CWD, f'model/{config_fname}/history.json'),'w') as f:
         json.dump(history, f, indent=4)
 
 
-def SubmitGenerator(prediction,
-                    sampleFile,
-                    public=True,
-                    filename='prediction.csv'):
+def SubmitGenerator(prediction,sampleFile,public=True,filename='prediction.csv'):
     sample = pd.read_csv(sampleFile)
     submit = {}
     submit['order_id'] = list(sample.order_id.values)
@@ -306,12 +290,7 @@ if __name__ == '__main__':
     expname = 'modelVer4_test2_epoch_50'
     # -----------------------Hyperparameter setting block-------------------
     # -----------------------Model configuration----------------------------
-    model = GRUNet(vocab_size=Tokenizer.vocab_size(),
-                   embedding_dim=embedding_dim,
-                   hidden_dim=hidden_dim,
-                   layer_num=layers,
-                   drop_pb=drop_pb,
-                   bidirect=True)
+    model = GRUNet(vocab_size=Tokenizer.vocab_size(),embedding_dim=embedding_dim,hidden_dim=hidden_dim,layer_num=layers,drop_pb=drop_pb,bidirect=True)
     opt = torch.optim.AdamW(model.parameters(), lr=lrate)
     criteria = torch.nn.BCELoss()
     model.to(DEVICE)
@@ -326,11 +305,9 @@ if __name__ == '__main__':
     history = {'train': [], 'valid': []}
     for epoch in range(max_epoch):
         print(f'Epoch:{epoch}')
-        Run_Epoch(epoch, 'train', model, criteria, opt, trainset, batch,
-                  writer, history)
-        Run_Epoch(epoch, 'valid', model, criteria, opt, validset, batch,
-                  writer, history)
-        Save(epoch, model, history, expname)
+        Run_Epoch(epoch, 'train', model, criteria, opt, trainset, batch,writer, history)
+        Run_Epoch(epoch, 'valid', model, criteria, opt, validset, batch,writer, history)
+        Save(epoch, model, history, expname):
     # TODO : find best model epoch and run predicttion
     # TODO : Submit Result
     hparams = {
