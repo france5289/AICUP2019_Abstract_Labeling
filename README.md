@@ -5,9 +5,12 @@ Type the following command to train and evaluate model
 ``` bash
 python3 train.py
 ```
+# Release Note
+11/26 新增以下功能:
+- 將hyperparameters 寫於 `hparams_setting.json` training 時自動讀取
+- 將hyperparameters 紀錄於 `tensorboard`
 # Note
-**現在暫時不強迫config檔名不能重複 做實驗時請注意**  
-**目前沒有將hyperparameter 寫出到config file**  
+**現在暫時不強迫config檔名不能重複 做實驗時請注意**   
 **目前還沒有實做 Prediction function**
 
 # Tensorboard
@@ -34,9 +37,8 @@ ssh -Nfl localhost:xxxx:localhost:{remote tfboard port} user@remote
 - [x] ~~使用 tensorboard 紀錄 loss / f1 並作圖~~
 - [x] ~~Re Contruct Model ( Prefer GRU + Linear )~~
 - [ ] 完成 Prediction function 與 Submit result
-- [ ] Use Glove Pre trained word embedding  
-        **這邊我將在另一個branch: model Ver4.0實驗**
-- [ ] 使用 tensorboard 紀錄 hyperparameter
+- [x] ~~Use Glove Pre trained word embedding~~  
+- [x] ~~使用 tensorboard 紀錄 hyperparameter~~
 - [ ] Fine tuned Model
 - [ ] Use *Transformers ( self attention )*
 - [ ] Fine tuned Model  
@@ -45,8 +47,8 @@ ssh -Nfl localhost:xxxx:localhost:{remote tfboard port} user@remote
 1. 先處理 Glove word embedding
 2. 重新整理 code
    1. 簡化 code
-   2. 讓tensorboard紀錄更多資訊  
+   2. ~~讓tensorboard紀錄更多資訊~~  
 `以上預計都在 modelVer4.0 branch 中實驗`
-3. Merge master branch and modelVer4 branch 
+3. ~~Merge master branch and modelVer4 branch~~ 
 4. Fine tuned model
 5. Use *Transformers layer* 
