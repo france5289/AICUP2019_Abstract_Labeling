@@ -11,6 +11,7 @@ class GRUNet(nn.Module):
     def __init__(self,
                  vocab_size,
                  embedding_dim,
+                 embedding_matrix,
                  hidden_dim,
                  layer_num=1,
                  drop_pb=0.5,
@@ -21,6 +22,7 @@ class GRUNet(nn.Module):
             GRU_drop_pb = 0
         # TODO : use Glove pre trained word embedding to init embedding layet weight
         self.embedding = nn.Embedding(vocab_size, embedding_dim)
+        self.embedding.weight = torch.nn.Parameter(embedding_matrix)
         self.sent_rnn = nn.GRU(embedding_dim,
                                hidden_dim,
                                num_layers=layer_num,
@@ -36,6 +38,7 @@ class GRUNet(nn.Module):
                          ('ReLU2', nn.ReLU()),
                          ('FC3', nn.Linear(hidden_dim // 2, 6)),
                          ('Sigmoid', nn.Sigmoid())]))
+        self.layernorm1 = nn.LayerNorm(hidden_dim * 2)
         torch.nn.init.xavier_normal_(self.FCLayer[0].weight)
         torch.nn.init.xavier_normal_(self.FCLayer[3].weight)
         torch.nn.init.xavier_normal_(self.FCLayer[6].weight)
@@ -51,6 +54,7 @@ class GRUNet(nn.Module):
         b, s, h = x.size()
         x = x.contiguous().view(-1, h)  # (b*s)*(hidden_dim * direction_num)
         x = torch.index_select(x, 0, eos_indices)
+        x = self.layernorm1(x)
         y = self.FCLayer(x)
         return y
 
