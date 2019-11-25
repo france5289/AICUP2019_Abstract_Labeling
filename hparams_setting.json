@@ -1,5 +1,5 @@
 {
-    "expname":"test5",
+    "expname":"test6",
     "embedding_dim":100,
     "hidden_dim":200,
     "lrate":1e-4,

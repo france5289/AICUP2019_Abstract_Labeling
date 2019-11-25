@@ -351,8 +351,8 @@ if __name__ == '__main__':
         'GRU_Layer': layers
     }
     for key, value in history.items():
-        history[key] = torch.as_tensor(value)
-        print(history[key])
-        input('Break')
+        history[key] = max(value)
+        # print(history[key])
+        # input('Break')
     writer.add_hparams(hparams, history)
     writer.close()
