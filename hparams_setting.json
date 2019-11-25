@@ -3,7 +3,7 @@
     "embedding_dim":100,
     "hidden_dim":200,
     "lrate":1e-5,
-    "max_epoch":150,
+    "max_epoch":100,
     "batch":32,
     "drop_pb":0.4,
     "RNN_layers":1
