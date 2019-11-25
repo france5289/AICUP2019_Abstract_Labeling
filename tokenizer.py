@@ -177,7 +177,7 @@ class BaseTokenizer:
 
         return self
 
-    def get_dict(self):
+    def get_token_to_id(self):
         return self.token_to_id
 
 class CharTokenizer(BaseTokenizer):
