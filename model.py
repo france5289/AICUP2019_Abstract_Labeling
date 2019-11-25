@@ -30,15 +30,15 @@ class GRUNet(nn.Module):
                                bidirectional=bidirect,
                                batch_first=True)
         self.FCLayer = nn.Sequential(
-            OrderedDict([('FC1', nn.Linear(hidden_dim * 2, hidden_dim)),
+            OrderedDict([('FC1', nn.Linear(hidden_dim , hidden_dim // 2)),
                          ('DropOut1', nn.Dropout(drop_pb)),
                          ('LayerNorm2', nn.LayerNorm(hidden_dim)),
                          ('ReLU1', nn.ReLU()),
-                         ('FC2', nn.Linear(hidden_dim, hidden_dim // 2)),
+                         ('FC2', nn.Linear(hidden_dim // 2 , hidden_dim // 4)),
                          ('DropOut2', nn.Dropout(drop_pb)),
-                         ('LayerNorm3', nn.LayerNorm( hidden_dim // 2)),
+                         ('LayerNorm3', nn.LayerNorm( hidden_dim // 4 )),
                          ('ReLU2', nn.ReLU()),
-                         ('FC3', nn.Linear(hidden_dim // 2, 6)),
+                         ('FC3', nn.Linear(hidden_dim // 4, 6)),
                          ('Sigmoid', nn.Sigmoid())]))
         self.layernorm1 = nn.LayerNorm(hidden_dim * 2)
         torch.nn.init.xavier_normal_(self.FCLayer[0].weight)
