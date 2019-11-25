@@ -43,7 +43,7 @@ class GRUNet(nn.Module):
         self.layernorm1 = nn.LayerNorm(hidden_dim * 2)
         torch.nn.init.xavier_normal_(self.FCLayer[0].weight)
         torch.nn.init.xavier_normal_(self.FCLayer[4].weight)
-        torch.nn.init.xavier_normal_(self.FCLayer[7].weight)
+        torch.nn.init.xavier_normal_(self.FCLayer[8].weight)
 
     def forward(self, x, eos_indices):
         '''
