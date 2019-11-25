@@ -306,9 +306,9 @@ if __name__ == '__main__':
     lrate = 1e-4
     max_epoch = 50
     batch = 16
-    drop_pb = 0.25
+    drop_pb = 0.3
     layers = 1
-    expname = 'modelVer4_test2_epoch_50'
+    expname = 'modelVer4_test3_epoch_50_Glove'
     embedding_matrix = torch.FloatTensor(get_glove_matrix(Tokenizer.get_token_to_id(), 'glove/glove.6B.100d.txt', embedding_dim))
     # -----------------------Hyperparameter setting block-------------------
     # -----------------------Model configuration----------------------------
