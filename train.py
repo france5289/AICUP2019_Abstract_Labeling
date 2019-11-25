@@ -254,23 +254,23 @@ def SubmitGenerator(prediction,sampleFile,public=True,filename='prediction.csv')
 
 # TODO:implement Run_Predict function
 
-def get_glove_matrix(word_dict, wordvector_path):
+def get_glove_matrix(word_dict, wordvector_path, embedding_dim):
     embeddings_index = {}
     f = open(wordvector_path)
     for line in f:
         values = line.split()
-        word = values[0]
+        token = values[0]
         coefs = np.asarray(values[1:], dtype='float32')
-        embeddings_index[word] = coefs
+        embeddings_index[token] = coefs
     f.close()
     print('Found %s word vectors.' % len(embeddings_index))
 
     max_words = Tokenizer.vocab_size()
     embedding_matrix = np.zeros((max_words, embedding_dim))
-    for word, i in word_dict.items():
-        embedding_vector = embeddings_index.get(word)
+    for token, index in word_dict.items():
+        embedding_vector = embeddings_index.get(token)
         if embedding_vector is not None:
-            embedding_matrix[i] = embedding_vector
+            embedding_matrix[index] = embedding_vector
             
     return embedding_matrix
 
@@ -309,7 +309,7 @@ if __name__ == '__main__':
     drop_pb = 0.25
     layers = 1
     expname = 'modelVer4_test2_epoch_50'
-    embedding_matrix = torch.FloatTensor(get_glove_matrix(Tokenizer.get_dict(), 'glove/glove.6B.100d.txt'))
+    embedding_matrix = torch.FloatTensor(get_glove_matrix(Tokenizer.get_token_to_id(), 'glove/glove.6B.100d.txt', embedding_dim))
     # -----------------------Hyperparameter setting block-------------------
     # -----------------------Model configuration----------------------------
     model = GRUNet(vocab_size=Tokenizer.vocab_size(),
@@ -335,7 +335,7 @@ if __name__ == '__main__':
         print(f'Epoch:{epoch}')
         Run_Epoch(epoch, 'train', model, criteria, opt, trainset, batch,writer, history)
         Run_Epoch(epoch, 'valid', model, criteria, opt, validset, batch,writer, history)
-        Save(epoch, model, history, expname):
+        Save(epoch, model, history, expname)
     # TODO : find best model epoch and run predicttion
     # TODO : Submit Result
     hparams = {
