@@ -287,7 +287,7 @@ if __name__ == '__main__':
     lrate = obj['lrate']
     max_epoch = obj['max_epoch']
     batch = obj['batch']
-    drop_pb = obj['drop_op']
+    drop_pb = obj['drop_pb']
     layers = obj['RNN_layers']
     # ---------------- Hyperparameter setting -------------------------
     train = pd.read_csv(TRAIN_DATA_PATH)
