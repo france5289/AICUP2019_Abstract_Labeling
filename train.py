@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import os
 import pickle
@@ -253,6 +254,26 @@ def SubmitGenerator(prediction,sampleFile,public=True,filename='prediction.csv')
 
 # TODO:implement Run_Predict function
 
+def get_glove_matrix(word_dict, wordvector_path):
+    embeddings_index = {}
+    f = open(wordvector_path)
+    for line in f:
+        values = line.split()
+        word = values[0]
+        coefs = np.asarray(values[1:], dtype='float32')
+        embeddings_index[word] = coefs
+    f.close()
+    print('Found %s word vectors.' % len(embeddings_index))
+
+    max_words = Tokenizer.vocab_size()
+    embedding_matrix = np.zeros((max_words, embedding_dim))
+    for word, i in word_dict.items():
+        embedding_vector = embeddings_index.get(word)
+        if embedding_vector is not None:
+            embedding_matrix[i] = embedding_vector
+            
+    return embedding_matrix
+
 if __name__ == '__main__':
     if not os.path.exists(TRAIN_DATA_PATH) or not os.path.exists(
             VALID_DATA_PATH) or not os.path.exists(TEST_DATA_PATH):
@@ -281,16 +302,23 @@ if __name__ == '__main__':
     # TODO : use a object or other data structure to pack hyperparameters
     # TODO : hidden_dim should be twice as embedding_dim
     embedding_dim = 100
-    hidden_dim = 512
+    hidden_dim = embedding_dim*2
     lrate = 1e-4
     max_epoch = 50
     batch = 16
     drop_pb = 0.25
     layers = 1
     expname = 'modelVer4_test2_epoch_50'
+    embedding_matrix = torch.FloatTensor(get_glove_matrix(Tokenizer.get_dict(), 'glove/glove.6B.100d.txt'))
     # -----------------------Hyperparameter setting block-------------------
     # -----------------------Model configuration----------------------------
-    model = GRUNet(vocab_size=Tokenizer.vocab_size(),embedding_dim=embedding_dim,hidden_dim=hidden_dim,layer_num=layers,drop_pb=drop_pb,bidirect=True)
+    model = GRUNet(vocab_size=Tokenizer.vocab_size(),
+                   embedding_dim=embedding_dim,
+                   embedding_matrix=embedding_matrix,
+                   hidden_dim=hidden_dim,
+                   layer_num=layers,
+                   drop_pb=drop_pb,
+                   bidirect=True)
     opt = torch.optim.AdamW(model.parameters(), lr=lrate)
     criteria = torch.nn.BCELoss()
     model.to(DEVICE)
