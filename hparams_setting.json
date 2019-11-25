@@ -5,6 +5,6 @@
     "lrate":1e-4,
     "max_epoch":50,
     "batch":16,
-    "drop_pb":0.25,
+    "drop_pb":0.4,
     "RNN_layers":2
 }
