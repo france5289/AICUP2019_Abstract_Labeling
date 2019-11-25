@@ -1,0 +1,10 @@
+{
+    "expname":"test5",
+    "embedding_dim":100,
+    "hidden_dim":200,
+    "lrate":1e-4,
+    "max_epoch":50,
+    "batch":16,
+    "drop_pb":0.25,
+    "RNN_layers":2
+}

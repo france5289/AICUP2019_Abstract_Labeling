@@ -3,7 +3,6 @@ import pandas as pd
 import os
 import pickle
 import json
-import argparse
 
 import torch
 from torch.utils.tensorboard import SummaryWriter
@@ -195,11 +194,15 @@ def Run_Epoch(epoch, mode, model, criteria, opt, dataset, batch, writer, history
 
         trange.set_postfix(loss=loss / (i + 1), f1=f1_score.print_score())
     if mode == 'train':
-        history['train'].append({'f1': f1_score.get_score(),'loss': loss / len(trange)})
+        # history['train'].append({'f1': f1_score.get_score(),'loss': loss / len(trange)})
+        history['train_F1'].append(f1_score.get_score())
+        history['train_loss'].append(loss / len(trange))
         writer.add_scalar('Loss/train', loss / len(trange), epoch)
         writer.add_scalar('F1_score/train', f1_score.get_score(), epoch)
     else:
-        history['valid'].append({'f1': f1_score.get_score(),'loss': loss / len(trange)})
+        # history['valid'].append({'f1': f1_score.get_score(),'loss': loss / len(trange)})
+        history['valid_F1'].append(f1_score.get_score())
+        history['valid_loss'].append(loss / len(trange))
         writer.add_scalar('Loss/valid', loss / len(trange), epoch)
         writer.add_scalar('F1_score/valid', f1_score.get_score(), epoch)
     trange.close()
@@ -274,27 +277,18 @@ if __name__ == '__main__':
             VALID_DATA_PATH) or not os.path.exists(TEST_DATA_PATH):
         os.system('python3 gendata.py')
     # ---------------- Hyperparameter setting -------------------------
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-cfname', '--config_file_name', help='config filename', type=str, default='experiment1_config')
-    parser.add_argument('-ebd', '--embedding_dim', help='embedding layer dimension', type=int, default=100)
-    #parser.add_argument('-hid', '--hidden_dim', help='hidden layer dimension', type=int, default=512)
-    parser.add_argument('-lrate', '--learning_rate', help='learning rate', type=float, default=1e-4)
-    parser.add_argument('-mepoch', '--max_epoch', help='Max epoch number', type=int, default=10)
-    parser.add_argument('-bsize', '--batch_size', help='batch size', type=int, default=16)
-    parser.add_argument('-drop', '--drop_prob', help='drop probability', type=float, default=0.3)
-    parser.add_argument('-lnum', '--layer_num', help='GRU layer num', type=int, default=1)
-    args = parser.parse_args()
-
-    # set hyperparameter
-    embedding_dim = args.embedding_dim # word embedding dim for Glove
-    hidden_dim = embedding_dim * 2
-    lrate = args.learning_rate
-    max_epoch = args.max_epoch
-    batch = args.batch_size
-    drop_pb = args.drop_prob
-    layers = args.layer_num
-    # set config file name and write out 
-    expname = args.config_file_name
+    hparams_path = os.path.join(CWD, 'hparams_setting.json')
+    with open(hparams_path, 'r') as f:
+        hyper_params = f.read()
+    obj = json.loads(hyper_params)
+    expname = obj['expname']
+    embedding_dim = obj['embedding_dim']
+    hidden_dim = obj['hidden_dim']
+    lrate = obj['lrate']
+    max_epoch = obj['max_epoch']
+    batch = obj['batch']
+    drop_pb = obj['drop_op']
+    layers = obj['RNN_layers']
     # ---------------- Hyperparameter setting -------------------------
     train = pd.read_csv(TRAIN_DATA_PATH)
     valid = pd.read_csv(VALID_DATA_PATH)
@@ -339,7 +333,7 @@ if __name__ == '__main__':
         os.mkdir(tf_path)
     writer = SummaryWriter(os.path.join(tf_path, expname))
     # -----------------------Tensorboard configuration----------------------
-    history = {'train': [], 'valid': []}
+    history = {'train_F1':[], 'train_loss':[], 'valid_F1':[], 'valid_loss':[]}
     for epoch in range(max_epoch):
         print(f'Epoch:{epoch}')
         Run_Epoch(epoch, 'train', model, criteria, opt, trainset, batch, writer, history)
@@ -356,5 +350,7 @@ if __name__ == '__main__':
         'drop': drop_pb,
         'GRU_Layer': layers
     }
-    writer.add_hparams(hparams)
+    for key, value in history.items():
+        history[key] = torch.as_tensor(value)
+    writer.add_hparams(hparams, history)
     writer.close()
