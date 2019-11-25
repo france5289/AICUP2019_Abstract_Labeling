@@ -1,5 +1,5 @@
 {
-    "expname":"test7",
+    "expname":"test8",
     "embedding_dim":100,
     "hidden_dim":200,
     "lrate":1e-5,
@@ -8,3 +8,4 @@
     "drop_pb":0.4,
     "RNN_layers":1
 }
+

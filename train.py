@@ -321,7 +321,7 @@ if __name__ == '__main__':
                    hidden_dim=hidden_dim,
                    layer_num=layers,
                    drop_pb=drop_pb,
-                   bidirect=True)
+                   bidirect=False)
     opt = torch.optim.AdamW(model.parameters(), lr=lrate)
     criteria = torch.nn.BCELoss()
     model.to(DEVICE)
