@@ -3,6 +3,7 @@ import pandas as pd
 import os
 import pickle
 import json
+import argparse
 
 import torch
 from torch.utils.tensorboard import SummaryWriter
@@ -194,17 +195,11 @@ def Run_Epoch(epoch, mode, model, criteria, opt, dataset, batch, writer, history
 
         trange.set_postfix(loss=loss / (i + 1), f1=f1_score.print_score())
     if mode == 'train':
-        history['train'].append({
-            'f1': f1_score.get_score(),
-            'loss': loss / len(trange)
-        })
+        history['train'].append({'f1': f1_score.get_score(),'loss': loss / len(trange)})
         writer.add_scalar('Loss/train', loss / len(trange), epoch)
         writer.add_scalar('F1_score/train', f1_score.get_score(), epoch)
     else:
-        history['valid'].append({
-            'f1': f1_score.get_score(),
-            'loss': loss / len(trange)
-        })
+        history['valid'].append({'f1': f1_score.get_score(),'loss': loss / len(trange)})
         writer.add_scalar('Loss/valid', loss / len(trange), epoch)
         writer.add_scalar('F1_score/valid', f1_score.get_score(), epoch)
     trange.close()
@@ -278,7 +273,29 @@ if __name__ == '__main__':
     if not os.path.exists(TRAIN_DATA_PATH) or not os.path.exists(
             VALID_DATA_PATH) or not os.path.exists(TEST_DATA_PATH):
         os.system('python3 gendata.py')
+    # ---------------- Hyperparameter setting -------------------------
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-cfname', '--config_file_name', help='config filename', type=str, default='experiment1_config')
+    parser.add_argument('-ebd', '--embedding_dim', help='embedding layer dimension', type=int, default=100)
+    #parser.add_argument('-hid', '--hidden_dim', help='hidden layer dimension', type=int, default=512)
+    parser.add_argument('-lrate', '--learning_rate', help='learning rate', type=float, default=1e-4)
+    parser.add_argument('-mepoch', '--max_epoch', help='Max epoch number', type=int, default=10)
+    parser.add_argument('-bsize', '--batch_size', help='batch size', type=int, default=16)
+    parser.add_argument('-drop', '--drop_prob', help='drop probability', type=float, default=0.3)
+    parser.add_argument('-lnum', '--layer_num', help='GRU layer num', type=int, default=1)
+    args = parser.parse_args()
 
+    # set hyperparameter
+    embedding_dim = args.embedding_dim # word embedding dim for Glove
+    hidden_dim = embedding_dim * 2
+    lrate = args.learning_rate
+    max_epoch = args.max_epoch
+    batch = args.batch_size
+    drop_pb = args.drop_prob
+    layers = args.layer_num
+    # set config file name and write out 
+    expname = args.config_file_name
+    # ---------------- Hyperparameter setting -------------------------
     train = pd.read_csv(TRAIN_DATA_PATH)
     valid = pd.read_csv(VALID_DATA_PATH)
     test = pd.read_csv(TEST_DATA_PATH)
@@ -301,14 +318,6 @@ if __name__ == '__main__':
     # -----------------------Hyperparameter setting block-------------------
     # TODO : use a object or other data structure to pack hyperparameters
     # TODO : hidden_dim should be twice as embedding_dim
-    embedding_dim = 100
-    hidden_dim = embedding_dim*2
-    lrate = 1e-4
-    max_epoch = 50
-    batch = 16
-    drop_pb = 0.3
-    layers = 1
-    expname = 'modelVer4_test3_epoch_50_Glove'
     embedding_matrix = torch.FloatTensor(get_glove_matrix(Tokenizer.get_token_to_id(), 'glove/glove.6B.100d.txt', embedding_dim))
     # -----------------------Hyperparameter setting block-------------------
     # -----------------------Model configuration----------------------------
@@ -333,8 +342,8 @@ if __name__ == '__main__':
     history = {'train': [], 'valid': []}
     for epoch in range(max_epoch):
         print(f'Epoch:{epoch}')
-        Run_Epoch(epoch, 'train', model, criteria, opt, trainset, batch,writer, history)
-        Run_Epoch(epoch, 'valid', model, criteria, opt, validset, batch,writer, history)
+        Run_Epoch(epoch, 'train', model, criteria, opt, trainset, batch, writer, history)
+        Run_Epoch(epoch, 'valid', model, criteria, opt, validset, batch, writer, history)
         Save(epoch, model, history, expname)
     # TODO : find best model epoch and run predicttion
     # TODO : Submit Result
@@ -347,5 +356,5 @@ if __name__ == '__main__':
         'drop': drop_pb,
         'GRU_Layer': layers
     }
-    # writer.add_hparams(hparams)
+    writer.add_hparams(hparams)
     writer.close()
