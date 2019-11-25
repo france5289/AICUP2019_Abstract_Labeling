@@ -32,10 +32,10 @@ PAD_TOKEN_ID = 0
 EOS_TOKEN = '[EOS]'
 EOS_TOKEN_ID = 3
 
-Tokenizer = NLTKTokenizer(pad_token=PAD_TOKEN,
-                          pad_token_id=PAD_TOKEN_ID,
-                          eos_token=EOS_TOKEN,
-                          eos_token_id=EOS_TOKEN_ID)
+Tokenizer = NLTKTokenizer(  pad_token=PAD_TOKEN,
+                            pad_token_id=PAD_TOKEN_ID,
+                            eos_token=EOS_TOKEN,
+                            eos_token_id=EOS_TOKEN_ID  )
 
 
 class Abstract(Dataset):
