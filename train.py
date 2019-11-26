@@ -305,15 +305,10 @@ if __name__ == '__main__':
     encode_data(valid)
     encode_data(test)
     print('Encoding process complete!')
-    # TODO : use Glove pre trained word embedding
     trainset = Abstract(data=train, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
     validset = Abstract(data=valid, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
     testset = Abstract(data=test, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
-    # -----------------------Hyperparameter setting block-------------------
-    # TODO : use a object or other data structure to pack hyperparameters
-    # TODO : hidden_dim should be twice as embedding_dim
     embedding_matrix = torch.FloatTensor(get_glove_matrix(Tokenizer.get_token_to_id(), 'glove/glove.6B.100d.txt', embedding_dim))
-    # -----------------------Hyperparameter setting block-------------------
     # -----------------------Model configuration----------------------------
     model = GRUNet(vocab_size=Tokenizer.vocab_size(),
                    embedding_dim=embedding_dim,

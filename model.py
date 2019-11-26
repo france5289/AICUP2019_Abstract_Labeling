@@ -20,7 +20,6 @@ class GRUNet(nn.Module):
         GRU_drop_pb = drop_pb
         if layer_num == 1:
             GRU_drop_pb = 0
-        # TODO : use Glove pre trained word embedding to init embedding layet weight
         self.embedding = nn.Embedding(vocab_size, embedding_dim)
         self.embedding.weight = torch.nn.Parameter(embedding_matrix)
         self.sent_rnn = nn.GRU(embedding_dim,
