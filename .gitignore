@@ -10,3 +10,4 @@ model_config/
 *.pkl
 .DS_Store
 .ipynb_checkpoints/
+hparams_setting.json
