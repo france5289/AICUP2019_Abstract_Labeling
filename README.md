@@ -36,6 +36,8 @@ ssh -Nfl localhost:xxxx:localhost:{remote tfboard port} user@remote
 - [x] ~~Data Pre Processing~~
 - [x] ~~使用 tensorboard 紀錄 loss / f1 並作圖~~
 - [x] ~~Re Contruct Model ( Prefer GRU + Linear )~~
+- [ ] 分析 train valid dataset 的詞頻
+  - 另外開一個 jupyter notebook 
 - [ ] 完成 Prediction function 與 Submit result
 - [x] ~~Use Glove Pre trained word embedding~~  
 - [x] ~~使用 tensorboard 紀錄 hyperparameter~~
