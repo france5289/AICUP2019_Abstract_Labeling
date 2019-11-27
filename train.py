@@ -264,12 +264,13 @@ def get_glove_matrix(word_dict, wordvector_path, embedding_dim):
     print('Found %s word vectors.' % len(embeddings_index))
 
     max_words = Tokenizer.vocab_size()
-    embedding_matrix = np.zeros((max_words, embedding_dim))
+    embedding_matrix = np.random.randn((max_words, embedding_dim))
     for token, index in word_dict.items():
         embedding_vector = embeddings_index.get(token)
         if embedding_vector is not None:
             embedding_matrix[index] = embedding_vector
-            
+        else:
+            print('Found a unknown word!')    
     return embedding_matrix
 
 if __name__ == '__main__':

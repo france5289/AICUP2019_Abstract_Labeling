@@ -201,11 +201,11 @@ class WhiteSpaceTokenizer(BaseTokenizer):
 class NLTKTokenizer(BaseTokenizer):
     def __init__(self, **kwargs):
         super(NLTKTokenizer, self).__init__(**kwargs)
-        self._token_counter = {}
+        self._token_freq = {}
 
     @property
-    def token_counter(self):
-        return self._token_counter
+    def token_freq(self):
+        return self._token_freq
 
 
     def tokenize(self, sentence):
@@ -219,19 +219,26 @@ class NLTKTokenizer(BaseTokenizer):
 
     def build_dict(self, all_sentences, min_count=0):
         all_sentences = self.convert_sentences_to_tokens(all_sentences)
+        token_counter = {}
+
         for sentence in all_sentences:
             for token in sentence:
                 if token in self.token_to_id:
+                    self._token_freq[token] += 1
                     continue
-                if token not in self._token_counter:
-                    self._token_counter[token] = 0
-                self._token_counter[token] += 1
+                if token not in token_counter:
+                    token_counter[token] = 0
+                token_counter[token] += 1
+                
+                if token not in self._token_freq:
+                    self._token_freq[token] = 1
 
         index = len(self.token_to_id)
 
-        for token, count in self._token_counter.items():
+        for token, count in token_counter.items():
             if count > min_count:
                 self.token_to_id[token] = index
                 self.id_to_token[index] = token
                 index += 1
+
         return self
