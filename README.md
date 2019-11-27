@@ -11,8 +11,19 @@ python3 train.py
 - 將hyperparameters 紀錄於 `tensorboard`
 # Note
 **現在暫時不強迫config檔名不能重複 做實驗時請注意**   
-**目前還沒有實做 Prediction function**
-
+**目前還沒有實做 Prediction function**  
+  
+11/27 完成 label 分佈分析:
+:::info
+圖有點醜 金拍謝!
+:::
+#### Train label 分佈
+![train_label_pie](train_label_pie.png)
+#### Valid label 分佈
+![valid_label_pie](valid_label_pie.png)
+:::success
+`Backgroud` 佔比最大約 25~27%
+:::
 # Tensorboard
 ## Local tensorboard server
 Type the following command to start tensorboard  
