@@ -251,7 +251,7 @@ def SubmitGenerator(prediction,sampleFile,public=True,filename='prediction.csv')
 
 
 # TODO:implement Run_Predict function
-
+# TODO: dataset include some words that Glove don't have! maybe we should pre-trained our owen word embedding!
 def get_glove_matrix(word_dict, wordvector_path, embedding_dim):
     embeddings_index = {}
     f = open(wordvector_path)
@@ -264,13 +264,13 @@ def get_glove_matrix(word_dict, wordvector_path, embedding_dim):
     print('Found %s word vectors.' % len(embeddings_index))
 
     max_words = Tokenizer.vocab_size()
-    embedding_matrix = np.random.randn((max_words, embedding_dim))
+    embedding_matrix = np.random.randn(max_words, embedding_dim)
     for token, index in word_dict.items():
         embedding_vector = embeddings_index.get(token)
         if embedding_vector is not None:
             embedding_matrix[index] = embedding_vector
-        else:
-            print('Found a unknown word!')    
+        # else:
+        #     print('Found a unknown word!')    
     return embedding_matrix
 
 if __name__ == '__main__':
@@ -290,6 +290,7 @@ if __name__ == '__main__':
     batch = obj['batch']
     drop_pb = obj['drop_pb']
     layers = obj['RNN_layers']
+    bidirect = obj['bidirect'] 
     # ---------------- Hyperparameter setting -------------------------
     train = pd.read_csv(TRAIN_DATA_PATH)
     valid = pd.read_csv(VALID_DATA_PATH)
@@ -309,7 +310,7 @@ if __name__ == '__main__':
     trainset = Abstract(data=train, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
     validset = Abstract(data=valid, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
     testset = Abstract(data=test, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
-    embedding_matrix = torch.FloatTensor(get_glove_matrix(Tokenizer.get_token_to_id(), 'glove/glove.6B.100d.txt', embedding_dim))
+    embedding_matrix = torch.FloatTensor(get_glove_matrix(Tokenizer.get_token_to_id(), 'glove/glove.6B.300d.txt', embedding_dim))
     # -----------------------Model configuration----------------------------
     model = GRUNet(vocab_size=Tokenizer.vocab_size(),
                    embedding_dim=embedding_dim,
@@ -317,7 +318,7 @@ if __name__ == '__main__':
                    hidden_dim=hidden_dim,
                    layer_num=layers,
                    drop_pb=drop_pb,
-                   bidirect=False)
+                   bidirect=bidirect)
     opt = torch.optim.AdamW(model.parameters(), lr=lrate)
     criteria = torch.nn.BCELoss()
     model.to(DEVICE)
@@ -344,7 +345,8 @@ if __name__ == '__main__':
         'epoch': max_epoch,
         'batch_size': batch,
         'drop': drop_pb,
-        'GRU_Layer': layers
+        'GRU_Layer': layers,
+        'bidirect' : bidirect
     }
     for key, value in history.items():
         history[key] = max(value)
