@@ -13,7 +13,8 @@ python3 train.py
 **現在暫時不強迫config檔名不能重複 做實驗時請注意**   
 **目前還沒有實做 Prediction function**  
   
-11/27 完成 label 分佈分析:
+11/27 
+## 完成 label 分佈分析:
 :::info
 圖有點醜 金拍謝!
 :::
@@ -24,6 +25,28 @@ python3 train.py
 :::success
 `Backgroud` 佔比最大約 25~27%
 :::
+## 使用 Glove 300 dimension pre trained word embedding
+- embedding_dim : 300
+- hiddem_dim : 600
+- lrate : 1e-5
+- max_epoch : 150
+- batch : 16
+- drop_pb : 0.4
+- RNN_layers : 2
+- bidirect : true
+
+|Train F1 |Train loss |Valid F1 |Valid loss| 
+|:----:   |:----:     |:----:   |:----:    |
+|0.81456  | 0.48761   |0.54591  |0.53028   |
+## 分析 input sequence 長度
+- train:
+  - min : 8
+  - max : 125
+  - mean : 27
+- valid:
+  - min : 8
+  - max : 77
+  - mean : 27
 # Tensorboard
 ## Local tensorboard server
 Type the following command to start tensorboard  
@@ -49,7 +72,7 @@ ssh -Nfl localhost:xxxx:localhost:{remote tfboard port} user@remote
 - [x] ~~Re Contruct Model ( Prefer GRU + Linear )~~
 - [x] ~~分析 train valid dataset 的詞頻~~
   - ~~另外開一個 jupyter notebook ~~
-- [ ] Use 300d Glove word embedding
+- [ ] ~~Use 300d Glove word embedding~~
 - [ ] 完成 Prediction function 與 Submit result
 - [x] ~~Use Glove Pre trained word embedding~~  
 - [x] ~~使用 tensorboard 紀錄 hyperparameter~~
@@ -58,7 +81,7 @@ ssh -Nfl localhost:xxxx:localhost:{remote tfboard port} user@remote
 - [ ] Fine tuned Model  
 
 ## 開發計畫
-1. 先處理 Glove word embedding
+1. ~~先處理 Glove word embedding~~
 2. 重新整理 code
    1. 簡化 code
    2. ~~讓tensorboard紀錄更多資訊~~  
