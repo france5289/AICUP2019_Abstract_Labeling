@@ -11,4 +11,3 @@ model_config/
 .DS_Store
 .ipynb_checkpoints/
 hparams_setting.json
-*.png
