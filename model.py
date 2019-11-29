@@ -6,7 +6,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from collections import OrderedDict
 
-
+# TODO: residual connections
 class GRUNet(nn.Module):
     def __init__(self,vocab_size,embedding_dim,embedding_matrix,hidden_dim,layer_num=1,drop_pb=0.5,bidirect=False):
         super(GRUNet, self).__init__()
@@ -23,16 +23,16 @@ class GRUNet(nn.Module):
                                 batch_first=True)
         self.FCLayer = nn.Sequential(
                         OrderedDict(
-                            [('LayerNorm1', nn.LayerNorm(hidden_dim*2)),
-                            ('FC1', nn.Linear(hidden_dim*2 , hidden_dim)),
+                            [('LayerNorm1', nn.LayerNorm(hidden_dim)),
+                            ('FC1', nn.Linear(hidden_dim , hidden_dim // 2)),
                             ('DropOut1', nn.Dropout(drop_pb)),
-                            ('LayerNorm2', nn.LayerNorm(hidden_dim)),
+                            ('LayerNorm2', nn.LayerNorm(hidden_dim // 2)),
                             ('ReLU1', nn.ReLU()),
-                            ('FC2', nn.Linear(hidden_dim , hidden_dim // 2)),
+                            ('FC2', nn.Linear(hidden_dim // 2 , hidden_dim // 4)),
                             ('DropOut2', nn.Dropout(drop_pb)),
-                            ('LayerNorm3', nn.LayerNorm( hidden_dim // 2 )),
+                            ('LayerNorm3', nn.LayerNorm( hidden_dim // 4 )),
                             ('ReLU2', nn.ReLU()),
-                            ('FC3', nn.Linear(hidden_dim // 2, 6)),
+                            ('FC3', nn.Linear(hidden_dim // 4, 6)),
                             ('Sigmoid', nn.Sigmoid())]))
         torch.nn.init.xavier_normal_(self.FCLayer[1].weight)
         torch.nn.init.xavier_normal_(self.FCLayer[5].weight)
@@ -45,7 +45,8 @@ class GRUNet(nn.Module):
             eos_indexes(list): list which record positions of every eos tokens
         '''
         x = self.embedding(x)
-        x, _ = self.sent_rnn(x)
+        # x, _ = self.sent_rnn(x) 
+        x = self.sent_rnn(x)[0] + x # residual connection
         _, __, h = x.size()
         x = x.contiguous().view(-1, h)  # (b*s)*(hidden_dim * direction_num)
         x = torch.index_select(x, 0, eos_indices)

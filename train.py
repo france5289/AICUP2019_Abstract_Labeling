@@ -187,6 +187,8 @@ def Run_Epoch(epoch, mode, model, criteria, opt, dataset, batch, writer, history
         if mode == 'train':
             opt.zero_grad()
             batch_loss.backward()
+            # clip gradient
+            torch.nn.utils.clip_grad_value_(model.parameters(), 1)
             opt.step()
 
         loss += batch_loss.item()
@@ -310,7 +312,7 @@ if __name__ == '__main__':
     trainset = Abstract(data=train, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
     validset = Abstract(data=valid, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
     testset = Abstract(data=test, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
-    embedding_matrix = torch.FloatTensor(get_glove_matrix(Tokenizer.get_token_to_id(), 'glove/glove.6B.300d.txt', embedding_dim))
+    embedding_matrix = torch.FloatTensor(get_glove_matrix(Tokenizer.get_token_to_id(), f'glove/glove.6B.{embedding_dim}d.txt', embedding_dim))
     # -----------------------Model configuration----------------------------
     model = GRUNet(vocab_size=Tokenizer.vocab_size(),
                    embedding_dim=embedding_dim,
