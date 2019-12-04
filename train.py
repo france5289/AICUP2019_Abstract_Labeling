@@ -261,12 +261,17 @@ def get_glove_matrix(word_dict, wordvector_path, embedding_dim):
 
     max_words = Tokenizer.vocab_size()
     embedding_matrix = np.random.randn(max_words, embedding_dim)
+
+    unk_count = 0
     for token, index in word_dict.items():
         embedding_vector = embeddings_index.get(token)
         if embedding_vector is not None:
             embedding_matrix[index] = embedding_vector
-        # else:
-        #     print('Found a unknown word!')    
+        else:
+            unk_count += 1
+
+    print(f'Found {unk_count} OOV words')
+    input('Press any key to continue')    
     return embedding_matrix
 
 if __name__ == '__main__':
