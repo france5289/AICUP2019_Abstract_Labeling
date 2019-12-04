@@ -52,10 +52,11 @@ class Abstract(Dataset):
         return self.data.iloc[index]
 
     def collate_fn(self, datas):
-        abstracts = [
-            torch.as_tensor(abstract, dtype=torch.long) for data in datas
-            for abstract in data['Abstract']
-        ]
+        '''
+        Args:
+            datas(list) : list of dataframe
+        '''
+        abstracts = [ torch.as_tensor(data['Abstract'], dtype=torch.long) for data in datas ]
         batch_abstracts = pad_sequence(abstracts, batch_first=True, padding_value=self.pad_idx)
 
         _, s = batch_abstracts.size()  # b: batch, s:sequence length
@@ -68,19 +69,12 @@ class Abstract(Dataset):
             prev = prev + s
 
         batch_labels = None
-        labels = [
-            label for data in datas if 'Task 1' in data
-            for label in data['Task 1']
-        ]
+        labels = [ data['Task 1'] for data in datas if 'Task 1' in data ]
         if len(labels) != 0:
             batch_labels = torch.as_tensor(labels, dtype=torch.float)
             batch_labels = batch_labels.view(-1, 6)
 
         return batch_abstracts, batch_labels, torch.as_tensor(eos_index_list, dtype=torch.long)
-
-
-# def SplitSent(doc):
-#     return doc.split('$$$')
 
 
 def GenDict(train, valid):
@@ -276,14 +270,14 @@ def get_glove_matrix(word_dict, wordvector_path, embedding_dim):
     return embedding_matrix
 
 if __name__ == '__main__':
-    if not os.path.exists(TRAIN_DATA_PATH) or not os.path.exists(
-            VALID_DATA_PATH) or not os.path.exists(TEST_DATA_PATH):
+    if not os.path.exists(TRAIN_DATA_PATH) or not os.path.exists(VALID_DATA_PATH) or not os.path.exists(TEST_DATA_PATH):
         os.system('python3 gendata.py')
     # ---------------- Hyperparameter setting -------------------------
     hparams_path = os.path.join(CWD, 'hparams_setting.json')
     with open(hparams_path, 'r') as f:
         hyper_params = f.read()
     obj = json.loads(hyper_params)
+    pretrained = obj['pretrained_file']
     expname = obj['expname']
     embedding_dim = obj['embedding_dim']
     hidden_dim = obj['hidden_dim']
@@ -297,11 +291,6 @@ if __name__ == '__main__':
     train = pd.read_csv(TRAIN_DATA_PATH)
     valid = pd.read_csv(VALID_DATA_PATH)
     test = pd.read_csv(TEST_DATA_PATH)
-
-    # train['Abstract'] = train['Abstract'].apply(func=SplitSent)
-    # valid['Abstract'] = valid['Abstract'].apply(func=SplitSent)
-    # test['Abstract'] = test['Abstract'].apply(func=SplitSent)
-    raise NotImplementedError('Hey we change the data preprocessing flow! You should check code correctness here!')
     GenDict(train, valid)
 
     # encode 'Abstract' and convert label to one_hot
@@ -313,15 +302,15 @@ if __name__ == '__main__':
     trainset = Abstract(data=train, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
     validset = Abstract(data=valid, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
     testset = Abstract(data=test, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
-    embedding_matrix = torch.FloatTensor(get_glove_matrix(Tokenizer.get_token_to_id(), f'glove/glove.6B.{embedding_dim}d.txt', embedding_dim))
+    embedding_matrix = torch.FloatTensor(get_glove_matrix(Tokenizer.get_token_to_id(), f'{pretrained}.txt', embedding_dim))
     # -----------------------Model configuration----------------------------
-    model = GRUNet(vocab_size=Tokenizer.vocab_size(),
-                   embedding_dim=embedding_dim,
-                   embedding_matrix=embedding_matrix,
-                   hidden_dim=hidden_dim,
-                   layer_num=layers,
-                   drop_pb=drop_pb,
-                   bidirect=bidirect)
+    model = GRUNet( vocab_size=Tokenizer.vocab_size(),
+                    embedding_dim=embedding_dim,
+                    embedding_matrix=embedding_matrix,
+                    hidden_dim=hidden_dim,
+                    layer_num=layers,
+                    drop_pb=drop_pb,
+                    bidirect=bidirect )
     opt = torch.optim.AdamW(model.parameters(), lr=lrate)
     criteria = torch.nn.BCELoss()
     model.to(DEVICE)
