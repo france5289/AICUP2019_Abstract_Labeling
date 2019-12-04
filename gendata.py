@@ -19,6 +19,8 @@ def Remove_Redundant_Columns(dataset):
     dataset.drop('Created Date', axis=1, inplace=True)
     dataset.drop('Authors', axis=1, inplace=True)
 
+# TODO : use multi-processing to speed up data preprocessing!
+
 def Extract_Sentences(dataset):
     '''
     Extract Abstract sentences to form a new dataframe which every row contains a sentences and relative label
@@ -41,7 +43,7 @@ def Extract_Sentences(dataset):
     return newframe        
 
 
-# TODO : use multi-processing to speed up data preprocessing!
+
 if __name__ == '__main__':
     tqdm.pandas()
     dataset = pd.read_csv(os.path.join(DATA_PATH,'task1_trainset.csv'), dtype=str)

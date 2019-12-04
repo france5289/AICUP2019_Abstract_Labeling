@@ -82,11 +82,11 @@ def GenDict(train, valid):
     if os.path.exists(DICT_PATH):
         Tokenizer = NLTKTokenizer.load_from_file(DICT_PATH)
     else:
-        for item in train['Abstract']:
-            Tokenizer.build_dict(item)
+        for item in tqdm(train['Abstract'], desc='Train set'):
+            Tokenizer.build_dict([item])
 
-        for item in valid['Abstract']:
-            Tokenizer.build_dict(item)
+        for item in tqdm(valid['Abstract'], desc='Valid set'):
+            Tokenizer.build_dict([item])
         Tokenizer.save_to_file(DICT_PATH)
 
 
@@ -117,11 +117,10 @@ def labels_to_onehot(labels):
 
     return one_hot_labels
 
-
+# TODO: use multi-processing to speed up
 def encode_data(dataset):
     '''
     encode 'Abstract' and convert label to one_hot
-
 
     Args:
         dataset(pd.DataFrame)
@@ -252,7 +251,7 @@ def get_glove_matrix(word_dict, wordvector_path, embedding_dim):
     embeddings_index = {}
     f = open(wordvector_path)
     for line in f:
-        values = line.split()
+        values = line.replace(',','').split()
         token = values[0]
         coefs = np.asarray(values[1:], dtype='float32')
         embeddings_index[token] = coefs
@@ -278,6 +277,7 @@ if __name__ == '__main__':
     if not os.path.exists(TRAIN_DATA_PATH) or not os.path.exists(VALID_DATA_PATH) or not os.path.exists(TEST_DATA_PATH):
         os.system('python3 gendata.py')
     # ---------------- Hyperparameter setting -------------------------
+    print('Read Hyperparameter setting')
     hparams_path = os.path.join(CWD, 'hparams_setting.json')
     with open(hparams_path, 'r') as f:
         hyper_params = f.read()
@@ -296,6 +296,7 @@ if __name__ == '__main__':
     train = pd.read_csv(TRAIN_DATA_PATH)
     valid = pd.read_csv(VALID_DATA_PATH)
     test = pd.read_csv(TEST_DATA_PATH)
+    print('Generate relative dictionary')
     GenDict(train, valid)
 
     # encode 'Abstract' and convert label to one_hot
@@ -307,7 +308,7 @@ if __name__ == '__main__':
     trainset = Abstract(data=train, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
     validset = Abstract(data=valid, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
     testset = Abstract(data=test, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
-    embedding_matrix = torch.FloatTensor(get_glove_matrix(Tokenizer.get_token_to_id(), f'{pretrained}.txt', embedding_dim))
+    embedding_matrix = torch.FloatTensor(get_glove_matrix(Tokenizer.get_token_to_id(), f'glove/{pretrained}.txt', embedding_dim))
     # -----------------------Model configuration----------------------------
     model = GRUNet( vocab_size=Tokenizer.vocab_size(),
                     embedding_dim=embedding_dim,
