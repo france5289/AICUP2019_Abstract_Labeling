@@ -79,8 +79,8 @@ class Abstract(Dataset):
         return batch_abstracts, batch_labels, torch.as_tensor(eos_index_list, dtype=torch.long)
 
 
-def SplitSent(doc):
-    return doc.split('$$$')
+# def SplitSent(doc):
+#     return doc.split('$$$')
 
 
 def GenDict(train, valid):
@@ -298,9 +298,10 @@ if __name__ == '__main__':
     valid = pd.read_csv(VALID_DATA_PATH)
     test = pd.read_csv(TEST_DATA_PATH)
 
-    train['Abstract'] = train['Abstract'].apply(func=SplitSent)
-    valid['Abstract'] = valid['Abstract'].apply(func=SplitSent)
-    test['Abstract'] = test['Abstract'].apply(func=SplitSent)
+    # train['Abstract'] = train['Abstract'].apply(func=SplitSent)
+    # valid['Abstract'] = valid['Abstract'].apply(func=SplitSent)
+    # test['Abstract'] = test['Abstract'].apply(func=SplitSent)
+    raise NotImplementedError('Hey we change the data preprocessing flow! You should check code correctness here!')
     GenDict(train, valid)
 
     # encode 'Abstract' and convert label to one_hot
