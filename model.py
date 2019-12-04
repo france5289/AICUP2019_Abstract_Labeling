@@ -45,8 +45,8 @@ class GRUNet(nn.Module):
             eos_indexes(list): list which record positions of every eos tokens
         '''
         x = self.embedding(x)
-        # x, _ = self.sent_rnn(x) 
-        x = self.sent_rnn(x)[0] + x # residual connection
+        x, _ = self.sent_rnn(x) 
+        # x = self.sent_rnn(x)[0] + x # residual connection
         _, __, h = x.size()
         x = x.contiguous().view(-1, h)  # (b*s)*(hidden_dim * direction_num)
         x = torch.index_select(x, 0, eos_indices)
