@@ -101,6 +101,8 @@ class BaseTokenizer:
         return self.convert_tokens_to_sentences(self.convert_ids_to_tokens(all_ids))
 
     def encode(self, all_sentences):
+        if type(all_sentences) is str:
+            all_sentences = [ all_sentences ]
         all_ids = self.convert_sentences_to_ids(all_sentences)
 
         for id_list in all_ids:
@@ -109,6 +111,8 @@ class BaseTokenizer:
         return all_ids
 
     def decode(self, all_ids):
+        if type(all_sentences) is str:
+            all_sentences = [ all_sentences ]
         all_sentences = self.convert_ids_to_sentences(all_ids)
 
         result = []

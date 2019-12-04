@@ -54,9 +54,9 @@ class Abstract(Dataset):
     def collate_fn(self, datas):
         '''
         Args:
-            datas(list) : list of dataframe
+            datas : a list of dataframe row(pd.Series)
         '''
-        abstracts = [ torch.as_tensor(data['Abstract'], dtype=torch.long) for data in datas ]
+        abstracts = [ torch.as_tensor(sent, dtype=torch.long) for data in datas for sent in data['Abstract'] ]
         batch_abstracts = pad_sequence(abstracts, batch_first=True, padding_value=self.pad_idx)
 
         _, s = batch_abstracts.size()  # b: batch, s:sequence length
@@ -69,7 +69,7 @@ class Abstract(Dataset):
             prev = prev + s
 
         batch_labels = None
-        labels = [ data['Task 1'] for data in datas if 'Task 1' in data ]
+        labels = [ label for data in datas if 'Task 1' in data for label in data['Task 1'] ]
         if len(labels) != 0:
             batch_labels = torch.as_tensor(labels, dtype=torch.float)
             batch_labels = batch_labels.view(-1, 6)
