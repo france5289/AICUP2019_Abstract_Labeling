@@ -34,7 +34,6 @@ python3 train.py
 - drop_pb : 0.4
 - RNN_layers : 2
 - bidirect : true
-
 |Train F1 |Train loss |Valid F1 |Valid loss| 
 |:----:   |:----:     |:----:   |:----:    |
 |0.81456  | 0.48761   |0.54591  |0.53028   |
@@ -71,6 +70,8 @@ ssh -Nfl localhost:xxxx:localhost:{remote tfboard port} user@remote
 - [ ] **處理 OOV**
   - [ ] **移除網址**
   - [ ] **移除數字**
+    - 數字轉成 `[NUM]` token 
+  - [ ] **嘗試移除標點符號** 
 - [ ] 完成 Prediction function 與 Submit result
 - [ ] Fine tuned Model
 - [ ] Use *Transformers ( self attention )*
