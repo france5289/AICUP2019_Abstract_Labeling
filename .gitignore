@@ -10,3 +10,4 @@ __pycache__/
 hparams_setting.json
 *.csv
 *.txt
+.DS_Store
