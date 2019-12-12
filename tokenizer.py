@@ -3,6 +3,7 @@ import os
 import pickle
 import re
 from nltk.tokenize import word_tokenize
+from nltk.tokenize import RegexpTokenizer
 
 class BaseTokenizer:
     def __init__(self, **kwargs):
@@ -246,3 +247,17 @@ class NLTKTokenizer(BaseTokenizer):
                 index += 1
 
         return self
+
+class RegTokenizer(BaseTokenizer):
+    def __init__(self, **kwargs):
+        super(RegTokenizer, self).__init__(**kwargs)
+        self.tokenizer = RegexpTokenizer(r'\w+')
+    
+    def tokenize(self, sentence):
+        return self.tokenizer.tokenize(sentence)
+
+    def detokenize(self, tokens):
+        return ' '.join(tokens)
+
+    def get_token_to_id(self):
+        return self.token_to_id

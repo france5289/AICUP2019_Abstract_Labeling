@@ -15,7 +15,7 @@ from tqdm import trange
 from model import GRUNet, F1
 from DataPreprocessor import Download_Glove, Create_Glove_embedding_matrix
 from tokenizer import NLTKTokenizer
-
+from tokenizer import RegTokenizer
 # set device
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -24,7 +24,8 @@ CWD = os.getcwd()
 TRAIN_DATA_PATH = os.path.join(CWD, 'data', 'trainset.csv')
 VALID_DATA_PATH = os.path.join(CWD, 'data', 'validset.csv')
 TEST_DATA_PATH = os.path.join(CWD, 'data', 'testset.csv')
-DICT_PATH = os.path.join(CWD, 'data', 'dictionary.pkl')
+# DICT_PATH = os.path.join(CWD, 'data', 'dictionary.pkl')
+DICT_REG_PATH = os.path.join(CWD, 'data', 'dictionary_reg.pkl')
 
 WORKERS = os.cpu_count() // 2
 # default Tokenizer
@@ -33,11 +34,14 @@ PAD_TOKEN_ID = 0
 EOS_TOKEN = '[EOS]'
 EOS_TOKEN_ID = 3
 
-Tokenizer = NLTKTokenizer(  pad_token=PAD_TOKEN,
+# Tokenizer = NLTKTokenizer(  pad_token=PAD_TOKEN,
+#                             pad_token_id=PAD_TOKEN_ID,
+#                             eos_token=EOS_TOKEN,
+#                             eos_token_id=EOS_TOKEN_ID  )
+REGTokenizer = RegTokenizer(   pad_token=PAD_TOKEN,
                             pad_token_id=PAD_TOKEN_ID,
                             eos_token=EOS_TOKEN,
-                            eos_token_id=EOS_TOKEN_ID  )
-
+                            eos_token_id=EOS_TOKEN_ID )
 
 class Abstract(Dataset):
     def __init__(self, data, pad_idx, eos_id):
@@ -78,16 +82,16 @@ class Abstract(Dataset):
 
 
 def GenDict(train, valid):
-    global Tokenizer
-    if os.path.exists(DICT_PATH):
-        Tokenizer = NLTKTokenizer.load_from_file(DICT_PATH)
+    global REGTokenizer
+    if os.path.exists(DICT_REG_PATH):
+        REGTokenizer = NLTKTokenizer.load_from_file(DICT_REG_PATH)
     else:
         for item in tqdm(train['Abstract'], desc='Train set'):
-            Tokenizer.build_dict([item])
+            REGTokenizer.build_dict([item])
 
         for item in tqdm(valid['Abstract'], desc='Valid set'):
-            Tokenizer.build_dict([item])
-        Tokenizer.save_to_file(DICT_PATH)
+            REGTokenizer.build_dict([item])
+        REGTokenizer.save_to_file(DICT_REG_PATH)
 
 
 def labels_to_onehot(labels):
@@ -125,9 +129,9 @@ def encode_data(dataset):
     Args:
         dataset(pd.DataFrame)
     '''
-    global Tokenizer
+    global REGTokenizer
     tqdm.pandas()
-    dataset['Abstract'] = dataset['Abstract'].progress_apply(func=Tokenizer.encode)
+    dataset['Abstract'] = dataset['Abstract'].progress_apply(func=REGTokenizer.encode)
     if 'Task 1' in dataset.columns:
         dataset['Task 1'] = dataset['Task 1'].progress_apply(func=labels_to_onehot)
 
@@ -258,7 +262,7 @@ def get_glove_matrix(word_dict, wordvector_path, embedding_dim):
     f.close()
     print('Found %s word vectors.' % len(embeddings_index))
 
-    max_words = Tokenizer.vocab_size()
+    max_words = REGTokenizer.vocab_size()
     embedding_matrix = np.random.randn(max_words, embedding_dim)
 
     unk_count = 0
@@ -308,9 +312,9 @@ if __name__ == '__main__':
     trainset = Abstract(data=train, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
     validset = Abstract(data=valid, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
     testset = Abstract(data=test, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
-    embedding_matrix = torch.FloatTensor(get_glove_matrix(Tokenizer.get_token_to_id(), f'glove/{pretrained}.txt', embedding_dim))
+    embedding_matrix = torch.FloatTensor(get_glove_matrix(REGTokenizer.get_token_to_id(), f'glove/{pretrained}.txt', embedding_dim))
     # -----------------------Model configuration----------------------------
-    model = GRUNet( vocab_size=Tokenizer.vocab_size(),
+    model = GRUNet( vocab_size=REGTokenizer.vocab_size(),
                     embedding_dim=embedding_dim,
                     embedding_matrix=embedding_matrix,
                     hidden_dim=hidden_dim,
