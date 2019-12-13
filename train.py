@@ -25,7 +25,7 @@ TRAIN_DATA_PATH = os.path.join(CWD, 'data', 'trainset.csv')
 VALID_DATA_PATH = os.path.join(CWD, 'data', 'validset.csv')
 TEST_DATA_PATH = os.path.join(CWD, 'data', 'testset.csv')
 # DICT_PATH = os.path.join(CWD, 'data', 'dictionary.pkl')
-DICT_REG_PATH = os.path.join(CWD, 'data', 'dictionary_reg.pkl')
+DICT_REG_PATH = os.path.join(CWD, 'data', 'dictionary_reg_mincount1.pkl')
 
 WORKERS = os.cpu_count() // 2
 # default Tokenizer
@@ -251,7 +251,7 @@ def SubmitGenerator(prediction,sampleFile,public=True,filename='prediction.csv')
 
 # TODO:implement Run_Predict function
 # TODO: dataset include some words that Glove don't have! maybe we should pre-trained our owen word embedding!
-def get_glove_matrix(word_dict, wordvector_path, embedding_dim):
+def get_pretrained_matrix(word_dict, wordvector_path, embedding_dim):
     embeddings_index = {}
     f = open(wordvector_path)
     for line in f:
@@ -317,7 +317,7 @@ if __name__ == '__main__':
     trainset = Abstract(data=train, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
     validset = Abstract(data=valid, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
     testset = Abstract(data=test, pad_idx=PAD_TOKEN_ID, eos_id=EOS_TOKEN_ID)
-    embedding_matrix = torch.FloatTensor(get_glove_matrix(REGTokenizer.get_token_to_id(), f'glove/{pretrained}.txt', embedding_dim))
+    embedding_matrix = torch.FloatTensor(get_pretrained_matrix(REGTokenizer.get_token_to_id(), f'{pretrained}.txt', embedding_dim))
     # -----------------------Model configuration----------------------------
     model = GRUNet( vocab_size=REGTokenizer.vocab_size(),
                     embedding_dim=embedding_dim,
