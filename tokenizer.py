@@ -104,6 +104,9 @@ class BaseTokenizer:
     def encode(self, all_sentences):
         if type(all_sentences) is str:
             all_sentences = [ all_sentences ]
+        elif type(all_sentences) is float:
+            print(all_sentences)
+            raise TypeError()    
         all_ids = self.convert_sentences_to_ids(all_sentences)
 
         for id_list in all_ids:
@@ -112,8 +115,6 @@ class BaseTokenizer:
         return all_ids
 
     def decode(self, all_ids):
-        if type(all_sentences) is str:
-            all_sentences = [ all_sentences ]
         all_sentences = self.convert_ids_to_sentences(all_ids)
 
         result = []
@@ -251,7 +252,7 @@ class NLTKTokenizer(BaseTokenizer):
 class RegTokenizer(BaseTokenizer):
     def __init__(self, **kwargs):
         super(RegTokenizer, self).__init__(**kwargs)
-        self.tokenizer = RegexpTokenizer(r'\w+')
+        self.tokenizer = RegexpTokenizer(r'\w+|(?:\[NUM\])')
     
     def tokenize(self, sentence):
         return self.tokenizer.tokenize(sentence)

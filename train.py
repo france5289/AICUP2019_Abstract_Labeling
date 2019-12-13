@@ -38,10 +38,10 @@ EOS_TOKEN_ID = 3
 #                             pad_token_id=PAD_TOKEN_ID,
 #                             eos_token=EOS_TOKEN,
 #                             eos_token_id=EOS_TOKEN_ID  )
-REGTokenizer = RegTokenizer(   pad_token=PAD_TOKEN,
-                            pad_token_id=PAD_TOKEN_ID,
-                            eos_token=EOS_TOKEN,
-                            eos_token_id=EOS_TOKEN_ID )
+REGTokenizer = RegTokenizer(    pad_token=PAD_TOKEN,
+                                pad_token_id=PAD_TOKEN_ID,
+                                eos_token=EOS_TOKEN,
+                                eos_token_id=EOS_TOKEN_ID )
 
 class Abstract(Dataset):
     def __init__(self, data, pad_idx, eos_id):
@@ -84,13 +84,13 @@ class Abstract(Dataset):
 def GenDict(train, valid):
     global REGTokenizer
     if os.path.exists(DICT_REG_PATH):
-        REGTokenizer = NLTKTokenizer.load_from_file(DICT_REG_PATH)
+        REGTokenizer = REGTokenizer.load_from_file(DICT_REG_PATH)
     else:
         for item in tqdm(train['Abstract'], desc='Train set'):
-            REGTokenizer.build_dict([item])
+            REGTokenizer.build_dict([item], min_count=1)
 
         for item in tqdm(valid['Abstract'], desc='Valid set'):
-            REGTokenizer.build_dict([item])
+            REGTokenizer.build_dict([item], min_count=1)
         REGTokenizer.save_to_file(DICT_REG_PATH)
 
 
@@ -273,8 +273,8 @@ def get_glove_matrix(word_dict, wordvector_path, embedding_dim):
         else:
             unk_count += 1
 
-    print(f'Found {unk_count} OOV words')
-    input('Press any key to continue')    
+    print(f'Found {unk_count} words that did not exist in pre-trained word embeddings')
+    input('Press any key to continue')
     return embedding_matrix
 
 if __name__ == '__main__':
@@ -300,6 +300,11 @@ if __name__ == '__main__':
     train = pd.read_csv(TRAIN_DATA_PATH)
     valid = pd.read_csv(VALID_DATA_PATH)
     test = pd.read_csv(TEST_DATA_PATH)
+
+    train.dropna(inplace=True)
+    valid.dropna(inplace=True)
+    test.dropna(inplace=True)
+
     print('Generate relative dictionary')
     GenDict(train, valid)
 
@@ -351,7 +356,10 @@ if __name__ == '__main__':
         'bidirect' : bidirect
     }
     for key, value in history.items():
-        history[key] = max(value)
+        if 'loss' in key:
+            history[key] = min(value)
+        else:
+            history[key] = max(value)
         # print(history[key])
         # input('Break')
     writer.add_hparams(hparams, history)

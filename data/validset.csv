@@ -81,7 +81,7 @@ Some of the corresponding attacks are state of the art.,CONCLUSIONS
 Network pruning is widely used for reducing the heavy computational cost of deep models.,BACKGROUND
 Each expert learns a customized regression model that is specialized to a different subset of the joint space of pose and expressions.,METHODS
 Our findings indicate that only adoption of CI might not be enough to the improve software development process.,RESULTS
-Our results shed light on increasing sparsity behavior of propagation channels with increasing frequency and highlight the strong temporal/angular correlation among 5.9 GHz and 28 GHz bands especially for LOS channels.,RESULTS/CONCLUSIONS
+Our results shed light on increasing sparsity behavior of propagation channels with increasing frequency and highlight the strong temporal/angular correlation among  [NUM]  GHz and 28 GHz bands especially for LOS channels.,RESULTS/CONCLUSIONS
 Health related social media mining is a valuable apparatus for the early recognition of the diverse antagonistic medicinal conditions.,BACKGROUND
 "An efficient 3D reconstruction algorithm is used, by which multiple scans are aligned together to obtain a 3D mesh of the plant, followed by surface area and volume computations.",METHODS
 We also compute relative GRO-indexes (GROr) associated with the scientific production within research fields.,METHODS
@@ -111,7 +111,7 @@ We empirically demonstrate that the recognition of objects and scenes substantia
 "The model, implemented as a Gibbs sampler, then builds a whole-word acoustic model in this space while jointly performing segmentation.",METHODS
 "Using the proposed LSM algorithm, the cloud can predict the users' content request distribution while having only limited information on the network's and users' states.",METHODS
 The image is first decomposed into regions using Selective Search and these regions are classified as containing textual and/or graphical information using a convolutional neural network.,METHODS
-"We have also evaluated a contemporary method, deadline monotonic scheduling on the ISA 100.11a.",METHODS
+"We have also evaluated a contemporary method, deadline monotonic scheduling on the ISA  [NUM] a.",METHODS
 "In this paper, we propose to quantify how changes in the spatial dependence structure affect the Riemannian metric tensor that equips the model's parametric space.",OBJECTIVES
 "By transporting feature maps through concatenating connections, the Tree-CNN block fuses multiscale features and learns best weights for the model.",METHODS
 Energy price forecasting is a relevant yet hard task in the field of multi-step time series forecasting.,BACKGROUND
@@ -282,7 +282,7 @@ We study the problem of motion-planning for free-flying multi-link robots and de
 "To address this issue, we introduce a powerful, domain-general solution: ""semantic projection"" of word-vectors onto lines that represent various object features, like size (the line extending from the word ""small"" to ""big""), intelligence (from ""dumb"" to ""smart""), or danger (from ""safe"" to ""dangerous"").",METHODS
 We tested the methods on several time-continuous car-following models in several multi-vehicle simulation scenarios with and without discontinuities such as stops or a discontinuous behavior of an external leader.,METHODS
 "Many~parameters such as color intensity, structure, sharpness, contrast, presence of an object, etc., draw human attention to an image.",BACKGROUND
-The best results were obtained by the method based on FIR high-pass filter with a cut-off frequency of 0.67 Hz.,RESULTS
+The best results were obtained by the method based on FIR high-pass filter with a cut-off frequency of  [NUM]  Hz.,RESULTS
 Wireless sensor networks faces unbalanced energy consumption problem over time.,BACKGROUND
 "We surpass state-of-the-art scores on the Multi30k data set, we nevertheless identify and report different misbehavior of the machine while translating.",RESULTS/CONCLUSIONS
 "For the latter, we provide a novel and efficient variational Bayes algorithm.",METHODS/CONCLUSIONS
@@ -347,7 +347,7 @@ We explore this problem in two steps.,METHODS
 The system processes raw CT data containing a nodule without the need for any additional information such as nodule segmentation or nodule size and learns a representation of 3D data by analyzing an arbitrary number of 2D views of a given nodule.,METHODS
 We introduce a general framework to treat such problems when the alternative hypothesis adheres to certain axioms.,RESULTS
 "Furthermore, the algorithm has favorable properties for parallel and distributed implementation.",RESULTS/CONCLUSIONS
-Comparison of classifiers has found that naive Bayesian classifier is more accurate and better than the C4.5 DTC.,CONCLUSIONS
+Comparison of classifiers has found that naive Bayesian classifier is more accurate and better than the C [NUM]  DTC.,CONCLUSIONS
 "After re-examining the drawbacks of attention mechanism and the obstacles that block CNN to perform well in this classification task, we propose a new model to overcome these issues.",OBJECTIVES
 The effectiveness of current tools relies on the app model as well as the malware detection algorithm which analyzes the app model.,BACKGROUND
 An accurate modeling of skin effect inside conductors is of capital importance to solve transmission line and scattering problems.,BACKGROUND
@@ -476,7 +476,7 @@ Our methodology differs from similar solutions in its expert-driven design.,CONC
 "In order to avoid the state space explosion problem encountered in the quantitative analysis of large scale PEPA models, a fluid approximation approach has recently been proposed, which results in a set of ordinary differential equations (ODEs) to approximate the underlying continuous time Markov chain (CTMC).",BACKGROUND
 Simulations result shows the algorithm provides substantial security in just five encryption rounds.,RESULTS/CONCLUSIONS
 The fused image is reconstructed by inverse DTCWT.,METHODS
-The input anomaly detection approach is able to detect 99.8% of Trojan triggers although with 12.2% false positive.,RESULTS
+The input anomaly detection approach is able to detect  [NUM] % of Trojan triggers although with  [NUM] % false positive.,RESULTS
 Applying our approach to student trace data from the online educational platform Duolingo we achieved highest score on both evaluation metrics for all three datasets in the 2018 Shared Task on Second Language Acquisition Modeling.,OBJECTIVES/RESULTS
 The part of this characterisation that concerns covering dimension extends to higher dimensions and to closed shrinkings of finite open covers.,RESULTS
 "Using the approach presented in this paper, bibliometricians are able to carry out sophisticated cluster analyses without the need to have a deep knowledge of clustering techniques and without requiring advanced computer skills.",CONCLUSIONS
@@ -710,7 +710,7 @@ SDN facilitates the virtualization of network functions so that multiple virtual
 "In this work we characterize the information-theoretically optimal randomized capacity of such problems, i.e., under the assumption that the source node shares (an asymptotically negligible amount of) independent common randomness with each network node a priori (for instance, as part of network design).",OBJECTIVES/RESULTS
 The overview is based on open scientific and journalistic materials.,METHODS
 Scientific collaborations are among the main enablers of development in small national science systems.,BACKGROUND
-At least 98% of the answerers never include software licenses in their snippets and 69% never check for licensing conflicts with Stack Overflow's CC BY-SA 3.0 if they copy the code from other sources to Stack Overflow answers.,RESULTS
+At least 98% of the answerers never include software licenses in their snippets and 69% never check for licensing conflicts with Stack Overflow's CC BY-SA  [NUM]  if they copy the code from other sources to Stack Overflow answers.,RESULTS
 "Translated versions of the MFD are therefore needed to study morality across various cultures, including non-Western cultures.",OBJECTIVES
 Efficient symbol detection algorithms carry critical importance for achieving the spatial multiplexing gains promised by multi-input multi-output (MIMO) systems.,BACKGROUND
 We obtain an array of information rate result.,RESULTS
@@ -772,14 +772,14 @@ We first apply the QBD theory to develop an efficient theoretical framework for 
 "Recently, we proposed a RNN model called minimal gated recurrent unit with input projection (mGRUIP), in which a context module namely temporal convolution, is specifically designed to model the future context.",BACKGROUND
 We have evaluated existing and proposed features against several kinds of synthetic speech data from ASVspoof 2015 corpora.,OTHERS
 The rationale of its design is centered on deploying and updating it on handheld devices in near future.,OBJECTIVES
-Amazon.com online review dataset shows that our models perform better compare to base-line models in term of users' rating prediction.,RESULTS
+ online review dataset shows that our models perform better compare to base-line models in term of users' rating prediction.,RESULTS
 "However, each tracker knows the same user with a different ID.",BACKGROUND
 "To handle the real world challenging multiple deforming objects scenarios, existing methods either pre-segment different objects in the scene or treat multiple non-rigid objects as a whole to obtain the 3D non-rigid reconstruction.",BACKGROUND
 Test samples are classified as normal or abnormal by assignment of a novelty score.,BACKGROUND
 "The lack of reliable data in developing countries is a major obstacle to sustainable development, food security, and disaster relief.",BACKGROUND
 "In a training process, a CNN model typically learns a large number of parameters over time, which usually results in different performance.",BACKGROUND
 "Subsequently, one-vs-rest SVM classifiers are trained in the compact joint subspaces and applied to unlabeled data in the target domain.",METHODS
-"With the same number of strongly annotated images, additional weakly annotated images can be incorporated to give a 4.5% point increase in CorLoc, from 80.00% to 84.50% (with 95% confidence intervals 76.00%--83.75% and 81.00%--88.00%).",RESULTS
+"With the same number of strongly annotated images, additional weakly annotated images can be incorporated to give a  [NUM] % point increase in CorLoc, from  [NUM] % to  [NUM] % (with 95% confidence intervals  [NUM] %-- [NUM] % and  [NUM] %-- [NUM] %).",RESULTS
 "However, the available range of Web map image under the copyright act is not wide.",BACKGROUND/CONCLUSIONS
 We envision that quality-of-experience (QoE) awareness is a key pillar for NOMA designs to fulfill versatile user demands in the 5th generation (5G) wireless communication systems.,OBJECTIVES
 "A channel capacity of 1 Tbps over 100 m can be achieved using a single overhead Medium Voltage power line, 1 W of total transmitted power, and the 1-100 GHz band.",RESULTS/CONCLUSIONS
@@ -787,7 +787,7 @@ We envision that quality-of-experience (QoE) awareness is a key pillar for NOMA 
 We show that ERL is effective at identifying outliers and recovering appropriate confidence weights in many settings.,RESULTS/CONCLUSIONS
 Much of the recent progress in AI has come from replacing human insights by learning.,BACKGROUND
 "Language provides simple ways of communicating generalizable knowledge to each other (e.g., ""Birds fly"", ""John hikes"", ""Fire makes smoke"").",BACKGROUND
-"However, it is difficult for 5G to support multiple users of the ultimate VR live broadcasting at home; (2) IEEE 802.11ac supports the ultimate VR 360 viewing but fails to support the ultimate VR 360 live broadcasting because it does not meet the data rate requirement of the ultimate VR 360 live broadcasting; (3) IEEE 802.11ad fails to support the ultimate VR 360, because its current implementation incurs very high latency.",RESULTS
+"However, it is difficult for 5G to support multiple users of the ultimate VR live broadcasting at home; (2) IEEE  [NUM] ac supports the ultimate VR 360 viewing but fails to support the ultimate VR 360 live broadcasting because it does not meet the data rate requirement of the ultimate VR 360 live broadcasting; (3) IEEE  [NUM] ad fails to support the ultimate VR 360, because its current implementation incurs very high latency.",RESULTS
 Network coding is leveraged by assuming that the legitime cooperative nodes are able to perform non-binary linear combinations of different frames before the transmission.,METHODS
 Social media has played an important role in shaping political discourse over the last decade.,BACKGROUND
 "In addition, we prove that our algorithm is guaranteed to linearly converge to the unknown sparse and low-rank components up to the optimal statistical precision.",RESULTS/CONCLUSIONS
@@ -849,7 +849,7 @@ Classic paragraph embedding methods infer the representation of a given paragrap
 "Given the nature of this document, the contributions that involve the author have been emphasized; however, these four chapters were specifically written for distribution to a larger audience.",METHODS
 The search engine is tightly coupled with social networks and is primarily designed for users to acquire interested information.,BACKGROUND
 We then show how graph cluster randomization admits an efficient exact algorithm to compute the probabilities for each vertex being network exposed under several of these exposure conditions.,METHODS
-"Compared to the state-of-the-art methods without using CNN, our method achieves the best detection performance on Caltech, outperforming the second best method (i.e., Checkboards) by 1.63%.",CONCLUSIONS
+"Compared to the state-of-the-art methods without using CNN, our method achieves the best detection performance on Caltech, outperforming the second best method (i.e., Checkboards) by  [NUM] %.",CONCLUSIONS
 We show that the conditional success probabilities of identifying each possible change point show an unexpected oscillatory behaviour.,RESULTS
 "A transaction database is a set of transactions, where a transaction is a set of items.",BACKGROUND
 "In this paper we propose a new deep learning architecture, namely DeepRank, to simulate the above human judgment process.",METHODS
@@ -873,7 +873,7 @@ We demonstrate the utility of the resulting decompositions for re-editing.,CONCL
 We found that the teens in our study used their smartphones for an average of almost 3 hours per day and that two-thirds of all app use involved interacting with an average of almost 10 distinct communications applications.,RESULTS
 The output of this network is a dense estimate of the geospatial function in the form of a pixel-level labeling of the overhead image.,METHODS
 "The proposed method was evaluated on a wellknown dataset, and the results show that using ontological similarity in text segmentation is very promising.",RESULTS/CONCLUSIONS
-"Additionally, with model compression techniques we are able to compress SqueezeNet to less than 0.5MB (510x smaller than AlexNet).",RESULTS/CONCLUSIONS
+"Additionally, with model compression techniques we are able to compress SqueezeNet to less than  [NUM] MB (510x smaller than AlexNet).",RESULTS/CONCLUSIONS
 "Every continuous basic wavelet is associated with a proper probability density, allowing defining the Shannon entropy of a wavelet.",METHODS
 Biometric authentication has been widely adopted as it provides a unique and non-transferable solution for user authentication.,BACKGROUND
 "A series of experiments are conducted on 1526 Google Play apps, 1259 Genome Malware apps, and a suite of benchmark apps called DroidBench and the results are compared with a state-of-the-art static analysis tool called FlowDroid.",METHODS
@@ -970,7 +970,7 @@ A technique to find the interestingness of event based twitter hashtag and the a
 An implementation for computing the measure of bounded LTL properties is provided and explained.,RESULTS
 Our tool also includes an option to directly compare translation outputs from two different NMT engines or experiments.,METHODS
 Traditional methods requires great effort to annotate the training data by costly manual labeling and specialized computational models to detect these annotations during test.,BACKGROUND
-"We observe that GPOP incurs upto 8.6x and 5.2x less L2 cache misses compared to Ligra and GraphMat, respectively.",RESULTS/CONCLUSIONS
+"We observe that GPOP incurs upto  [NUM] x and  [NUM] x less L2 cache misses compared to Ligra and GraphMat, respectively.",RESULTS/CONCLUSIONS
 The efficient sparse coding and reconstruction of signal vectors via linear observations has received a tremendous amount of attention over the last decade.,BACKGROUND
 The proposed FDM decomposes any data into a small number of `Fourier intrinsic band functions' (FIBFs).,OBJECTIVES/RESULTS/CONCLUSIONS
 "Still the statement and proof of this result as given by Becher and Heiber in terms of ""lossless finite-state compressors"" do not follow the standard scheme of Kolmogorov complexity definition (the automaton is used for compression, not decompression).",BACKGROUND
@@ -1243,13 +1243,13 @@ Experiment results carried out on standard texture databases show that the propo
 "In the globalized world, halal can be found in street corners of New York and beauty shops of Manila.",BACKGROUND
 "Through voicemail diaries, interviews, and real world usage data from a logging application installed on their smartphones, we developed an understanding of the types of apps used by teens, when they use these apps, and their reasons for using specific apps in particular situations.",METHODS
 The SCSS framework can be easily applied to evolutionary algorithms or swarm intelligences.,METHODS
-The overall segmentation accuracy of the proposed method is 95.18% which outperforms the other algorithms.,RESULTS
+The overall segmentation accuracy of the proposed method is  [NUM] % which outperforms the other algorithms.,RESULTS
 "We then ""go back in time"" by analyzing the historic timelines of both users supporting and opposing and look at their pre-ISIS period to gain insights into the antecedents of support.",METHODS
-"We show that the resulting technique outperforms scalar quantization by an average of 0.90 dB on still images, equivalent to a 24.8% reduction in bitrate at equal quality, while for videos, the improvement averages 0.83 dB, equivalent to a 13.7% reduction in bitrate.",RESULTS
+"We show that the resulting technique outperforms scalar quantization by an average of  [NUM]  dB on still images, equivalent to a  [NUM] % reduction in bitrate at equal quality, while for videos, the improvement averages  [NUM]  dB, equivalent to a  [NUM] % reduction in bitrate.",RESULTS
 We consider the effects of decoding costs in energy harvesting communication systems.,BACKGROUND
 The main component of the operating system is the file system.,BACKGROUND
 The generative model is used to synthesize both time-independent and time-dependent behaviours by relying on the principles of shared and autonomous control.,METHODS/RESULTS
-Videos of our experiments can be viewed at http://robotpush.cs.uni-freiburg.de,OTHERS
+Videos of our experiments can be viewed at ,OTHERS
 "Unfortunately, each such system also represents a substantial engineering effort including a great deal of duplication of mechanisms for features such as transactions and caching.",BACKGROUND
 "Although developers may record the original version information in a version control system and/or directory names, such information is often either unavailable or incomplete.",BACKGROUND
 "For three-phase grids, it is shown that reactive injections have a counter-intuitive effect on bus voltage magnitudes across phases.",RESULTS
@@ -1276,7 +1276,7 @@ The probability of establishing a wireless link between two nodes is a probabili
 "To overcome such a challenge, our proposed algorithm estimates link duration based neighboring node mobility and chooses the most reliable route.",METHODS
 "This paper outlines a novel approach to detect not only spam, but also scams, phishing and advertisement related mails.",OBJECTIVES
 "Additionally, we have found that the categories of ""Computer Science"" and ""Engineering"" lead other categories based on frequency and centrality respectively.",RESULTS
-"For the special case of a constant channel delay, we obtain an upper bound by proposing linear source-coding schemes that attain desired performance levels with rates that are at most 1.254 bits per sample greater than the lower bound.",RESULTS
+"For the special case of a constant channel delay, we obtain an upper bound by proposing linear source-coding schemes that attain desired performance levels with rates that are at most  [NUM]  bits per sample greater than the lower bound.",RESULTS
 Semantic labeling for numerical values is a task of assigning semantic labels to unknown numerical attributes.,BACKGROUND
 The payoff of the IoTSP is always higher in the pull model irrespective of the advertisement revenue.,CONCLUSIONS
 "Despite this, we show that a CNN can extract features and learn underlying design rules set by the designer to define a genre.",RESULTS/CONCLUSIONS
@@ -1313,7 +1313,7 @@ In this work we compare traditional machine learning techniques with the most ad
 In this work we empirically characterize the power and energy consumed by different types of servers.,BACKGROUND/OBJECTIVES
 We study the perception and the conceptualization of this term in the traditional media using eight years of data collected from news outlets based in 20 countries.,METHODS
 "After that, we discuss RL applications, including games, robotics, natural language processing (NLP), computer vision, finance, business management, healthcare, education, energy, transportation, computer systems, and, science, engineering, and art.",METHODS/RESULTS
-"For AKI-7day outcome: The AUC was 0.86 (accuracy was 0.78) in the proposed model, while the preoperative AUC was 0.84 (accuracy 0.76).",RESULTS
+"For AKI-7day outcome: The AUC was  [NUM]  (accuracy was  [NUM] ) in the proposed model, while the preoperative AUC was  [NUM]  (accuracy  [NUM] ).",RESULTS
 "Further, we propose an optimal O(cd) time and space algorithm to compute arc consistency for GS constraints where c is the number of constraints and d is the size of the largest domain.",METHODS
 The VCH technique was able to provide a consistent performance and match results from other GA-based techniques.,RESULTS/CONCLUSIONS
 "Finally, it considers methods to find examples of these, and discusses how we should deal with stereotype-driven descriptions in future applications.",RESULTS
@@ -1329,7 +1329,7 @@ Previous attempts have been made to use unlabeled data to improve model performa
 "The lower the degree of these equations, the easier it is for us to linearlize hence the attack complexity reduces.",BACKGROUND
 This paper discusses two existing approaches to the correlation analysis between automatic evaluation metrics and human scores in the area of natural language generation.,BACKGROUND
 "However, depending on the level of detail, it can be hard to impossible to acquire labeled data for training 2D estimators on large scale.",OBJECTIVES
-Codes and trained model can be found in https://github.com/chanyn/HKRM.,OTHERS
+Codes and trained model can be found in ,OTHERS
 "It segments a 2D gallery face into components, reconstructs the 3D surface for each component, and recognizes a probe face by component features.",METHODS
 "Experimental results confirm that the pro-posed DCMAC model outperforms the CMAC in terms of residual noise in an ANC task, showing that DCMAC provides enhanced modeling capability based on channel characteristics.",RESULTS
 "The EHR data of admitted patients are automatically evaluated by an algorithm, which brings patients who are likely to benefit from palliative care services to the attention of the Palliative Care team.",METHODS
@@ -1465,7 +1465,7 @@ We test the performance and robustness of our implementation on data from simula
 "We carry out a theoretical analysis of the uplink (UL) of a massive MIMO system with per-user channel correlation and Rician fading, using two processing approaches.",OBJECTIVES
 Sections are the building blocks of Wikipedia articles.,BACKGROUND
 The specification precisely controls a compiler to actually implement the loop and data transformations specified in the mapping.,RESULTS
-"This study has collected and examined 4.5 million tweets related to a US politician, Senator Bernie Sanders.",METHODS
+"This study has collected and examined  [NUM]  million tweets related to a US politician, Senator Bernie Sanders.",METHODS
 "Moreover, we demonstrate great generalizability of Doctor AI by adapting the resulting models from one institution to another without losing substantial accuracy.",RESULTS
 "However, it is a challenging task, since the sequence database induced by a database graph is too large to be explicitly induced and stored.",OBJECTIVES
 Our algorithm extends to the more general heterogeneous case.,RESULTS
@@ -1534,7 +1534,7 @@ This paper introduces and addresses a wide class of stochastic bandit problems w
 "Furthermore, we extend our model to attentive communication model for performing multi-agent cooperative tasks.",METHODS
 "Furthermore, our framework can handle cluttered scenarios.",OTHERS
 "As music is an art of time, the two models are supervised by frame-level instrument and pitch labels using a new dataset collected from MuseScore.",METHODS
-"The network convincingly learns styles and opinions of nearly 1000 distinct authors, using a large corpus of reviews from BeerAdvocate.com.",RESULTS
+"The network convincingly learns styles and opinions of nearly 1000 distinct authors, using a large corpus of reviews from ",RESULTS
 "Furthermore, principal component analysis and support vector machine technique are applied to reduce the feature dimension and train a classifier, respectively.",METHODS
 "In this paper, we present the SensorCloud protocol, which enables the representation of sensor data and actuator commands using JSON as well as the encoding of the object security mechanisms applied to a given sensor data item.",METHODS
 "Further, we present a regularized variational inference algorithm, which we use to encourage the DAP model's personas to be distinct.",METHODS
@@ -1666,7 +1666,7 @@ Managing the operations of such telescopes therefore requires an approach that s
 "Context: Over the last decade, software researchers and engineers have developed a vast body of methodologies and technologies in requirements engineering for self-adaptive systems.",BACKGROUND
 "Inspired by some simple inherent attributes of pedestrians (i.e., appearance constancy and shape symmetry), we propose two new types of non-neighboring features (NNF): side-inner difference features (SIDF) and symmetrical similarity features (SSF).",OBJECTIVES
 "Our methodology only employs publicly available tools, does not require any modification to the emulated environment or Android OS, and can collect data from physical devices.",METHODS
-"We also find engagement metrics predictable from a cold-start setup, having most of its variance explained by video context, topics and channel information -- R2=0.77.",RESULTS/CONCLUSIONS
+"We also find engagement metrics predictable from a cold-start setup, having most of its variance explained by video context, topics and channel information -- R2= [NUM] .",RESULTS/CONCLUSIONS
 Convexity is needed to exchange limit and derivative and the loop series enables us to express the difference between the bit-error probability and the Bethe free entropy.,METHODS
 "We introduce a modified Needleman-Wunsch algorithm for distance calculation during message matching, wildcards in message prototypes for high variability sections, and entropy-based weightings in distance calculations for increased accuracy.",METHODS
 "Owing to this inherent duality, the proposed dynamics satisfy a variant of the folk theorem of evolutionary game theory and they converge to (arbitrarily precise) approximations of Nash equilibria in potential games.",RESULTS
@@ -1686,7 +1686,7 @@ This paper presents a memory efficient architecture that implements the Multi-Sc
 "The quotient filter has other advantages over the Bloom filter: it supports deletions, it can be dynamically resized, and two quotient filters can be efficiently merged.",RESULTS
 "Context information around words helps in determining their actual meaning, for example ""networks"" used in contexts of artificial neural networks or biological neuron networks.",BACKGROUND
 "In this paper we present, for the first time, a method for preventing catastrophic forgetting (BGD) for scenarios with task boundaries that are unknown during training --- task-agnostic continual learning.",OBJECTIVES/RESULTS
-"With suitable writing preprocessing and dictionary lookup, our ARGUS software completed this task with an error rate of 26.27% in its primary setup.",METHODS/RESULTS
+"With suitable writing preprocessing and dictionary lookup, our ARGUS software completed this task with an error rate of  [NUM] % in its primary setup.",METHODS/RESULTS
 Our method outperforms existing retrieval methods on benchmarked datasets.,RESULTS
 "In the Bayesian nonparametric approach, we utilize a hierarchical Dirichlet process (HDP) instead of learning the unknown number of smooth dynamical modes of HSMM, thus generating the primitive driving patterns.",METHODS
 "We formulate the learning problem as a weighted constraint satisfaction problem, including constraints both for the fit of the payoffs and strategies to the data and the fit of the strategies to the payoffs.",METHODS
@@ -1727,7 +1727,7 @@ Experiments on photo-to-caricature translation of faces in the wild show conside
 "They have been successfully applied to a wide range of domains; for instance, bioinformatics, speech recognition, and financial analysis.",BACKGROUND
 "Due to the time-dependency of the input and output matrices, the application of time-varying projection matrices for the reduction offers new degrees of freedom, which also come along with some challenges.",BACKGROUND
 "After tuning, large improvements in effort estimation accuracy were observed (measured in terms of standardized accuracy).",RESULTS
-"For the different sets of projects that we analyzed, the ratio of projects containing files with a reference to SO varied between 3.3% and 11.9%.",RESULTS
+"For the different sets of projects that we analyzed, the ratio of projects containing files with a reference to SO varied between  [NUM] % and  [NUM] %.",RESULTS
 The I/O CRN exploits the inherent parallelism of chemical kinetics to simulate the NFA in real time with a number of chemical species that is linear in the size of the NFA.,METHODS
 "Here, we evolve an image classifier---AmoebaNet-A---that surpasses hand-designs for the first time.",RESULTS
 Understanding software design practice is critical to understanding modern information systems development.,BACKGROUND
@@ -1795,7 +1795,7 @@ Asymptotic results are also derived when the number of antennas approaches infin
 "To improve system performance, modern operating systems (OSes) often undertake activities that require modification of virtual-to-physical page translation mappings.",OBJECTIVES
 "In this case, the mutual information is the channel transmission rate between the channel's effective states.",RESULTS
 We establish convergence to the set of equilibria consisting of weighted consensus power vectors as well as preservation of the weighted geometric mean of the source voltages.,RESULTS
-"When integrating PNNS into a H.265 codec, PSNR-rate performance gains going from 1.46% to 5.20% are obtained.",RESULTS
+"When integrating PNNS into a H.265 codec, PSNR-rate performance gains going from  [NUM] % to  [NUM] % are obtained.",RESULTS
 "Unfortunately, the tracking is seriously impeded by the famous shortcoming of multiwired, strip and GEM detectors due to appearance in them a lot of fake hits caused by extra spurious crossings of fired strips.",BACKGROUND
 We then obtain a bisimulation of this timed automaton as a finite transition system that captures the joint behavior of the robots and apply our earlier algorithm for the single robot case to optimize the group motion.,METHODS
 "Further, we demonstrate that, the quality of results and time ""to-solution"" is much better than with Random Search and achieves up to 15x better results for a short-time search.",RESULTS
@@ -1817,7 +1817,7 @@ Intent classification has been widely researched on English data with deep learn
 "We aim to develop a system that uses background knowledge about the world to find connections among concepts, with the goal of generating symbols for a given concept.",OBJECTIVES
 "Despite increasingly robust manipulation and control algorithms, failure modes continue to exist whenever models do not capture the dynamics of the unstructured environment.",BACKGROUND
 This paper presents a multidisciplinary task approach for assessing the impact of artificial intelligence on the future of work.,OBJECTIVES
-We conduct comprehensive experiments on the standard AVA and Photo.net datasets for unified aesthetic prediction tasks: (i) aesthetic quality classification; (ii) aesthetic score regression; and (iii) aesthetic score distribution prediction.,RESULTS
+We conduct comprehensive experiments on the standard AVA and  datasets for unified aesthetic prediction tasks: (i) aesthetic quality classification; (ii) aesthetic score regression; and (iii) aesthetic score distribution prediction.,RESULTS
 "Our experiments include comparison with the best known methods on publicly available databases DRIONS-DB, RIM-ONE v.3, DRISHTI-GS.",METHODS/RESULTS
 "However, such an operation affects a syntactic parser in all its aspects.",BACKGROUND
 "Furthermore, we derive a lower bound of the data rate of any static, memoryless coder-controller.",RESULTS
@@ -1850,7 +1850,7 @@ Absence of such evaluations puts app developers at a disadvantage when choosing 
 "However, a query may involve complex conditions on objects and sets, which can be arbitrarily nested and aliased.",BACKGROUND
 "Moreover, the crucial quantity that characterizes the geometry occurs as the coefficient of the equation, namely the Beltrami coefficient.",BACKGROUND
 "In this paper, we concentrated on predicting the formation of such anchor links between heterogeneous social networks.",OBJECTIVES
-"The system is behaving well in all, while in first case its False Rejection Rate (FRR) is 0.28, and in second case its FRR is 0.4.",RESULTS/CONCLUSIONS
+"The system is behaving well in all, while in first case its False Rejection Rate (FRR) is  [NUM] , and in second case its FRR is  [NUM] .",RESULTS/CONCLUSIONS
 "Specifically, the user grouping problem is formulated as a many to one matching game.",METHODS
 We prove the equivalence between the usual pixel-based version and the rearranged version of the filter.,RESULTS
 "Using a game theoretic model, we show that given the proper incentive structure, we can effectively deter dishonest behavior on the part of the data outsourcing services with very few computational and monetary resources.",METHODS
@@ -1888,10 +1888,10 @@ Such systems are expected to provide data transmission rates in the order of mul
 "The results show that representations learned from pre-trained networks for a task such as object recognition can be transferred, and used for facial expression recognition.",CONCLUSIONS
 "Mixed-criticality systems combine real-time components of different levels of criticality, i.e. severity of failure, on the same processor, in order to obtain good resource utilisation.",BACKGROUND
 "This can lead to major performance problems: if programmers write queries that yield nested results, then such systems typically either fail or generate a large number of queries.",BACKGROUND/OBJECTIVES
-An even higher decrease of up to 8.5% is reported when the models are tested on silent speech.,RESULTS
+An even higher decrease of up to  [NUM] % is reported when the models are tested on silent speech.,RESULTS
 We will release these embeddings publicly to help researchers in the development and enhancement of multilingual applications.,CONCLUSIONS
 "This dataset grows continuously thanks to the users' feedback, and is publicly available for research.",RESULTS
-"Numerical studies based on realistic data demonstrate that the total cost of the interconnected-microgrids operation can be reduced by up to 13.2% through energy trading, and an individual participating microgrid can achieve up to 29.4% reduction in its cost through energy trading.",RESULTS/CONCLUSIONS
+"Numerical studies based on realistic data demonstrate that the total cost of the interconnected-microgrids operation can be reduced by up to  [NUM] % through energy trading, and an individual participating microgrid can achieve up to  [NUM] % reduction in its cost through energy trading.",RESULTS/CONCLUSIONS
 An index is chosen to quantitatively measure the extent of controllability of given network.,METHODS
 Analytical results show that the non-hierarchical approach can provide monotonic expected convergence of both drifts and offsets under broad conditions on the network topology and local clock update stepsize.,RESULTS
 "In contrast, we use multi-scale temporal convolutions, and we reduce the complexity of 3D convolutions.",METHODS
@@ -1927,7 +1927,7 @@ Spectrum sensing is a fundamental operation in cognitive radio environment.,BACK
 We formulate a rate-maximization problem in which the pilot spacing (in the time-frequency resource grid) and power is varied as a function of the time-varying channel statistics.,METHODS
 Actual interaction structure is specified implicitly by the filter coefficients.,BACKGROUND
 "Owing to the transnational nature of conflict, the article shows that national management strategies and foreign military interventions have profoundly affected the movement of Islamist groups.",CONCLUSIONS
-"For instance a heterogeneously quantized version of modern networks such as AlexNet and MobileNet, with the right mix of 1-, 2- and 3-bit parameters that average to just 1.4 bits can equal the accuracy of homogeneous 2-bit versions of these networks.",OBJECTIVES
+"For instance a heterogeneously quantized version of modern networks such as AlexNet and MobileNet, with the right mix of 1-, 2- and 3-bit parameters that average to just  [NUM]  bits can equal the accuracy of homogeneous 2-bit versions of these networks.",OBJECTIVES
 "Our analysis suggests that, unexpectedly, more CPs enter the market in a non-neutral regime where they pay ISPs, than without such payments.",RESULTS
 "However, this Markov chain enumerates all possible reaction mixtures, rendering the analysis of the chain computationally demanding and often prohibitive in practice.",OBJECTIVES
 "In this work, we focus on Urban Dictionary, a crowd-sourced online dictionary.",OBJECTIVES
@@ -2048,7 +2048,7 @@ As an alternative we have pioneered the use of virtual worlds for collecting suc
 "Event localization is fundamental in many wireless sensor network applications such as homeland security, law enforcement, and environmental studies.",BACKGROUND
 We extended a widely used tool for clone detection with normalization support.,METHODS
 "In every time period, a server has a certain amount of resources that any client could consume, and randomly gets matched with a client.",METHODS
-"On a multi-day BP dataset, the deep RNN achieved RMSE of 3.84, 5.25, 5.80 and 5.81 mmHg for the 1st day, 2nd day, 4th day and 6th month after the 1st day SBP prediction, and 1.80, 4.78, 5.0, 5.21 mmHg for corresponding DBP prediction, respectively, which outperforms all previous models with notable improvement.",RESULTS
+"On a multi-day BP dataset, the deep RNN achieved RMSE of  [NUM] ,  [NUM] ,  [NUM]  and  [NUM]  mmHg for the 1st day, 2nd day, 4th day and 6th month after the 1st day SBP prediction, and  [NUM] ,  [NUM] ,  [NUM] ,  [NUM]  mmHg for corresponding DBP prediction, respectively, which outperforms all previous models with notable improvement.",RESULTS
 "As a result, we are able to use the integrated side-output features of pre-trained convolutional networks alone, which significantly reduces the model parameters leading to a model size of 67 MB, about half of Amulet.",CONCLUSIONS
 "We present ABA+, a new approach to handling preferences in a well known structured argumentation formalism, Assumption-Based Argumentation (ABA).",OBJECTIVES
 "Among the many forms of tampering possible, one widespread technique is Copy Move Forgery CMF.",RESULTS
@@ -2199,7 +2199,7 @@ The major advantage of the system is that it is inexpensive as channel estimatio
 "Rapport, the close and harmonious relationship in which interaction partners are ""in sync"" with each other, was shown to result in smoother social interactions, improved collaboration, and improved interpersonal outcomes.",BACKGROUND
 "The slow dynamics is still a reduced-order multi-agent system consisting of a weighted average of the vector fields of all agents, and some sub-dynamics of agents.",RESULTS
 This question is answered in Euclidean space by constructing the smallest domain that fulfills the above condition.,METHODS/RESULTS
-"The giant component of Venmo is eventually composed of 99.9% of all nodes, and its clustering coefficient reaches 0.2.",RESULTS
+"The giant component of Venmo is eventually composed of  [NUM] % of all nodes, and its clustering coefficient reaches  [NUM] .",RESULTS
 "In this paper, second-order hidden Markov model (HMM2) has been used and implemented to improve the recognition performance of text-dependent speaker identification systems under neutral talking condition.",OBJECTIVES/METHODS
 Simulation results provide an additional practical insight into the algorithm properties and show its advantage over the existing methods.,RESULTS
 "Results in different classification problems show that DSGE evolves effective single and multi-layered ANNs, with a varying number of output neurons.",RESULTS
@@ -2216,7 +2216,7 @@ The existence of these errors raises a variety of questions about out-of-sample 
 "For closely-spaced eigenvalues, examples suggest that the GNFT is more robust than the NFT to the practical impairments of truncation, discretization, attenuation and noise.",RESULTS
 "But before any management strategy is made, a good understanding of applications' workload in virtualized environment is the basic fact and principle to the resource management methods.",BACKGROUND
 "Current solutions compare functions by first transforming their binary code in multi-dimensional vector representations (embeddings), and then comparing vectors through simple and efficient geometric operations.",BACKGROUND
-The model performs significantly better by improving the state-of-the-art system at SemEval 2017 Task 5 by 1.7 and 3.7 points for sub-tracks 1 and 2 respectively.,RESULTS/CONCLUSIONS
+The model performs significantly better by improving the state-of-the-art system at SemEval 2017 Task 5 by  [NUM]  and  [NUM]  points for sub-tracks 1 and 2 respectively.,RESULTS/CONCLUSIONS
 "The framework obtained generalizes Dal Lago and Hofmann's realizability, and reveals deep connections between quantitative realizability and a linear variant of Cohen's forcing.",RESULTS
 We study the underlying structure of data (approximately) generated from a union of independent subspaces.,OBJECTIVES
 "Third, we will show how our analysis can make a contribution to the state-of-the-art in surface remeshing.",RESULTS
@@ -2263,7 +2263,7 @@ The algorithm has been evaluated on BioEye 2015 database and found to outperform
 "This biases the model towards retaining more contextual information, in turn improving its ability to predict the next token.",METHODS
 "Together with semantic rules, they enable advanced semantic services to manage knowledge in a smarter way.",METHODS
 "In this realm, One-hot encoding is the most prevalent strategy due to its simplicity.",BACKGROUND
-"On this set our network achieves an ICC of 0.93, while the intrarater agreement reaches 0.80.",RESULTS
+"On this set our network achieves an ICC of  [NUM] , while the intrarater agreement reaches  [NUM] .",RESULTS
 The partial observability of the gene states and uncertainty in the intervention process are accounted for by modeling GRNs using the partially-observed Boolean dynamical system (POBDS) signal model with noisy gene expression measurements.,BACKGROUND
 "Unlike other verification problems, it needs to model minute but critical details between genuine and forged signatures, because a skilled falsification might often resembles the real signature with small deformation.",OBJECTIVES
 "In this paper, we present preliminary results of AFEL-REC, a recommender system for social learning environments.",OBJECTIVES
@@ -2306,7 +2306,7 @@ Deep Neural Networks are powerful models that attained remarkable results on a v
 "Researchers are increasingly incorporating numeric high-order data, i.e., numeric tensors, within their practice.",BACKGROUND
 "While deducing ranking functions from size-change graphs has already been shown possible, the constructions in this paper are simpler and more transparent than previously known.",RESULTS
 We compare the performance of this implementation with a pure single threaded version of the CPU.,METHODS
-"Meanwhile, our network is very light-weighted and spends only 9.8ms to process an image, which is extremely faster than previous works.",RESULTS
+"Meanwhile, our network is very light-weighted and spends only  [NUM] ms to process an image, which is extremely faster than previous works.",RESULTS
 "In this work, we propose a strategy based on random scalarizations of the objectives that addresses this problem.",OBJECTIVES/METHODS
 "To guard against adversarial examples, we take inspiration from game theory and cast the problem as a minimax zero-sum game between the adversary and the model.",OBJECTIVES
 The hybrid approach of Improved Gravitational Search algorithm (IGSA) and Firefly algorithm (FA) performance is analyzed by optimally placing TCSC controller.,BACKGROUND
@@ -2357,7 +2357,7 @@ The paper presents original approach to concurrent optimization of the transmitt
 "In turn, a detector model updates its parameters to compensate for the adversarially generated domains.",METHODS
 "We present a general framework that addresses both of these issues via a unified computational abstraction that we refer to as ""conflict sets.""",OBJECTIVES
 The localization methods proved superiority over the segmentation method in ROI detection on skin lesion datasets.,RESULTS/CONCLUSIONS
-The standard channel spacing of 0.4 nm was used in the C-band range from 1.5436-1.556 nm.,METHODS
+The standard channel spacing of  [NUM]  nm was used in the C-band range from  [NUM] - [NUM]  nm.,METHODS
 "We utilize a recently proposed vector quantization based approach, which allows continuous embeddings to be associated with each latent variable value.",METHODS
 "In this article, we shed light on the potential and implementation of index modulation (IM) techniques for MIMO and multi-carrier communications systems which are expected to be two of the key technologies for 5G systems.",METHODS
 "However, from a practical point of view the question arises whether this is the most efficient approach when one takes the manual effort of the expert into account.",OBJECTIVES
@@ -2372,7 +2372,7 @@ Mp3 is a very popular audio format and hence it can be a good host for carrying 
 "It was found that the eight most used Dublin Core fields are: identifier, type, title, date, subject, creator, language and description.",RESULTS/CONCLUSIONS
 "We reveal multiple structural transitions for the algebraic connectivity of such systems, between regimes in which each network layer keeps its independent identity or drives diffusive processes over the whole system, thus generalizing previous results reporting a single transition point.",RESULTS/CONCLUSIONS
 "Our results demonstrate proof-of-concept, feasibility, and incipient validity predicting aggression onset 1 minute before it occurs using global, person-dependent, and hybrid classifier models.",RESULTS
-"In addition, the blind signature scheme of Blind-Mixing executes 10.5 times faster than that of RSA Coin-Mixing.",RESULTS/CONCLUSIONS
+"In addition, the blind signature scheme of Blind-Mixing executes  [NUM]  times faster than that of RSA Coin-Mixing.",RESULTS/CONCLUSIONS
 "In opinion dynamics, how to model the enduring fragmentation phenomenon (disagreement, cleavage, and polarization) of social opinions has long possessed a central position.",BACKGROUND
 "In particular, we provide specific guidelines for the DNN feature selection, derive conditions for when the proposed approach is effective, and show in which cases the training efficiency can be further increased.",RESULTS
 "EMERAL can simulate spammers with different goals and levels of knowledge about the detectors, targeting at different stages of the life cycle of target products.",METHODS
@@ -2443,7 +2443,7 @@ We show that this sum is bounded above by its value in a star tree.,RESULTS
 "Depending on the criteria, subgraphs of interest may correspond to cliques of friends in social networks, interconnected entities in RDF data, or frequent patterns in protein interaction networks to name a few.",BACKGROUND
 "For this purpose, it includes implementations of the transfer entropy and active information storage, their multivariate extensions and local or pointwise variants.",METHODS
 This note explores the relation between the boxicity of undirected graphs and the Ferrers dimension of digraphs.,OBJECTIVES
-Both cross-modal architectures outperformed their baselines (by up to 7.5%) when evaluated on the AVletters dataset.,RESULTS
+Both cross-modal architectures outperformed their baselines (by up to  [NUM] %) when evaluated on the AVletters dataset.,RESULTS
 "Our validation approach tests a large set of competency questions (CQs), which are derived (semi)-automatically from the knowledge encoded in WordNet, SUMO and their mapping, by applying efficient first-order logic automated theorem provers.",METHODS
 "The process is based on several Agile practices, such as User Stories and iterative and incremental development based on them.",METHODS
 "Finally, we show how to realize our proposed scheme in practice.",CONCLUSIONS
@@ -2453,7 +2453,7 @@ It is the first approach that covers invariant-based confluence modulo equivalen
 "Due to the severe multipath effect, no satisfactory device-free methods have ever been found for indoor speed estimation problem, especially in non-line-of-sight scenarios, where the direct path between the source and observer is blocked.",BACKGROUND
 One important issue in MT is that how to evaluate the MT system reasonably and tell us whether the translation system makes an improvement or not.,BACKGROUND
 "There is no known way of giving a domain-theoretic semantics to higher-order probabilistic languages, in such a way that the involved domains are continuous or quasi-continuous - the latter is required to do any serious mathematics.",BACKGROUND
-"In this direction, simultaneous channel sounding measurements at 2.9, 29 and 61 GHz are performed at a number of transmit-receive location pairs in indoor office, shopping mall and outdoor environments.",METHODS
+"In this direction, simultaneous channel sounding measurements at  [NUM] , 29 and 61 GHz are performed at a number of transmit-receive location pairs in indoor office, shopping mall and outdoor environments.",METHODS
 "Although information on social media can be of different modalities such as texts, images, audio or videos, traditional approaches in classification usually leverage only one prominent modality.",BACKGROUND
 "As an important part of deep neural networks, a number of the loss functions have been proposed which significantly improve the state-of-the-art methods.",BACKGROUND
 "Representations with minimal noise, at a given level of similarity (resolution), are those that maximise the relevance.",BACKGROUND
@@ -2468,7 +2468,7 @@ Do we learn from the small amount of high-quality data or the potentially large 
 This fusion-based approach outperformed all the individual neural networks regarding classification accuracy.,RESULTS
 The second part of the algorithm is used to prove that the more general problem to decide if a matrix has a positive quasi-Cartan companion is in NP.,RESULTS/CONCLUSIONS
 The approach is evaluated in simulation and with selected examples on a PR2 robot.,METHODS
-"Using a train/test split of 75%/25%, we achieved an accuracy rate of 0.99 on the test split for the BACH dataset and 0.96 on that of the extension.",RESULTS
+"Using a train/test split of 75%/25%, we achieved an accuracy rate of  [NUM]  on the test split for the BACH dataset and  [NUM]  on that of the extension.",RESULTS
 "We note that the features can be learned from a small set of images, from a single image, or even from image patches.",METHODS
 This paper studies the geodesic diameter of polygonal domains having h holes and n corners.,OBJECTIVES
 For this purpose we use existing and newly created datasets having both the topology of the network and a sufficient number of empirically-determined paths over it.,METHODS
@@ -2482,7 +2482,7 @@ This paper presents a new optimal filter namely past observation-based extended 
 "Our results offer novel, effective means of computing portfolio dependencies and an indicator of financial crises, which is shown to correctly identify past crises.",CONCLUSIONS
 "While any constant, non-zero rate of dynamically-introduced spontaneous adopters leads to global spreading, the kinetics by which the asymptotic state is approached shows rich behavior.",METHODS
 The QuadCS system first randomly projects the received signal into a compressive bandpass signal and then utilizes the quadrature sampling to output compressive I and Q components.,METHODS
-"On the YTF, both the PRN using only pairwise relations and the PRN using pairwise relations and the face identity state feature achieved the state-of-the-art (95.7% and 96.3%).",RESULTS
+"On the YTF, both the PRN using only pairwise relations and the PRN using pairwise relations and the face identity state feature achieved the state-of-the-art ( [NUM] % and  [NUM] %).",RESULTS
 "In this study, we first show, using simulations, that ApEn and SampEn are related to the Hurst exponent in their tolerance r and embedding dimension m parameters.",OBJECTIVES/METHODS
 "With these results and the accompanying discussion, the paper contributes to the ongoing attempts to better understand security and privacy in the current Web.",CONCLUSIONS
 "Conventionally, such design problem is studied under the assumption that the packet transmission rate can be characterized by the classical Shannon capacity formula, which, however, may provide inaccurate energy consumption estimation, especially when the code blocklength is finite.",BACKGROUND
@@ -2492,7 +2492,7 @@ We proved that any wavelet of the same family has the same Shannon entropy of it
 How does the collaboration network of researchers coalesce around a scientific topic?,BACKGROUND
 "In the task of function tagging, which tags the function of Myanmar sentences with correct segmentation, POS (part-of-speech) tagging and chunking information, we use Naive Bayesian theory to disambiguate the possible function tags of a word.",METHODS
 "For the particular case we chose to study, we conclude that it is reasonable to consider the Spanish semiconsonant /w/ as a separate phoneme from its vowel counterpart /u/, on the one hand, and possibly also the semiconsonant /j/ as a separate phoneme from its vowel counterpart /i/, on the other.",RESULTS/CONCLUSIONS
-"It first provides background information about the evolution and the fundamental MAC schemes of IEEE 802.11 Standards and Amendments, and then identifies the key requirements of designing MU-MIMO MAC protocols for WLANs.",METHODS/RESULTS
+"It first provides background information about the evolution and the fundamental MAC schemes of IEEE  [NUM]  Standards and Amendments, and then identifies the key requirements of designing MU-MIMO MAC protocols for WLANs.",METHODS/RESULTS
 "Online question and answer platforms serve a dual purpose in this field: they form a body of knowledge useful as a reference and learning tool, and they provide opportunities for individuals to demonstrate credible, verifiable expertise.",BACKGROUND
 "Currently, Markov-Gibbs random field (MGRF) image models which include high-order interactions are almost always built by modelling responses of a stack of local linear filters.",BACKGROUND
 The one and only simple solution to this is Web Based e-Learning.,RESULTS
@@ -2521,14 +2521,14 @@ The key concept for our approach is to group queries that share a common travel 
 The ClosestPA algorithm is shown to consistently outperform the other two in a variety of ways and insights are provided as to why this is the case.,RESULTS/CONCLUSIONS
 We finally use the results to draw preliminary takeaways.,OBJECTIVES
 We include a stability criteria for our numerical approximation.,OTHERS
-"Recently in 2013, Goldman and his collegues from European Bioinformatics Institute demonstrated the use of the DNA as storage medium with capacity of storing 2.2 peta bytes of information on one gram of DNA and retrived the data successfully with low error rate.",BACKGROUND
+"Recently in 2013, Goldman and his collegues from European Bioinformatics Institute demonstrated the use of the DNA as storage medium with capacity of storing  [NUM]  peta bytes of information on one gram of DNA and retrived the data successfully with low error rate.",BACKGROUND
 "This requires storing large amounts of intermediate data, setting a limit to the largest problem that might be solved with a given amount of memory available.",BACKGROUND
 "Most previous work in this area avoids modeling key by transposing data into only one or two keys, as opposed to the 10+ different keys in the original music.",BACKGROUND
 "On the one hand, interactivity necessitates sufficient viewpoints for richer navigation; on the other hand, it requires to provide low bandwidth and delay costs for smooth navigation during view transitions.",BACKGROUND/OBJECTIVES
 Existing research on question answering or intelligent chatbots does not look within procedures or deep-understand them.,OBJECTIVES
 This potential is however not the original loss function in general.,RESULTS
 The key observation is that the category of contexts and fibered categories are the ideal theoretical tools for this purpose.,METHODS/RESULTS
-"Experimental results demonstrate that the proposed VIBNN implementations on an FPGA can achieve throughput of 321,543.4 Images/s and energy efficiency upto 52,694.8 Images/J while maintaining similar accuracy as its software counterpart.",RESULTS/CONCLUSIONS
+"Experimental results demonstrate that the proposed VIBNN implementations on an FPGA can achieve throughput of 321, [NUM]  Images/s and energy efficiency upto 52, [NUM]  Images/J while maintaining similar accuracy as its software counterpart.",RESULTS/CONCLUSIONS
 We formally define the survivable virtual cluster embedding problem.,METHODS
 The proposed MSHMM method outperforms the compared methods in terms of equal error rate (EER).,RESULTS/CONCLUSIONS
 We find that Indian-Foreign collaborations are increasing at a faster pace compared to the Indian-Indian.,RESULTS/CONCLUSIONS
@@ -2638,7 +2638,7 @@ The controller employs Dijkstra's algorithm to find the best flow in the graph.,
 "The goal of this work is to improve images of traffic scenes that are degraded by natural causes such as fog, rain and limited visibility during the night.",OBJECTIVES
 "Spatial architectures are efficient for executing dataflow algorithms, yet for high-performance programming, the productivity is low and verification is painful.",BACKGROUND
 We then argue that hierarchical networks of leaky integrate-and-fire neurons can offer the required robustness for physical implementation and demonstrate this with both software simulations and emulation on an accelerated analog neuromorphic device.,OBJECTIVES/METHODS/RESULTS/CONCLUSIONS
-We use the dataset from data.go.id which publish official data from each government bodies.,METHODS
+We use the dataset from  which publish official data from each government bodies.,METHODS
 "Building on the established presentation of such structures as algebras for monads on presheaf categories, we describe a characteristic property of the associated monads---the shapeliness of the title---which says that ""any two operations of the same shape agree"".",METHODS
 This phenomenon called catastrophic forgetting is a fundamental challenge to overcome before neural networks can learn continually from incoming data.,BACKGROUND
 We asses the number of fitness evaluations as well as the required CPU times.,METHODS
@@ -2672,7 +2672,7 @@ Recent advances in stylus input make handwriting a potentially viable text input
 "In real-life scenarios, however, it is often the case that both static and dynamic features are present, or can be extracted from the data.",BACKGROUND
 "In a VR mobile social network, the states of all interacting users should be updated synchronously and with low latency via two-way communications with edge computing servers.",BACKGROUND/OBJECTIVES
 "However, a key requirement is that training examples are in correspondence across the domains.",OBJECTIVES
-"The proposed model has favorable generalization properties as it retains over 89.8% of its average POS tagging accuracy when trained at 1.2% of the total available training data, i.e.~150 sentences per language.",RESULTS/CONCLUSIONS
+"The proposed model has favorable generalization properties as it retains over  [NUM] % of its average POS tagging accuracy when trained at  [NUM] % of the total available training data, i.e.~150 sentences per language.",RESULTS/CONCLUSIONS
 "With regard to computational complexity, the full-GC solution is generally more convenient.",RESULTS
 "Previous work has applied anti-spam techniques like machine-learning based text classification (Reynolds, 2011) to detecting harassing messages.",BACKGROUND
 "In this paper, we introduce an attention-over-attention (AOA) neural network for aspect level sentiment classification.",OBJECTIVES
@@ -2684,7 +2684,7 @@ Processing of multi-word expressions (MWEs) is a known problem for any natural l
 This allows us to use deep probabilistic networks that are capable of providing accurate pose estimates for previously unseen images.,CONCLUSIONS
 This leads to computation overheads and delayed response times.,OBJECTIVES
 "However, more recent work has shown that while these generative models do have the right degree distribution, they are not good models for real life networks due to their differences on other important metrics like conductance.",BACKGROUND
-"The strict F-measure scores for the identification of token level language labels for Bengali, English and Hindi are 0.7486, 0.892 and 0.7972 respectively.",RESULTS
+"The strict F-measure scores for the identification of token level language labels for Bengali, English and Hindi are  [NUM] ,  [NUM]  and  [NUM]  respectively.",RESULTS
 Disjunctive Logic Programming (DLP) is a very expressive formalism: it allows for expressing every property of finite structures that is decidable in the complexity class SigmaP2 (= NP^NP).,BACKGROUND
 "The idea behind is a subtle linkability: if one authenticates twice in a task, everybody can tell, or else staying anonymous.",METHODS
 "Formally speaking, given a set of data instances, a clustering algorithm is expected to divide the set of data instances into the subsets which maximize the intra-subset similarity and inter-subset dissimilarity, where a similarity measure is defined beforehand.",OBJECTIVES
@@ -2712,7 +2712,7 @@ This paper is a reply to the comments on 'Integer SEC-DED codes for low power co
 An algorithm is proposed for solving the problem which gives the bisimulation with the minimum number of states if it already exists and also a parameter of the algorithm is properly tuned.,RESULTS
 "In this paper, we show that using the Sentiwordnet, how we could enhance the performance of the classification at both sentence and document level.",OBJECTIVES
 The procedure of k-means becomes simpler and converges to a considerably better local optima.,RESULTS/CONCLUSIONS
-"Application of the algorithm to the Griewank function was possible in up to 1 billion decision variables in double precision took only 64485 seconds (~18 hours) to solve, while consuming 7,630 MB (7.6 GB) or RAM on a single threaded laptop CPU.",METHODS/RESULTS
+"Application of the algorithm to the Griewank function was possible in up to 1 billion decision variables in double precision took only 64485 seconds (~18 hours) to solve, while consuming 7,630 MB ( [NUM]  GB) or RAM on a single threaded laptop CPU.",METHODS/RESULTS
 "To this end, a rigorous analytical framework is proposed to analyze the outage behavior of the M-BLAST algorithm over binary complex alphabets and two transmitting antennas, which has a potential to be generalized to multiple transmitting antennas and multidimensional constellation sets.",METHODS
 Research efforts on live migration orchestration policies still mostly rely on system level metrics.,BACKGROUND
 Then 4-DOF pose graph optimization is performed to correct drifts and achieve global consistent.,METHODS
@@ -2779,7 +2779,7 @@ Our set up allows for rapid acquisition and annotation of data with correspondin
 "With the increased adoption of specific smartphone applications, the number of users of routing applications has become large enough to disrupt traffic flow patterns in a significant manner.",BACKGROUND
 We create scenarios from RoboCup Rescue Simulation maps and evaluate our methods on these graph worlds.,RESULTS
 "However, despite both the importance and abundance of such information in the literature, the community lacks a widely adopted standard format for this data.",BACKGROUND
-"The proposed algorithm is evaluated on intersection layouts from real-world map data with up to five other vehicles in the scene, and verified to reduce collision rates by 4.8x comparing to a baseline method while improving driving comfort.",RESULTS/CONCLUSIONS
+"The proposed algorithm is evaluated on intersection layouts from real-world map data with up to five other vehicles in the scene, and verified to reduce collision rates by  [NUM] x comparing to a baseline method while improving driving comfort.",RESULTS/CONCLUSIONS
 "While the smart surveillance system enhanced by the Internet of Things (IoT) technology becomes an essential part of Smart Cities, it also brings new concerns in security of the data.",BACKGROUND
 "We examine authors, key articles, cited references, core subject categories, key journals, institutions, as well as countries.",METHODS
 "Additionally, the impact of these precisions on the energy consumption of a fixed-point SVM with on-line training is studied.",RESULTS
@@ -2792,7 +2792,7 @@ Conclusion: The perception of the current state of software engineering peer rev
 "However, as of now, it has not clearly been recognized how the number of registers changes with different application domains.",OBJECTIVES
 "We formulate the Coordinated Parking Problem (CPP), which can be solved by a standard integer linear program solver but requires long computational time.",METHODS
 "For maximal adaptability, MABSTA is designed to make no stochastic assumption about the environment.",METHODS
-"Our dataset, codes and trained models are available online at https://github.com/GKalliatakis/Human-Rights-Archive-CNNs.",OTHERS
+"Our dataset, codes and trained models are available online at ",OTHERS
 "On the other hand, it will also monitor the vehicle speeds and store the vehicle details, for those breaking the roadway speed limits, in its database.",METHODS
 "Interpretation of the metric of these spaces is straightforward: The product of Fashion DNA and customer style vectors yields the forecast purchase likelihood for the customer-item pair, while the angle between Fashion DNA vectors is a measure of item similarity.",METHODS/RESULTS
 "Our measurements, gathered over a semester, provide a unique viewpoint on the evolution of a protocol and of its implementations.",RESULTS/CONCLUSIONS
@@ -2820,7 +2820,7 @@ We propose a greedy algorithm with an approximation ratio of 1 - 1/e and two sea
 "However, all the methods show considerable limitations and uncertainties due to inconsistencies in the Google Scholar search functionalities.",CONCLUSIONS
 "In the practice, if that can be used in its general sense, we will show an inaccessible relativized process which let us able to obtain same results with the same outlay in the time resource as the Shor's one for factorizing a given number n. Then the QO-system will be a prototype way giving to the relativized calculus the possibility to put in to practice an oracle, kind of object having till now abstract nature.",RESULTS
 "Particularly, we show that when branch prediction of the enclave code can be influenced by programs outside the enclave, the control flow of the enclave program can be temporarily altered to execute instructions that lead to observable cache-state changes.",METHODS
-"To train and validate our proposed methods, we used the publicly available Comma.ai dataset.",METHODS
+"To train and validate our proposed methods, we used the publicly available  dataset.",METHODS
 Generative adversarial networks (GANs) are powerful tools for learning generative models.,BACKGROUND
 "In Text to Image search, search query should be a text.",OBJECTIVES
 "Furthermore, our framework maintains the interestingness of the generated summary using image memorability and entropy.",METHODS
@@ -2840,7 +2840,7 @@ Two objective functions are considered depending whether the error of the defect
 This result suggests that there is plenty of space for current automated program repair techniques to improve.,CONCLUSIONS
 At the same time EigenRec has an attractive computational profile and it can apply readily in large-scale recommendation settings.,RESULTS/CONCLUSIONS
 "These potentially powerful and innovative tools for multi dimensional data visualization can also provide an easy and natural path to a collaborative data visualization and exploration, where scientists can interact with their data and their colleagues in the same visual space.",BACKGROUND
-"In particular, we review the main techniques used to prove the new sample complexity bounds for mixtures of Gaussians by Ashtiani, Ben-David, Harvey, Liaw, Mehrabian, and Plan arXiv:1710.05209.",BACKGROUND
+"In particular, we review the main techniques used to prove the new sample complexity bounds for mixtures of Gaussians by Ashtiani, Ben-David, Harvey, Liaw, Mehrabian, and Plan arXiv: [NUM] .",BACKGROUND
 "Text analytics based on supervised machine learning classifiers has shown great promise in a multitude of domains, but has yet to be applied to Seismology.",BACKGROUND
 "Given a large population, it is an intensive task to gather individual preferences over a set of alternatives and arrive at an aggregate or collective preference of the population.",BACKGROUND
 "Even though commercial solutions are available for controlled acquisition conditions, e.g., the entrance of a parking lot, ALPR is still an open problem when dealing with data acquired from uncontrolled environments, such as roads and highways when relying only on imaging sensors.",OBJECTIVES
@@ -2896,7 +2896,7 @@ The comprehensive experiments on challenge datasets such as KITTI and Scene Flow
 Experiments on real-world datasets shows the validity of the proposed method.,RESULTS
 "As a consequence, designing algorithms that decide termination and non-termination of programs or decide inductive/coinductive soundness of formulae is a challenging task.",BACKGROUND
 "To overcome the tradeoff of the conventional normalized least mean square (NLMS) algorithm between fast convergence rate and low steady-state misalignment, this paper proposes a variable step size (VSS) NLMS algorithm by devising a new strategy to update the step size.",BACKGROUND
-"Simulation results involving the process variations in a standard 65 nm technology node, and features such as LO offset and I-Q imbalance detected with a neural network having 50 neurons in the hidden layer indicate that the framework can distinguish up to 4800 transmitters with an accuracy of 99.9% (~ 99% for 10,000 transmitters) under varying channel conditions, and without the need for traditional preambles.",RESULTS
+"Simulation results involving the process variations in a standard 65 nm technology node, and features such as LO offset and I-Q imbalance detected with a neural network having 50 neurons in the hidden layer indicate that the framework can distinguish up to 4800 transmitters with an accuracy of  [NUM] % (~ 99% for 10,000 transmitters) under varying channel conditions, and without the need for traditional preambles.",RESULTS
 The outliers are used to identify topics within an abnormal behavior in Twitter.,METHODS
 "Three types of input power constraints are considered: 1) only an average power constraint, 2) only a peak power constraint, and 3) an average and a peak power constraint.",OBJECTIVES
 "In order to form a theoretical background for time pressure detection in software repositories, this paper combines interdisciplinary knowledge by analyzing 1270 papers found on Scopus database and containing terms related to time pressure.",METHODS
@@ -2926,7 +2926,7 @@ Multiple light emitters and receivers provide us with a rich signal set that con
 "In the high mobility environment, the reduction of route discovery message enhances network performance since the proposed algorithm provides more reliable routes.",RESULTS/CONCLUSIONS
 Well documented research performed with Sentinel-1 allow other research the ability to redo the experiments and either validate or falsify presented findings.,OBJECTIVES
 "They differ from other cellular automata patterns in being geometric, metameric, fuzzy, resilient, adaptive, and rule-generic.",RESULTS
-"In this work, we study the problem of low-rate channel estimation over the IEEE 802.11ad 60 GHz communication link by harnessing sparsity in the channel impulse response.",OBJECTIVES
+"In this work, we study the problem of low-rate channel estimation over the IEEE  [NUM] ad 60 GHz communication link by harnessing sparsity in the channel impulse response.",OBJECTIVES
 This operation conveys additional knowledge represented by the obtained probabilistic bounds.,RESULTS
 "The article will present an overview of SPCC concepts, a concrete instantiation that supports goal-oriented data visualization (G-SPCC approach), and experiences from practical applications.",METHODS
 "We show that an evolutionary algorithm saves training time during the network architecture optimization, if learned network weights are inherited over generations by Lamarckian evolution.",OBJECTIVES/METHODS
@@ -2973,7 +2973,7 @@ We will be using NOOJ as a software tool to implement finite-state transducers t
 "In this paper, a sufficient and necessary criterion for confluence modulo equivalence w.r.t. an invariant for Constraint Handling Rules (CHR) is presented.",OBJECTIVES
 The order of the emergence of grid-like and border cells is also consistent with observations from developmental studies.,RESULTS
 "We present Quip, a lossless compression algorithm for next-generation sequencing data in the FASTQ and SAM/BAM formats.",OBJECTIVES
-"By addressing such basic open issues, we aim at providing a solid technical foundation for future steps towards the imminent evolution of Xmas 4.0.",CONCLUSIONS
+"By addressing such basic open issues, we aim at providing a solid technical foundation for future steps towards the imminent evolution of Xmas  [NUM] .",CONCLUSIONS
 "Using these datasets, we proved that our proposed model can accurately recognize both vertical and horizontal text and can achieve state-of-the-art results in experiments using benchmark datasets, including the street view test (SVT), IIIT-5k, and ICDAR.",RESULTS/CONCLUSIONS
 "We show that DO performed comparably or outperformed state-of-the-art algorithms in terms of accuracy, robustness to perturbations, and computational efficiency.",RESULTS
 "Using registered livestock data at a high spatio-temporal resolution, we demonstrate that our approach not only is resilient to varying model configurations, but also scales on all physical cores at realistic work loads.",METHODS/RESULTS
@@ -2993,7 +2993,7 @@ We explore these questions by creating four ambient display prototypes.,METHODS
 "A fundamental goal of this effort is to increase the use and efficacy of building impact studies conducted by architects, engineers, and building owners and operators during the building design process.",OBJECTIVES
 A recent study shows that the patients' death rate can be significantly reduced by computerizing medical best practice guidelines.,BACKGROUND
 Novel characterizations for human actions are then constructed.,METHODS
-"The mean unsigned border positioning errors(mean - SD) was 8.52 - 3.13 and 7.56 - 2.95 micrometer for the 2D and 3D methods, respectively.",RESULTS
+"The mean unsigned border positioning errors(mean - SD) was  [NUM]  -  [NUM]  and  [NUM]  -  [NUM]  micrometer for the 2D and 3D methods, respectively.",RESULTS
 The combination of packet processing languages with FPGAs seems to be the perfect match for these requirements.,OBJECTIVES
 We find that the probability of a friendship tie between students from neighboring schools is high and that it decreases with the distance between schools following the power law.,RESULTS
 "This paper deals with the ultimate performance limits of ambient backscatter systems in broadband fading environments, by considering different amounts of network state information at the receivers.",OBJECTIVES
@@ -3016,7 +3016,7 @@ For large networks such origin-destination traffic prediction problem takes the 
 Results suggest that no single lexicon is best for every task and dataset and that the intrinsic evaluation of polarity lexicons is not a good performance indicator on a Sentiment Analysis task.,CONCLUSIONS
 "We consider using chaff services to defend against such an eavesdropper, with focus on strategies to control the chaffs.",OBJECTIVES/METHODS
 Our experiments carried out on the One Billion Word benchmark show a significant improvement over the state of the art ensemble without retraining of the basic modules.,RESULTS
-Code has been made available at: https://github.com/jiasenlu/NeuralBabyTalk,OTHERS
+Code has been made available at: ,OTHERS
 "In this paper we introduce Smooth Particle Networks (SPNets), a framework for integrating fluid dynamics with deep networks.",OBJECTIVES
 "We present a comprehensive survey of Ponzi schemes on Ethereum, analysing their behaviour and their impact from various viewpoints.",OBJECTIVES
 "Considering energy consumption, an implicit assumption is that optimality in throughput implies optimality in energy efficiency, but this assumption has been recently put into question.",BACKGROUND
@@ -3088,7 +3088,7 @@ Reviews spams are prevalent in e-commerce to manipulate product ranking and cust
 Objective: Predict patient-specific vitals deemed medically acceptable for discharge from a pediatric intensive care unit (ICU).,OBJECTIVES
 This paper analyzes the statistical properties of the electrical parameters of transmission branches and especially examines their interdependence on the voltage levels.,OBJECTIVES/METHODS
 We showcase the effectiveness of FSTDP in learning spike-timing correlations among processes of different rates in synthetic data.,RESULTS
-"We find that, by employing standard batching optimizations for CPU training, we achieve a 4.5x throughput improvement over Caffe on popular networks like CaffeNet.",METHODS/RESULTS
+"We find that, by employing standard batching optimizations for CPU training, we achieve a  [NUM] x throughput improvement over Caffe on popular networks like CaffeNet.",METHODS/RESULTS
 "As deep neural networks (DNNs) have been integrated into critical systems, several methods to attack these systems have been developed.",BACKGROUND
 The model can capture not only the local excitation but also far-field signals and pacing afterpotentials.,METHODS
 "In this contribution, it is shown that the FDN is lossless for any set of delays, if all irreducible components of the feedback matrix are diagonally similar to a unitary matrix.",RESULTS
@@ -3138,7 +3138,7 @@ Our algorithm can be applied to datasets of an arbitrary nature and is not limit
 Due to the highly challenging nature of the optimization problem a range of solutions are adopted in the literature which are also covered under the aforementioned classification.,METHODS
 "In contrast, we propose the use of translated sentences as context that is always available regardless of the domain.",OBJECTIVES
 The learned network quantitatively demonstrated its performance and generalization capability through denoising experiments of various samples.,CONCLUSIONS
-"In this survey, we conduct a comprehensive review on the medium access control layer (MAC) related issues for the IEEE 802.11ay, some cross-layer between physical layer (PHY) and MAC technologies are also included.",OBJECTIVES
+"In this survey, we conduct a comprehensive review on the medium access control layer (MAC) related issues for the IEEE  [NUM] ay, some cross-layer between physical layer (PHY) and MAC technologies are also included.",OBJECTIVES
 "Later, we assess the human performance in discriminating between genuine accounts, social spambots, and traditional spambots.",METHODS
 "The results are obtained from an experimental cloud testbed running web applications, specifically the RUBiS benchmark application.",RESULTS
 Workflows specify collections of tasks that must be executed under the responsibility or supervision of human users.,BACKGROUND
@@ -3293,7 +3293,7 @@ This model is used to analyze a network of French political blogs.,METHODS
 "When restricted to the discrete setting, our reformulation of bilateral filters extends previous results for the so-called fast bilateral filtering.",BACKGROUND
 We formulate the problem of data imputation and prediction for ATR relevant medical measurements into a recommender system framework.,METHODS
 Who would the movies appeal to?,BACKGROUND
-"We forecast three air pollutants (i.e., PM2.5, PM10 and O3) of monitoring stations over the next 48 hours, using a hybrid deep learning model consists of inferential predictor (inference for regions without air pollution readings), spatial predictor (capturing spatial correlations using CNN) and temporal predictor (capturing temporal relationship using sequence-to-sequence model with simplified attention mechanism).",METHODS
+"We forecast three air pollutants (i.e., PM [NUM] , PM10 and O3) of monitoring stations over the next 48 hours, using a hybrid deep learning model consists of inferential predictor (inference for regions without air pollution readings), spatial predictor (capturing spatial correlations using CNN) and temporal predictor (capturing temporal relationship using sequence-to-sequence model with simplified attention mechanism).",METHODS
 This results in a smaller number and repeated application can always reduce the number to a single digit.,BACKGROUND
 The success of the analysis and optimization efforts heavily depends on the quality of the models.,BACKGROUND
 Due to the nature of the construction we are also able to obtain an exponential lower bound for the round-robin rule applied to acyclic unique sink orientations of hypercubes (AUSOs).,RESULTS
@@ -3337,7 +3337,7 @@ We propose a measure and a metric on the sets of infinite traces generated by a 
 "The proposed framework is general enough to be applicable also to other distribution networks, such as water and gas networks.",CONCLUSIONS
 We find such behavior persists even when we restrict the flows to constant-volume transformations.,METHODS
 This approach provides a better performance of embedded systems for fault diagnosis based on characteristic of amplitude signal modulation.,CONCLUSIONS
-"G2D and its source code are publicly available at https://goo.gl/SS7fS6   In addition, we demonstrate an application of G2D to generate a large-scale dataset with groundtruth camera poses for testing structure-from-motion (SfM) algorithms.",RESULTS
+"G2D and its source code are publicly available at    In addition, we demonstrate an application of G2D to generate a large-scale dataset with groundtruth camera poses for testing structure-from-motion (SfM) algorithms.",RESULTS
 Our approximation includes an error bound that is based on the input-to-state stability property of contractive systems.,RESULTS
 This period includes three bubbles experienced by the Bitcoin price.,BACKGROUND
 We then consider the second question:   How do we find clusters and good partitions of clusters under such a definition?,BACKGROUND/OBJECTIVES
@@ -3384,11 +3384,11 @@ Confounders can cause models to generalize poorly and result in inaccurate predi
 "Often caused by the cameras limited capabilities, it is common for these captured facial images to be blurred or low resolution.",BACKGROUND
 "To that effect, we propose `SPARE' - an in-memory, distributed processing architecture built on ROM-embedded RAM technology, for accelerating SNNs.",OBJECTIVES
 "The proposed method consists of three stages (removing noise, segmentation, classification) in order to extract the correct lesion.",METHODS
-Hardware measurements on a state-of-the-art mobile processor show that our analytical formulation can predict the stable fixed point with an average error of 2.6%.,RESULTS
+Hardware measurements on a state-of-the-art mobile processor show that our analytical formulation can predict the stable fixed point with an average error of  [NUM] %.,RESULTS
 Questions were originally represented by subsets of variables.,BACKGROUND
 We then integrate them into a unified solution to obtain high quality depth maps.,METHODS
 "Moreover, the size of the tree is difficult to obtain and it will be different for different active sites.",OTHERS
-The results also show that LSM significantly improves the convergence time of up to 33.3% compared to conventional learning algorithms such as Q-learning.,RESULTS
+The results also show that LSM significantly improves the convergence time of up to  [NUM] % compared to conventional learning algorithms such as Q-learning.,RESULTS
 "Therefore, systematic utilization of both these types of algorithms together can lead to better prediction performance.",OBJECTIVES
 "When agents are non-strategic, an agent's strategy is known to the other agents.",BACKGROUND
 This paper attempts to address the problem of one-classifier-per-one-word WSD algorithms by proposing a single Bidirectional Long Short-Term Memory (BLSTM) network which by considering senses and context sequences works on all ambiguous words collectively.,OBJECTIVES/METHODS
@@ -3498,7 +3498,7 @@ This is naturally interpreted as a Kalman filter with multiple interacting state
 "We propose to combine ontology visualizations with contextual ontology verbalizations of selected ontology (diagram) elements, displaying controlled natural language (CNL) explanations of OWL axioms corresponding to the selected visual notation elements.",OBJECTIVES/METHODS
 "In contrast, automated analysis of EEG data offers the potential to improve the quality of patient care by shortening the time to diagnosis and reducing manual error.",BACKGROUND
 "A better solution to tackle these two critical problems is to train object detectors from scratch, which motivates our proposed DSOD.",OBJECTIVES
-"As compared to existing state-of-the-art packet scheduling proposals, Slytherin achieves 18.6% lower 99th percentile flow completion times for short flows without any loss of throughput.",RESULTS
+"As compared to existing state-of-the-art packet scheduling proposals, Slytherin achieves  [NUM] % lower 99th percentile flow completion times for short flows without any loss of throughput.",RESULTS
 "However, the fact that soft attention mechanisms perform a pass over the entire input sequence when producing each element in the output sequence precludes their use in online settings and results in a quadratic time complexity.",BACKGROUND
 "Accordingly, in this paper a method which adds secrecy to this well-known source code is proposed.",OBJECTIVES
 "We argue that existing studies, while useful, fail to address a key aspect of mobile application usage - initial impression and discoverability-driven usability.",OBJECTIVES
@@ -3518,7 +3518,7 @@ We then propose a sequential algorithm for case-control matching on this represe
 Bondarenko in 1983.,OTHERS
 The reconstruction matrix generated by using this technique is block-diagonal and can be used for clustering (using spectral clustering) and embedding.,METHODS
 "This paper first describes an `obfuscating' compiler technology developed for encrypted computing, then examines if the trivial case without encryption produces much-sought indistinguishability obfuscation.",BACKGROUND/OBJECTIVES
-"Graph topology was found to be an important predictor of loan profitability, explaining over 5.5% of variability.",RESULTS
+"Graph topology was found to be an important predictor of loan profitability, explaining over  [NUM] % of variability.",RESULTS
 "In particular, we examine the case where only an upper bound on the number of anomalous processes is known.",BACKGROUND
 "In addition, we analyze universality, consistency and spectral filtering properties.",RESULTS
 "We draw tools and concepts from term rewriting, Boolean function theory and graph theory in order to access some required intermediate results.",OBJECTIVES/METHODS/RESULTS/CONCLUSIONS
@@ -3569,7 +3569,7 @@ The ice-ocean model NEMO-LIM3 was modified to improve its simulation quality for
 "Our hypothesis is that, in the absence of a good model of the data generation process, it is better to learn the features from data, instead of using hand-crafted features that have no resemblance to the signature generation process.",OBJECTIVES
 A domain critic module (DCM) is set up for discriminating the feature space of both domains.,METHODS
 We investigate the zero-one laws for the property that there are no isolated nodes.,METHODS
-The computer used during the development of this study was classified as notebook and laptop with the proximities of 20.04% and 11.68% respectfully.,RESULTS
+The computer used during the development of this study was classified as notebook and laptop with the proximities of  [NUM] % and  [NUM] % respectfully.,RESULTS
 A training strategy combining a regression loss and a segmentation loss is proposed in order to better approximate the discontinuous saturation field.,METHODS
 The back-propagation algorithm is widely used for learning in artificial neural networks.,BACKGROUND
 "As a whole, the data and analyses presented here provide a starting-place for further critical reflection on the evolution of the history of biology over the past half-century.",OTHERS
@@ -3595,7 +3595,7 @@ Four-atom conjecture on the minimization of Ingleton score is refuted.,RESULTS
 "The dataset covers several challenges highly relevant in the field, such as a limited amount of training data and a high diversity in the test and validation sets.",METHODS
 We investigate challenges and possible solutions of using the MapReduce programming model for parallel entity resolution.,OBJECTIVES
 "For information retrieval and binary classification, we show that precision at the top (or precision at k) and recall at the top (or recall at k) are maximised by thresholding the posterior probability of the positive class.",RESULTS
-"By evaluating our method against top defense submissions and official baselines from NIPS 2017 adversarial competition, this enhanced attack reaches an average success rate of 73.0%, which outperforms the top 1 attack submission in the NIPS competition by a large margin of 6.6%.",RESULTS
+"By evaluating our method against top defense submissions and official baselines from NIPS 2017 adversarial competition, this enhanced attack reaches an average success rate of  [NUM] %, which outperforms the top 1 attack submission in the NIPS competition by a large margin of  [NUM] %.",RESULTS
 Most of the parameters in large vocabulary models are used in embedding layer to map categorical features to vectors and in softmax layer for classification weights.,BACKGROUND
 "Indeed, if the essence of the universe is information, matter, charge, energy and movement could be aspects of information, and the many conservation laws could be a single law of information conservation.",CONCLUSIONS
 Experiments indicate better results for the overlapping candidate proposal strategy and a loss of performance for the cropped image features due to the loss of spatial resolution.,RESULTS
@@ -3625,7 +3625,7 @@ Most of these courses either lack a hands-on component or heavily focus on theor
 "Different from the conventional region proposal methods, we leverage the spatial layout information (e.g., cars often park regularly) and introduce these spatially regularized constraints into our network to improve the localization accuracy.",METHODS
 We investigate the 'Digital Synaptic Neural Substrate' (DSNS) computational creativity approach further with respect to the size and quality of images that can be used to seed the process.,OBJECTIVES
 "To build this corpus, we collected data from Twitter and we provided a team of experienced annotators with annotation guidelines that they used to annotate the corpus for age categories, gender, and dialectal variety.",METHODS
-"During inference, by injecting proper noise to signals in the neural networks, the robustness of adversarially-trained neural networks against black-box attacks has been further enhanced by 0.5% and 1.13% for two adversarially trained models for MNIST and CIFAR10, respectively.",METHODS/RESULTS
+"During inference, by injecting proper noise to signals in the neural networks, the robustness of adversarially-trained neural networks against black-box attacks has been further enhanced by  [NUM] % and  [NUM] % for two adversarially trained models for MNIST and CIFAR10, respectively.",METHODS/RESULTS
 "As a consequence, users are getting engaged with the mobile apps and frequently search for an information need in their apps.",BACKGROUND
 "Using our proposed approach, we have built a Web application called ""Dictionary Explorer"" which supports word indexes in various languages and every language can have multiple dictionaries associated with it.",RESULTS
 "While Lie group improves the modeling of the state space in localization, the EKF on Lie group still relies on the arbitrary Gaussian assumption in face of nonlinear models.",BACKGROUND
@@ -3753,7 +3753,7 @@ The proposed framework can extract individual target tracks as well as estimate 
 It is able to extract insightful patterns in the unsupervised learning setting and to provide state of the art accuracy when used as a preparation step for supervised learning.,CONCLUSIONS
 "Such recognition is essential for estimation of fill-level, volume and phase-boundaries as well as for tracking of such chemical processes as precipitation, crystallization, condensation, evaporation and phase-separation.",BACKGROUND
 "Additionally, the fact that its search results were accompanied from the beginning by citation counts, as well as the later development of secondary products which leverage this citation data (such as Google Scholar Metrics and Google Scholar Citations), made many scientists wonder about its potential as a source of data for bibliometric analyses.",BACKGROUND
-An accompanying video is available online at https://youtu.be/B9WM557NP44.,OTHERS
+An accompanying video is available online at ,OTHERS
 "However, existing algorithms rely on fixed beacon rates at each receiver.",BACKGROUND
 "The global balancing model constructs balancing weights that facilitate estimating of partial effects of features (holding fixed all other features), a problem that is challenging in high dimensions, and thus helps to identify stable, causal relationships between features and outcomes.",METHODS
 "We present preliminary results of inference on three different use-cases modeled by domain experts from the company, and show that this approach manages to decrease the overload of information required from an analyst to evaluate a costumer's session - whether this is a malicious or benign session, whether the intended tasks were completed, and if not - what actions are expected next.",RESULTS
@@ -3904,14 +3904,14 @@ We call a program in this language an epistemic logic program (ELP).,BACKGROUND
 In this work we develop a family of fast and practical stochastic algorithms for solving the optimal transport problem with an entropic penalization.,OBJECTIVES
 We also apply MintHint to several faults of a widely used Unix utility program to further assess the effectiveness of the approach.,RESULTS
 This allows us to develop a block coordinate descent (BCD) training algorithm consisting of a sequence of numerically well-behaved convex optimizations.,METHODS
-In this paper we build on the Optimal Rewards Framework of Singh et.al. that defines the optimal intrinsic reward function as one that when used by an RL agent achieves behavior that optimizes the task-specifying or extrinsic reward function.,METHODS
+In this paper we build on the Optimal Rewards Framework of Singh  that defines the optimal intrinsic reward function as one that when used by an RL agent achieves behavior that optimizes the task-specifying or extrinsic reward function.,METHODS
 A better understanding of how we can perceive and interact with multi dimensional information poses some deep questions in the field of cognition technology and human computer interaction.,METHODS
 "The last century saw several significant fundamental advances in our understanding of the process of inference, which make it clear that these are inferential theories.",BACKGROUND
 In this paper we investigate the ability of a neural network to approximate algebraic properties associated to lattice simplices.,OBJECTIVES
 "Although there are mature touch-based authentication methods for smartphones, the effectiveness of using these methods on smartwatches is still unclear.",OBJECTIVES
 Users are spatially distributed and each user is in the interference range of a few other users.,OTHERS
 "In this article, we describe the system and its evaluation through measurements with representative games from different genres to understand the effect of parameterization of the FVE scheme on bandwidth requirements and to understand its feasibility from the latency perspective.",OBJECTIVES/METHODS
-"To this end, we propose a high-performance neural model (92.08 F1 on PTB) that is representative of recent work and perform a series of investigative experiments.",METHODS
+"To this end, we propose a high-performance neural model ( [NUM]  F1 on PTB) that is representative of recent work and perform a series of investigative experiments.",METHODS
 It is also shown that our method can be accelerated by several times via early rejection.,RESULTS
 The paper establishes and studies this interpretation.,RESULTS/CONCLUSIONS
 Scenarios are one effective practice to describe behavior.,BACKGROUND
@@ -4026,7 +4026,7 @@ Channel estimation at millimeter wave (mmWave) is challenging when large antenna
 Most models haven't considered the role that emotional factors of the individual may play on the population's behavioral adaptation during the spread of a pandemic disease.,BACKGROUND
 "At one extreme, we found that mandated data archiving policies that require the inclusion of a data availability statement in the manuscript improve the odds of finding the data online almost a thousand-fold compared to having no policy.",RESULTS
 The gate program is switched between the AND and the OR operations at the rate of 1 GHz with Bit Error Ratio (BER) of 10e-6 without changes in the wavelength or in the signal encoding format.,RESULTS
-"Using low-level image features and a random forest classifier, we show that using synthetic oversampling techniques increases the sensitivity of the minority classes by an average of 7.22% points, with as much as a 19.88% point increase in sensitivity for a particular minority class.",METHODS/RESULTS
+"Using low-level image features and a random forest classifier, we show that using synthetic oversampling techniques increases the sensitivity of the minority classes by an average of  [NUM] % points, with as much as a  [NUM] % point increase in sensitivity for a particular minority class.",METHODS/RESULTS
 "After describing two examples where low-order eigenvector localization arises, we present a very simple model that qualitatively reproduces several of the empirically-observed results.",RESULTS
 "Further, we combined domain specific knowledge and intuitive knowledge to improve the efficiency.",METHODS
 Various tools have been developed over the centuries to discover and study the various patterns in the sequence of natural numbers in the context of divisibility.,OBJECTIVES
@@ -4051,7 +4051,7 @@ Our model allows linking different reasoning tasks though shared modules that ha
 "The algorithm was tested on a standard evaluation data set, where it performs on par with state-of-the-art algorithms in term of precision and greatly outperforms the state of the art by reducing the oversegmentation of the object of interest.",RESULTS
 "We investigate the problem of learning discrete, undirected graphical models in a differentially private way.",OBJECTIVES
 Several strategies have been combined to lower the unavoidable popping artifacts arising when arrows appear and disappear and to achieve visually pleasing animations.,RESULTS
-"An absolute improvement of 9.7% over the base line is reported on the OuluVS2 database, and 1.5% on the CUAVE database when compared with other methods which use a similar visual front-end.",RESULTS
+"An absolute improvement of  [NUM] % over the base line is reported on the OuluVS2 database, and  [NUM] % on the CUAVE database when compared with other methods which use a similar visual front-end.",RESULTS
 The results show that the CPLTS technique improves the dispersive and dissipative properties of LF2-LTS scheme.,CONCLUSIONS
 "Last one is RHCV-PMF, where both type of feedbacks are considered.",METHODS
 Orthogonal multiple access (OMA) technologies in today's mobile systems fall inefficient in the presence of such massive connectivity and traffic demands.,BACKGROUND
@@ -4065,7 +4065,7 @@ We apply context free grammar (CFG) to find out the grammatical relations of the
 Such a pattern would be of great theoretical and practical interest.,OTHERS
 "Our main contribution is a novel parameterized data structure, which can be tuned to trade off space for answer time.",RESULTS
 "On one hand, the consistency, which means that the approximated error covariance is lower bounded by the true unknown one, has to be guaranteed so that the estimate is not over-confident.",BACKGROUND
-The IEEE 802.11ad and IEEE 802.11ay operating on 60 GHz mmWave are the two most expected wireless local area network (WLAN) technologies for ultra-high-speed communications.,BACKGROUND
+The IEEE  [NUM] ad and IEEE  [NUM] ay operating on 60 GHz mmWave are the two most expected wireless local area network (WLAN) technologies for ultra-high-speed communications.,BACKGROUND
 "Our main contributions are the three theorems shedding light upon these three questions and demonstrating the merits of a quadratic network in terms of expressive efficiency, unique capability, and compact architecture respectively.",CONCLUSIONS
 "Exploiting the line of sight (LOS) component, the most significant diffusive component of the channel (the second power peak (SPP)), and the delay time between LOS and SPP, we present a proof of concept analysis for positioning using fixed reference points, i.e. uplink photodetectors (PDs).",OBJECTIVES
 It provides an overview of different aspects of OCR and discusses corresponding proposals aimed at resolving issues of OCR.,OBJECTIVES
@@ -4152,7 +4152,7 @@ The facial expression analysis is significantly improved by utilizing these mapp
 "Although the 3D kernels tend to overfit because of a large number of their parameters, the 3D CNNs are greatly improved by using recent huge video databases.",BACKGROUND
 Many sequence learning tasks require the localization of certain events in sequences.,BACKGROUND
 "Here, we propose a novel vertex similarity index named CosRA, which combines advantages of both the cosine index and the resource-allocation (RA) index.",OBJECTIVES/METHODS
-The comparison with the conventional AlexNet-based network using data from the Alzheimer's Disease Neuroimaging Initiative (ADNI) dataset (http://adni.loni.usc.edu) demonstrates significantly better performance of the proposed 3D Inception-based CNN.,METHODS/RESULTS/CONCLUSIONS
+The comparison with the conventional AlexNet-based network using data from the Alzheimer's Disease Neuroimaging Initiative (ADNI) dataset () demonstrates significantly better performance of the proposed 3D Inception-based CNN.,METHODS/RESULTS/CONCLUSIONS
 State-of-the-art deep reading comprehension models are dominated by recurrent neural nets.,BACKGROUND
 Both student and teacher are learned from the data.,METHODS
 "To show this, we present a novel deontic logic contrary-to-duty/derived permission paradox based on the interaction of obligations, permissions and contrary-to-duty obligations.",METHODS/RESULTS
@@ -4200,7 +4200,7 @@ The experimental results demonstrate that our proposed method outperforms the st
 "Computer engineers are needed while designing and developing a structure of computer systems, software and hardware systems and also they need when implementing and solving problems while using these systems.",BACKGROUND
 To appear in Theory and Practice of Logic Programming (TPLP).,OTHERS
 "Compositional analysis, based on symbolic execution, is an automated testing method to find vulnerabilities in medium- to large-scale programs consisting of many interacting components.",BACKGROUND
-We achieved a detection precision of 83.11% and a recall of 41.27%.,RESULTS
+We achieved a detection precision of  [NUM] % and a recall of  [NUM] %.,RESULTS
 TMP-RL features two nested planning-learning loops.,METHODS
 "In fact, shapeliness also gives a way to define the data and axioms of a structure directly from its graphical calculus, by generating a free shapely monad on the basic operations of the calculus.",RESULTS
 "Then, we reduce the dimension of the denoised data using the hidden layer representation of another autoencoder.",METHODS
@@ -4267,7 +4267,7 @@ This paper describes an architecture for robots that combines the complementary 
 "The idea is to use image warping error (instead of disparity-map residuals) as the loss function to drive the learning process, aiming to find a depth-map that minimizes the warping error.",METHODS
 "Lifelogging cameras capture everyday life from a first-person perspective, but generate so much data that it is hard for users to browse and organize their image collections effectively.",OBJECTIVES/METHODS
 This paper investigates how retailers at different stages of e-commerce maturity evaluate their entry to e-commerce activities.,OBJECTIVES
-ResNeXt-101 achieved 78.4% average accuracy on the Kinetics test set.,RESULTS
+ResNeXt-101 achieved  [NUM] % average accuracy on the Kinetics test set.,RESULTS
 Eroders are monotonic cellular automata with a linearly ordered state set that eventually wipe out any finite island of nonzero states.,BACKGROUND
 "Furthermore, alternate approaches of mapping the synaptic weights into fully-trained and semi-trained crossbars are investigated.",METHODS
 "The problem of privacy-preserving, distributed calculations over separated databases and, a relative to it, issue of private data release were intensively investigated.",BACKGROUND
@@ -4281,8 +4281,8 @@ The ring of integers considered is principal but could be euclidean or not eucli
 Then we propose a new EM-weighting algorithm which efficiently discards outliers.,METHODS
 "Besides the base model, in order to enhance its performance, we also proposed three techniques: the integration of multiple word-embedding library, bi-way integration, and ensemble based on model averaging.",METHODS
 Metrics derived from bibliometrics and citation analysis were effectively used to characterize the novelty in scientific development.,BACKGROUND
-"Landmark-tasked MTL reduces source-language phone error rate by 2.9% relative, and reduces target-language word error rate by 1.9%-5.9% depending on the amount of target-language training data.",RESULTS
-A pytorch implementation is available at https://github.com/Prinsphield/ELEGANT.,OTHERS
+"Landmark-tasked MTL reduces source-language phone error rate by  [NUM] % relative, and reduces target-language word error rate by  [NUM] %- [NUM] % depending on the amount of target-language training data.",RESULTS
+A pytorch implementation is available at ,OTHERS
 New methodology of direct computations of DFT spectral points in higher finite fields from known DFT spectra points of smaller constituent fields is also introduced.,METHODS/RESULTS
 Diet design for vegetarian health is challenging due to the limited food repertoire of vegetarians.,BACKGROUND
 Feature selection is a dimensionality reduction technique that selects a subset of representative features from high dimensional data by eliminating irrelevant and redundant features.,BACKGROUND
@@ -4322,7 +4322,7 @@ We show that misguided evaluations of the contributions of computational mechani
 We also address the question of how STT-CiM should be integrated within a general-purpose computing system.,OBJECTIVES
 The Kalman Filter is a widely used method that works well on linear Gaussian models.,BACKGROUND
 It is assumed that the active site configuration of the target protein is known with position of the essential residues.,BACKGROUND
-"For single-phase grids, our proximal gradient scheme has computational complexity comparable to that of the rule suggested by the IEEE 1547.8 standard, but it enjoys well-characterized convergence guarantees.",METHODS/RESULTS
+"For single-phase grids, our proximal gradient scheme has computational complexity comparable to that of the rule suggested by the IEEE  [NUM]  standard, but it enjoys well-characterized convergence guarantees.",METHODS/RESULTS
 "In this paper, we show that feeding an explicit model of the scale changes to the network considerably increases performance.",METHODS
 "The biggest advantage of the proposed model is its capability of extracting semantic information of audio segments taken directly from raw speech, without relying on any other modalities such as text or images, which are challenging and expensive to collect and annotate.",CONCLUSIONS
 Deep learning neural network is used where both fully connected layers are fol-lowed by dropout layers.,METHODS
@@ -4367,7 +4367,7 @@ We show how to address such problem in Constraint Logic Programming on Finite Do
 "Using an information theoretic point of view, we investigate how a dynamics acting on a network can be coarse grained through the use of graph partitions.",OBJECTIVES
 "In this paper, we propose a novel medical image segmentation using iterative deep learning framework.",OBJECTIVES/METHODS
 Verifying programs in the functional programming language Haskell is no exception.,BACKGROUND
-"Compared to previous methods that approximate time-frequency masks, our method has increased performance of signal to distortion ratio by an average of 3.8 dB.",RESULTS
+"Compared to previous methods that approximate time-frequency masks, our method has increased performance of signal to distortion ratio by an average of  [NUM]  dB.",RESULTS
 "These valuable data sources may supply useful information to enhance a recommendation system in modeling users' preferences and item characteristics more accurately and thus, hopefully, to make recommenders more precise.",BACKGROUND
 "Supporting IPv6/UDP/CoAP protocols over Low Power Wide Area Networks (LPWANs) can bring open networking, interconnection, and cooperation to this new type of Internet of Things networks.",BACKGROUND
 "In previous work, published in the proceedings of the International Conference on Computer-Aided Design, we proposed and solved the problem of computing the maximum parallelism obtainable in the communication between any two endpoints while avoiding misrouting of optical signals.",BACKGROUND
@@ -4400,7 +4400,7 @@ The generated summaries from the reports for the event should be salient accordi
 "While many techniques assume the location of each data element (node or edge) is known, when the components of the distributed system are autonomous, the data will be arbitrarily distributed.",OBJECTIVES
 "We evaluated ESPNet on a variety of semantic segmentation datasets including Cityscapes, PASCAL VOC, and a breast biopsy whole slide image dataset.",RESULTS
 "By combining benchmarking and user experience testing, with a cohort of 20 astronomers, we investigate the viability of replacing physical desktop computers with virtual hosted desktops.",OBJECTIVES/METHODS
-"The results show that mmWave-based strategies support ultra-high transmission speeds, and IEEE 802.11p systems have the ability to guarantee reliable and robust communications.",RESULTS/CONCLUSIONS
+"The results show that mmWave-based strategies support ultra-high transmission speeds, and IEEE  [NUM] p systems have the ability to guarantee reliable and robust communications.",RESULTS/CONCLUSIONS
 There also exist several mathematical techniques which can yield high performance gains when applied to complex algorithms.,BACKGROUND
 Each of these stages implies its own computer algebra system.,METHODS
 "The method constructs a textual representation of the semantic content of an image, and merges it with textual information sourced from a knowledge base, to develop a deeper understanding of the scene viewed.",METHODS
@@ -4595,7 +4595,7 @@ We also present two other results: 1) collective Fuchs-Caves measurements (quant
 "We demonstrate experimentally that the proposed model can successfully transfer attributes on several datasets, but show also cases when the reference ambiguity occurs.",RESULTS/CONCLUSIONS
 "(CPM '11), and obtain improved approximation ratios.",RESULTS
 We give a proof of undecidability of the following problem for these calculi: whether a given finite set of propositional formulas constitutes an adequate axiom system for a fixed propositional calculus.,OBJECTIVES/RESULTS
-The 3D printing estimated value reached 20.2 billion of dollars in 2021.,CONCLUSIONS
+The 3D printing estimated value reached  [NUM]  billion of dollars in 2021.,CONCLUSIONS
 Even neural machine translation (NMT) struggles to overcome it.,BACKGROUND
 "NMODE addresses a second problem in the context of evolutionary robotics, which is incremental evolution of complex behaviours for complex machines, by offering a way to interface neuro-modules.",OBJECTIVES
 "In this work we show the benefits of facing this exploration/exploitation problem by running centralized variations of the multi-arm bandit's epsilon-greedy, a well-known online decision-making method that combines best known action selection and knowledge expansion.",OBJECTIVES
