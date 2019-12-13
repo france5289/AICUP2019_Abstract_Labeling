@@ -5,6 +5,10 @@ Type the following command to train and evaluate model
 ``` bash
 python3 train.py
 ```
+# Bug fixed
+- 修正 tensorboard hyperparameter logging error
+  - 之前在紀錄 train 或 valid loss 的時候寫錯，寫成紀錄 loss 最大值
+  - 現在修改成紀錄最小值
 # Release Note
 11/26 新增以下功能:
 - 將hyperparameters 寫於 `hparams_setting.json` training 時自動讀取
