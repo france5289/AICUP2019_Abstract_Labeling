@@ -60,7 +60,7 @@ if __name__ == '__main__':
     Remove_Redundant_Columns(dataset)
     dataset['Abstract'] = dataset['Abstract'].progress_apply(func = CleanData)
     dataset['Abstract'] = dataset['Abstract'].progress_apply(func = lambda doc : doc.split('$$$'))
-    dataset['Task 1'] = dataset['Task 1'].progress_apply(func = lambda labels : labels.split(' '))
+    # dataset['Task 1'] = dataset['Task 1'].progress_apply(func = lambda labels : labels.split(' '))
     #dataset = Extract_Sentences(dataset)
     dataset.dropna(inplace=True)
     print('Split to train and valid')
