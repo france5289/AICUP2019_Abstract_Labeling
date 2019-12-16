@@ -87,10 +87,10 @@ def GenDict(train, valid):
         REGTokenizer = REGTokenizer.load_from_file(DICT_REG_PATH)
     else:
         for item in tqdm(train['Abstract'], desc='Train set'):
-            REGTokenizer.build_dict([item], min_count=1)
+            REGTokenizer.build_dict(item, min_count=1)
 
         for item in tqdm(valid['Abstract'], desc='Valid set'):
-            REGTokenizer.build_dict([item], min_count=1)
+            REGTokenizer.build_dict(item, min_count=1)
         REGTokenizer.save_to_file(DICT_REG_PATH)
 
 
