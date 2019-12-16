@@ -300,7 +300,10 @@ if __name__ == '__main__':
     train = pd.read_csv(TRAIN_DATA_PATH)
     valid = pd.read_csv(VALID_DATA_PATH)
     test = pd.read_csv(TEST_DATA_PATH)
-
+    # --------------- Split sentences ---------------
+    train['Abstract'] = train['Abstract'].apply(func = lambda doc : doc.split('$$$'))
+    valid['Abstract'] = valid['Abstract'].apply(func = lambda doc : doc.split('$$$'))
+    test['Abstract'] = test['Abstract'].apply(func = lambda doc : doc.split('$$$'))
     train.dropna(inplace=True)
     valid.dropna(inplace=True)
     test.dropna(inplace=True)
