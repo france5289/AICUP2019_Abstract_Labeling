@@ -1,6 +1,0 @@
-[PAD]
-[CLS]
-[SEP]
-[EOS]
-[UNK]
-[NUM]
