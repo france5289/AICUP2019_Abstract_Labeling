@@ -1,21 +1,24 @@
-import numpy as np
-import pandas as pd
+import json
+import multiprocessing
 import os
 import pickle
-import json
 
+import numpy as np
+import pandas as pd
 import torch
-from torch.utils.tensorboard import SummaryWriter
-from torch.utils.data import Dataset, DataLoader
 from torch.nn.utils.rnn import pad_sequence
+from torch.utils.data import DataLoader, Dataset
+from torch.utils.tensorboard import SummaryWriter
+from tqdm import tqdm, trange
 
-from tqdm import tqdm
-from tqdm import trange
+from DataPreprocessor import Create_Glove_embedding_matrix, Download_Glove
+from model import F1, GRUNet
+from tokenizer import NLTKTokenizer, RegTokenizer
 
-from model import GRUNet, F1
-from DataPreprocessor import Download_Glove, Create_Glove_embedding_matrix
-from tokenizer import NLTKTokenizer
-from tokenizer import RegTokenizer
+multiprocessing.set_start_method('spawn', True)
+
+
+
 # set device
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
