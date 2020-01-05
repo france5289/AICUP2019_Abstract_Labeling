@@ -1,14 +1,17 @@
 '''
 This module provide some helper function to preprocess dataset
 '''
-from multiprocessing import Pool
-from nltk.tokenize import word_tokenize
+import io
 import os
 import pickle
-import pandas as pd
-import requests, zipfile, io
-import torch
+import zipfile
+from multiprocessing import Pool
+
 import numpy as np
+import pandas as pd
+import requests
+import torch
+from nltk.tokenize import word_tokenize
 from tqdm import tqdm
 
 PAD_TOKEN = 0
