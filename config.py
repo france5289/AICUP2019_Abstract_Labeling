@@ -10,13 +10,13 @@ class Config(BaseConfig):
     Use this object to load hyperparameters from json files
     '''
     def __init__(self):
-        self.expname = None
-        self.embedding_dim = None
-        self.hidden_dim = None
-        self.learning_rate = None
-        self.max_epoch = None
-        self.batch_size = None
-        self.pretrained_embedding_path = None
+        self.expname = 'Default'
+        self.embedding_dim = 0
+        self.hidden_dim = 0
+        self.learning_rate = 0.0
+        self.max_epoch = 0
+        self.batch_size = 0
+        self.pretrained_embedding_path = ''
         self.removeOOV = False
         self.removepunct = False
     
@@ -62,38 +62,56 @@ class Config(BaseConfig):
     # Setter
     @expname.setter
     def expname(self, value):
+        if type(value) is not str:
+            raise ValueError('expname should be a string!')
         self._expname = value
 
     @embedding_dim.setter
     def embedding_dim(self, value):
+        if type(value) is not int:
+            raise ValueError('embedding_dim should be an integer')
         self._embedding_dim = value
 
     @hidden_dim.setter
     def hidden_dim(self, value):
+        if type(value) is not int:
+            raise ValueError('hidden_dim should be an integer')
         self._hidden_dim = value
     
     @learning_rate.setter
     def learning_rate(self, value):
+        if type(value) is not float:
+            raise ValueError('learning_rate should be a float')
         self._learning_rate = value
     
     @max_epoch.setter
     def max_epoch(self, value):
+        if type(value) is not int:
+            raise ValueError('max_epoch should be an integer')
         self._max_epoch = value
     
     @batch_size.setter
     def batch_size(self, value):
+        if type(value) is not int:
+            raise ValueError('batch_size should be an integer')
         self._batch_size = value
     
     @pretrained_embedding_path.setter
     def pretrained_embedding_path(self, value):
+        if type(value) is not str:
+            raise ValueError('pretrained_embedding_path should be a string')
         self._pretrained_embedding_path = value
     
     @removeOOV.setter
     def removeOOV(self, value):
+        if type(value) is not bool:
+            raise ValueError('removeOOV should be a boolean')
         self._removeOOV = value
     
     @removepunct.setter
     def removepunct(self, value):
+        if type(value) is not bool:
+            raise ValueError('removepunct should be a boolean')
         self._removepunct = value
 
     #======================
