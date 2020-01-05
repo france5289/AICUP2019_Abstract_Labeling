@@ -55,24 +55,23 @@ def CleanData(sent):
 
 if __name__ == '__main__':
     tqdm.pandas()
+    # ========== Generate Training and Validation dataset ========================
     dataset = pd.read_csv(os.path.join(DATA_PATH,'task1_trainset.csv'), dtype=str)
     print('Preprocessing task1_trainset.csv')
     Remove_Redundant_Columns(dataset)
     dataset['Abstract'] = dataset['Abstract'].progress_apply(func = CleanData)
-    # dataset['Abstract'] = dataset['Abstract'].progress_apply(func = lambda doc : doc.split('$$$'))
-    # dataset['Task 1'] = dataset['Task 1'].progress_apply(func = lambda labels : labels.split(' '))
-    #dataset = Extract_Sentences(dataset)
     dataset.dropna(inplace=True)
     print('Split to train and valid')
     trainset, validset = train_test_split(dataset, test_size=0.1, random_state=42)
     trainset.to_csv(os.path.join(DATA_PATH, 'trainset.csv'), index=False)
     validset.to_csv(os.path.join(DATA_PATH, 'validset.csv'), index=False)
-    print('Preprocessing task1_public_testset.csv')
-    testset = pd.read_csv(os.path.join(DATA_PATH, 'task1_public_testset.csv'), dtype=str)
+    # ========== Generate Training and Validation dataset ========================
+
+    # ========== Generate Testing dataset ========================================
+    print('Preprocessing task1_testset.csv')
+    testset = pd.read_csv(os.path.join(DATA_PATH, 'task1_testset.csv'), dtype=str)
     Remove_Redundant_Columns(testset)
     testset['Abstract'] = testset['Abstract'].progress_apply(func= CleanData)
-    # testset['Abstract'] = testset['Abstract'].progress_apply(func = lambda doc : doc.split('$$$'))
-    #testset = Extract_Sentences(testset)
     testset.dropna(inplace=True)
     testset.to_csv(os.path.join(DATA_PATH, 'testset.csv'), index=False)
     print('Preprocessing completed!')

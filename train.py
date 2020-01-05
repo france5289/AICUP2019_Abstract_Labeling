@@ -15,7 +15,8 @@ from DataPreprocessor import Create_Glove_embedding_matrix, Download_Glove
 from model import F1, GRUNet
 from tokenizer import NLTKTokenizer, RegTokenizer
 
-multiprocessing.set_start_method('spawn', True)
+# ============ uncomment the following line to use VSCode python debugger! ================
+# multiprocessing.set_start_method('spawn', True) 
 
 
 
