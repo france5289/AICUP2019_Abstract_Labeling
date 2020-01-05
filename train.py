@@ -12,7 +12,7 @@ from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm, trange
 
 
-from model import F1, GRUNet
+from model import F1, Net
 from tokenizer import NLTKTokenizer, RegTokenizer
 
 # ============ uncomment the following line to use VSCode python debugger! ================
