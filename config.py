@@ -151,5 +151,5 @@ class Config(BaseConfig):
         self.pretrained_embedding_path = obj['pretrained_path']
         self.removeOOV = obj['removeOOV']
         self.removepunct = obj['removepunct']
-
+        print('All hyperparameters have been read in')
         return self

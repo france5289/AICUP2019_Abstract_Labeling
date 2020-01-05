@@ -4,6 +4,7 @@ venv_Abstract_Labeling/
 fastext/
 glove/
 data/*.pkl
+*.pkl
 .vscode/
 .ipynb_checkpoints/
 __pycache__/
