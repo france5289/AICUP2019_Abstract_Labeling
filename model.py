@@ -7,51 +7,8 @@ import torch.nn.functional as F
 from collections import OrderedDict
 
 # TODO: residual connections
-class GRUNet(nn.Module):
-    def __init__(self,vocab_size,embedding_dim,embedding_matrix,hidden_dim,layer_num=1,drop_pb=0.5,bidirect=False):
-        super(GRUNet, self).__init__()
-        GRU_drop_pb = drop_pb
-        if layer_num == 1:
-            GRU_drop_pb = 0
-        self.embedding = nn.Embedding(vocab_size, embedding_dim)
-        self.embedding.weight = torch.nn.Parameter(embedding_matrix)
-        self.sent_rnn = nn.GRU( embedding_dim,
-                                hidden_dim,
-                                num_layers=layer_num,
-                                dropout=GRU_drop_pb,
-                                bidirectional=bidirect,
-                                batch_first=True)
-        self.FCLayer = nn.Sequential(
-                        OrderedDict(
-                            [('LayerNorm1', nn.LayerNorm(hidden_dim)),
-                            ('FC1', nn.Linear(hidden_dim , hidden_dim // 2)),
-                            ('DropOut1', nn.Dropout(drop_pb)),
-                            ('LayerNorm2', nn.LayerNorm(hidden_dim // 2)),
-                            ('ReLU1', nn.ReLU()),
-                            ('FC2', nn.Linear(hidden_dim // 2 , hidden_dim // 4)),
-                            ('DropOut2', nn.Dropout(drop_pb)),
-                            ('LayerNorm3', nn.LayerNorm( hidden_dim // 4 )),
-                            ('ReLU2', nn.ReLU()),
-                            ('FC3', nn.Linear(hidden_dim // 4, 6)),
-                            ('Sigmoid', nn.Sigmoid())]))
-        torch.nn.init.xavier_normal_(self.FCLayer[1].weight)
-        torch.nn.init.xavier_normal_(self.FCLayer[5].weight)
-        torch.nn.init.xavier_normal_(self.FCLayer[9].weight)
-
-    def forward(self, x, eos_indices):
-        '''
-        Args:
-            x(Tensor): input tensor with shape b*s
-            eos_indexes(list): list which record positions of every eos tokens
-        '''
-        x = self.embedding(x)
-        x, _ = self.sent_rnn(x) 
-        # x = self.sent_rnn(x)[0] + x # residual connection
-        _, __, h = x.size()
-        x = x.contiguous().view(-1, h)  # (b*s)*(hidden_dim * direction_num)
-        x = torch.index_select(x, 0, eos_indices)
-        y = self.FCLayer(x)
-        return y
+class Net(nn.Module):
+    pass
 
 
 class F1():
