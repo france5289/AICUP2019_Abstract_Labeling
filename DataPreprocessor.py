@@ -138,7 +138,7 @@ def label_to_onehot(labels):
         onehot[label_dict[l]] = 1
     return onehot
         
-def sentence_to_indices(sentence, word_dict):
+def sentence_to_indices(sentence, word_dict, unk_idx):
     """ Convert sentence to its word indices.
 
     Args:
@@ -146,9 +146,9 @@ def sentence_to_indices(sentence, word_dict):
     Return:
         indices (list of int): List of word indices.
     """
-    return [word_dict.get(word,UNK_TOKEN) for word in RegexpTokenizer(r'\w+|(?:\[NUM\])').tokenize(sentence)]
+    return [word_dict.get(word,unk_idx) for word in RegexpTokenizer(r'\w+|(?:\[NUM\])').tokenize(sentence)]
     
-def Get_dataset(data_path, word_dict, n_workers=4):
+def Get_dataset(data_path, word_dict, unk_idx, n_workers=4):
     """ Load data and return dataset for training and validating.
 
     Args:
@@ -166,7 +166,7 @@ def Get_dataset(data_path, word_dict, n_workers=4):
                 batch_end = (len(dataset) // n_workers) * (i + 1)
             
             batch = dataset[batch_start: batch_end]
-            results[i] = pool.apply_async(preprocess_samples, args=(batch,word_dict))
+            results[i] = pool.apply_async(preprocess_samples, args=(batch,word_dict, unk_idx))
 
         pool.close()
         pool.join()
@@ -176,7 +176,7 @@ def Get_dataset(data_path, word_dict, n_workers=4):
         processed += result.get()
     return processed
 
-def preprocess_samples(dataset, word_dict):
+def preprocess_samples(dataset, word_dict, unk_idx):
     """ Worker function.
 
     Args:
@@ -186,11 +186,11 @@ def preprocess_samples(dataset, word_dict):
     """
     processed = []
     for sample in tqdm(dataset.iterrows(), total=len(dataset)):
-        processed.append(preprocess_sample(sample[1], word_dict))
+        processed.append(preprocess_sample(sample[1], word_dict, unk_idx))
 
     return processed
 
-def preprocess_sample(data, word_dict):
+def preprocess_sample(data, word_dict, unk_idx):
     """
     Args:
         data (dict)
@@ -199,7 +199,7 @@ def preprocess_sample(data, word_dict):
     """
     ## clean abstracts by removing $$$
     processed = {}
-    processed['Abstract'] = [sentence_to_indices(sent, word_dict) for sent in data['Abstract'].split('$$$')]
+    processed['Abstract'] = [sentence_to_indices(sent, word_dict, unk_idx) for sent in data['Abstract'].split('$$$')]
     
     ## convert the labels into one-hot encoding
     if 'Task 1' in data:

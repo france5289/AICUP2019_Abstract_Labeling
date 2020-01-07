@@ -11,6 +11,7 @@ class Config(BaseConfig):
     '''
     def __init__(self):
         self.expname = 'Default'
+        self.seed = 20
         self.embedding_dim = 0
         self.hidden_dim = 0
         self.learning_rate = 0.0
@@ -26,6 +27,10 @@ class Config(BaseConfig):
     def expname(self):
         return self._expname
     
+    @property
+    def seed(self):
+        return self._seed
+
     @property
     def embedding_dim(self):
         return self._embedding_dim
@@ -65,6 +70,12 @@ class Config(BaseConfig):
         if type(value) is not str:
             raise ValueError('expname should be a string!')
         self._expname = value
+
+    @seed.setter
+    def seed(self, value):
+        if type(value) is not int:
+            raise ValueError('Random seed should be an integer')
+        self._seed = value
 
     @embedding_dim.setter
     def embedding_dim(self, value):
@@ -143,6 +154,7 @@ class Config(BaseConfig):
         obj = json.loads(hyper_params)
         # ============ set hyperparameters ===============
         self.expname = obj['expname']
+        self.seed = obj['seed']
         self.embedding_dim = obj['embedding_dim']
         self.hidden_dim = obj['hidden_dim']
         self.learning_rate = obj['learning_rate']
