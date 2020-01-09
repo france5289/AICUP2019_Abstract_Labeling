@@ -6,11 +6,11 @@ import torch
 from torch.utils.data import DataLoader
 from tqdm import tqdm, trange
 
-from DataPreprocessor import Get_dataset, Load_Vocabulary
+from DataPreprocessor import Get_dataset, Load_Vocabulary, Get_Pretrained_embedding_matrix
 from dataset import AbstractDataset
 from metrics import F1
 from model import Net
-
+from config import Config
 # ============ uncomment the following line to use VSCode python debugger! ================
 # multiprocessing.set_start_method('spawn', True) 
 
@@ -22,6 +22,7 @@ DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 CWD = os.getcwd()
 TEST_DATA_PATH = os.path.join(CWD, 'data', 'testset.csv')
 DICT_PATH = os.path.join(CWD, 'dictionary.pkl')
+HPARAMS_PATH = os.path.join(CWD, 'hyperparameters.json')
 
 WORKERS = os.cpu_count() 
 
@@ -56,11 +57,19 @@ def SubmitGenerator(prediction, sampleFile, public=True, filename='prediction.cs
 
 if __name__ == "__main__":
     # You should set BEST_MODEL_PATH by yourself
-    BEST_MODEL_PATH = 'model/best/tbrain_best_model.pt'
+    BEST_MODEL_PATH = 'model/BestModel/model.pkl.18'
     
+    # ======== Hyperparameters settings ========
+    myconfig = Config.load_from_json(HPARAMS_PATH)
+    # ==========================================
+
     # ======== Load vocabulary ===================
     myvocab = Load_Vocabulary(DICT_PATH)
     # ============================================
+
+    # ======== Get Pretrained embedding matrix ========
+    embedding_matrix = torch.FloatTensor(Get_Pretrained_embedding_matrix(myconfig.pretrained_embedding_path, myvocab, myconfig.embedding_dim))
+    # =================================================
 
     # ======== Preprocess testing dataset ========
     print('[INFO] Start processing testset...')
@@ -80,15 +89,16 @@ if __name__ == "__main__":
     # ============================================
 
     # ======== Load Model ========================
-    model = torch.load(BEST_MODEL_PATH, map_location=DEVICE)
+    model = Net(myconfig, len(myvocab), embedding_matrix)
+    model.load_state_dict(torch.load(BEST_MODEL_PATH))
     model.eval()
+    model.to(DEVICE)
     # ============================================
 
     # ======== Start inference process ===========
     trange = tqdm(enumerate(dataloader), total=len(dataloader), desc='Predict')
     prediction = []
     for i, (x, y, sent_len) in trange:
-        print(x)
         o_labels = model(x.to(DEVICE))
         o_labels = o_labels > 0.4
         for idx, o_label in enumerate(o_labels):
