@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import torch
 from torch.nn.utils.rnn import pad_sequence
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm, trange
 
@@ -30,8 +30,8 @@ DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 CWD = os.getcwd()
 TRAIN_DATA_PATH = os.path.join(CWD, 'data', 'trainset.csv')
 VALID_DATA_PATH = os.path.join(CWD, 'data', 'validset.csv')
-TEST_DATA_PATH = os.path.join(CWD, 'data', 'testset.csv')
-DICT_PATH = os.path.join(CWD, 'data', 'dictionary.pkl')
+# TEST_DATA_PATH = os.path.join(CWD, 'data', 'testset.csv')
+# DICT_PATH = os.path.join(CWD, 'dictionary.pkl')
 HPARAMS_PATH = os.path.join(CWD, 'hyperparameters.json')
 
 WORKERS = os.cpu_count() 
@@ -139,7 +139,7 @@ def Save(epoch, model, history, filename):
         json.dump(history, f, indent=4)
 
 if __name__ == "__main__":
-    if not os.path.exists(TRAIN_DATA_PATH) or not os.path.exists(VALID_DATA_PATH) or not os.path.exists(TEST_DATA_PATH):
+    if not os.path.exists(TRAIN_DATA_PATH) or not os.path.exists(VALID_DATA_PATH):
         os.system('python3 gendata.py')
     # ======== Hyperparameters settings ========
     myconfig = Config.load_from_json(HPARAMS_PATH)
@@ -150,7 +150,7 @@ if __name__ == "__main__":
     # ==========================================
 
     # ======== Create Vocabulary from training set ========
-    myvocab = Create_Vocabulary(TEST_DATA_PATH, pad_idx=PAD_IDX, unk_idx=UNK_IDX ,workers=WORKERS)
+    myvocab = Create_Vocabulary(TRAIN_DATA_PATH, pad_idx=PAD_IDX, unk_idx=UNK_IDX ,workers=WORKERS)
     # =====================================================
 
     # ======== Get Pretrained embedding matrix ========
