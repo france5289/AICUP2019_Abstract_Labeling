@@ -31,8 +31,6 @@ DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 CWD = os.getcwd()
 TRAIN_DATA_PATH = os.path.join(CWD, 'data', 'trainset.csv')
 VALID_DATA_PATH = os.path.join(CWD, 'data', 'validset.csv')
-# TEST_DATA_PATH = os.path.join(CWD, 'data', 'testset.csv')
-# DICT_PATH = os.path.join(CWD, 'dictionary.pkl')
 HPARAMS_PATH = os.path.join(CWD, 'hyperparameters.json')
 
 WORKERS = os.cpu_count() 
@@ -163,14 +161,11 @@ if __name__ == "__main__":
     train = Get_dataset(TRAIN_DATA_PATH, myvocab, UNK_IDX, WORKERS)
     print('[INFO] Start processing validset...')
     valid = Get_dataset(VALID_DATA_PATH, myvocab, UNK_IDX, WORKERS)
-    # print('[INFO] Start processing testset...')
-    # test = Get_dataset(TEST_DATA_PATH, myvocab, UNK_IDX, WORKERS)
     # ========================================================================
 
     # ======== construct custom dataset ===================================
     trainData = AbstractDataset(train, PAD_IDX, max_len=64)
     validData = AbstractDataset(valid, PAD_IDX, max_len=64)
-    # testData = AbstractDataset(test, PAD_IDX, max_len=64)
     # ========================================================================
 
     # ======== Construct model, choose optimizer and loss function ===========
