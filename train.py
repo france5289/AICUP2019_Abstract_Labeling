@@ -1,5 +1,5 @@
 import json
-import multiprocessing
+
 import os
 import pickle
 
@@ -19,6 +19,7 @@ from metrics import F1
 from model import Net
 
 # ============ uncomment the following line to use VSCode python debugger! ================
+# import multiprocessing
 # multiprocessing.set_start_method('spawn', True) 
 
 
