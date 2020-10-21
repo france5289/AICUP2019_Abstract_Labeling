@@ -1,0 +1,13 @@
+{
+    "pretrained_path":"fastext/ft_300d.txt",
+    "expname":"BestModel",
+    "seed":20,
+    "embedding_dim":300,
+    "hidden_dim":600,
+    "learning_rate":8e-5,
+    "max_epoch":30,
+    "batch_size":64,
+    "removeOOV":true,
+    "removepunct":true
+}
+

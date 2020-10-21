@@ -6,87 +6,41 @@ import torch.nn as nn
 import torch.nn.functional as F
 from collections import OrderedDict
 
-
-class GRUNet(nn.Module):
-    def __init__(self,
-                 vocab_size,
-                 embedding_dim,
-                 embedding_matrix,
-                 hidden_dim,
-                 layer_num=1,
-                 drop_pb=0.5,
-                 bidirect=False):
-        super(GRUNet, self).__init__()
-        GRU_drop_pb = drop_pb
-        if layer_num == 1:
-            GRU_drop_pb = 0
-        self.embedding = nn.Embedding(vocab_size, embedding_dim)
+# TODO: residual connections
+class Net(nn.Module):
+    def __init__(self, config, vocab_size, embedding_matrix):
+        super().__init__()
+        self.embedding_dim = config.embedding_dim
+        self.hidden_dim = config.hidden_dim
+        
+        self.embedding = nn.Embedding(vocab_size, self.embedding_dim)
         self.embedding.weight = torch.nn.Parameter(embedding_matrix)
-        self.sent_rnn = nn.GRU(embedding_dim,
-                               hidden_dim,
-                               num_layers=layer_num,
-                               dropout=GRU_drop_pb,
-                               bidirectional=bidirect,
-                               batch_first=True)
-        self.FCLayer = nn.Sequential(
-            OrderedDict([('FC1', nn.Linear(hidden_dim , hidden_dim // 2)),
-                         ('DropOut1', nn.Dropout(drop_pb)),
-                         ('LayerNorm2', nn.LayerNorm(hidden_dim // 2)),
-                         ('ReLU1', nn.ReLU()),
-                         ('FC2', nn.Linear(hidden_dim // 2 , hidden_dim // 4)),
-                         ('DropOut2', nn.Dropout(drop_pb)),
-                         ('LayerNorm3', nn.LayerNorm( hidden_dim // 4 )),
-                         ('ReLU2', nn.ReLU()),
-                         ('FC3', nn.Linear(hidden_dim // 4, 6)),
-                         ('Sigmoid', nn.Sigmoid())]))
-        self.layernorm1 = nn.LayerNorm(hidden_dim)
-        torch.nn.init.xavier_normal_(self.FCLayer[0].weight)
-        torch.nn.init.xavier_normal_(self.FCLayer[4].weight)
-        torch.nn.init.xavier_normal_(self.FCLayer[8].weight)
+        self.sent_rnn = nn.GRU( self.embedding_dim,
+                                self.hidden_dim,
+                                bidirectional=True,
+                                batch_first=True)
+        self.FCLayers = nn.Sequential(
+                            OrderedDict(
+                                [
+                                    ('FC1', nn.Linear(self.hidden_dim*2, self.hidden_dim)),
+                                    ('ReLU', nn.ReLU()),
+                                    ('FC2', nn.Linear(self.hidden_dim, 6)),
+                                    ('Sigmoid', nn.Sigmoid())
+                                ]
+                            )
+        )
 
-    def forward(self, x, eos_indices):
-        '''
-        Args:
-            x(Tensor): input tensor with shape b*s
-            eos_indexes(list): list which record positions of every eos tokens
-        '''
+        torch.nn.init.xavier_normal_(self.FCLayers[0].weight)
+        torch.nn.init.xavier_normal_(self.FCLayers[2].weight)
+
+    def forward(self, x):
         x = self.embedding(x)
+        b,s,w,e = x.shape 
+        x = x.view(b, s*w, e)
         x, _ = self.sent_rnn(x)
-        _, __, h = x.size()
-        x = x.contiguous().view(-1, h)  # (b*s)*(hidden_dim * direction_num)
-        x = torch.index_select(x, 0, eos_indices)
-        x = self.layernorm1(x)
-        y = self.FCLayer(x)
+        x = x.view(b,s,w,-1)
+        x = torch.max(x, dim=2)[0]
+        y = self.FCLayers(x)
         return y
 
 
-class F1():
-    '''
-    This object provide some method to evaluate F1 score 
-    '''
-    def __init__(self):
-        self.threshold = 0.5
-        self.n_precision = 0
-        self.n_recall = 0
-        self.n_corrects = 0
-        self.name = 'F1'
-
-    def reset(self):
-        self.n_precision = 0
-        self.n_recall = 0
-        self.n_corrects = 0
-
-    def update(self, predicts, groundTruth):
-        predicts = predicts > self.threshold
-        self.n_precision += torch.sum(predicts).data.item()
-        self.n_recall += torch.sum(groundTruth).data.item()
-        self.n_corrects += torch.sum(groundTruth.type(torch.bool) *predicts).data.item()
-
-    def get_score(self):
-        recall = self.n_corrects / self.n_recall
-        precision = self.n_corrects / (self.n_precision + 1e-20)
-        return 2 * (recall * precision) / (recall + precision + 1e-20)
-
-    def print_score(self):
-        score = self.get_score()
-        return '{:.5f}'.format(score)

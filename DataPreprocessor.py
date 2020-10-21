@@ -1,26 +1,27 @@
 '''
 This module provide some helper function to preprocess dataset
 '''
-from multiprocessing import Pool
-from nltk.tokenize import word_tokenize
+import io
 import os
 import pickle
-import pandas as pd
-import requests, zipfile, io
-import torch
+import zipfile
+from multiprocessing import Pool
+
 import numpy as np
+import pandas as pd
+import requests
+from nltk.tokenize import RegexpTokenizer
 from tqdm import tqdm
 
-PAD_TOKEN = 0
-UNK_TOKEN = 1
 
 def collect_words(data_path, n_workers=4):
     df = pd.read_csv(data_path, dtype=str)
+        
     # create a list for storing sentences
     sent_list = []
-    for _ , row in df.iterrows():
+    for i in df.iterrows():
         # remove $$$ and append to sent_list
-        sent_list.extend(row['Abstract'].split('$$$'))
+        sent_list += i[1]['Abstract'].split('$$$')
 
     chunks = [
         ' '.join(sent_list[i:i + len(sent_list) // n_workers])
@@ -28,24 +29,13 @@ def collect_words(data_path, n_workers=4):
     ]
     with Pool(n_workers) as pool:
         # word_tokenize for word-word separation
-        chunks = pool.map_async(word_tokenize, chunks)
+        chunks = pool.map_async(RegexpTokenizer(r'\w+|(?:\[NUM\])').tokenize, chunks)
         words = set(sum(chunks.get(), []))
 
     return words
 
-def Remove_Redundant_Columns(dataset):
-    '''
-    Read dataset and remove Title, Categories, Created Date, Authors columns
 
-    Args:
-        dataset(DataFrame) : original dataset
-    '''
-    dataset.drop('Title',axis=1,inplace=True)
-    dataset.drop('Categories',axis=1,inplace=True)
-    dataset.drop('Created Date',axis=1, inplace=True)
-    dataset.drop('Authors',axis=1,inplace=True)
-
-def Create_Vocabulary(data_path):
+def Create_Vocabulary(data_path, pad_idx = 0, unk_idx = 1, workers = 4):
     '''
     Given input dataset path and create relative word vocabulary and dump it to picke file 
     
@@ -53,10 +43,9 @@ def Create_Vocabulary(data_path):
         data_path(string) : path of input dataset
     '''
     assert data_path is not '', 'Please give input dataset path!'
-    CPUNUM = os.cpu_count() // 2
     words = set()
-    words |= collect_words(data_path, n_workers=CPUNUM)
-    word_dict = {'<pad>':PAD_TOKEN, '<unk>':UNK_TOKEN}
+    words |= collect_words(data_path, n_workers=workers)
+    word_dict = {'<pad>':pad_idx, '<unk>':unk_idx}
     for word in words:
         word_dict[word] = len(word_dict)
 
@@ -65,6 +54,22 @@ def Create_Vocabulary(data_path):
 
     return word_dict
 
+def Load_Vocabulary(vocab_path):
+    '''
+    Read vocabulary from .pkl
+
+    Args:
+    --------
+        vocab_path(string): path of .pkl file
+    
+    Return:
+    --------
+        vocab(dict)
+    '''
+    with open(vocab_path, 'rb') as f:
+        vocab = pickle.load(f)
+    
+    return vocab
 
 
 def Download_Glove():
@@ -80,38 +85,44 @@ def Download_Glove():
     else:
         print('Glove pretrained word embedding has already existed')
 
-def Create_Glove_embedding_matrix(filename, word_dict, embedding_dim):
+def Get_Pretrained_embedding_matrix(filepath, word_dict, embedding_dim):
     '''
-    Given word vocabulary, embedding dimension and pretrained Glove word vector path and
+    Given word vocabulary, embedding dimension and pretrained  word vector path and
     return relative word embedding matrix 
 
     Args:
-        filename( string ): glove word-embedding filename e.g glove.6B.100d.txt
+    --------
+        filename( string ):  word-embedding filename e.g glove.6B.100d.txt
         word_dict( dictionary obj ) : word vocabulary
         embedding_dim( int ) : embedding dimension
     Return:
-        embedding_matrix(torch.FloatTensor) : a Float Tensor with dimension ( word_dict_size x embedding_dim )  
+    --------
+        embedding_matrix(numpy matrix) : a numpy matrix with dimension ( word_dict_size x embedding_dim )  
     '''
     # Parse the unzipped file (a .txt file) to build an index that maps words (as strings) to their vector representation (as number vectors)
-    CWD = os.getcwd()
-    wordvector_path = os.path.join(CWD, 'glove', filename)
     embedding_index = {}
-    with open(wordvector_path) as f:
+    with open(filepath) as f:
         for line in f:
-            values = line.split()
+            values = line.replace(',','').split()
             word = values[0]
             coef = np.asarray(values[1:], dtype='float32')
             embedding_index[word] = coef
-            
-    # Preparing the GloVe word-embeddings matrix
+    print(f'Found {len(embedding_index)} word vectors')
+    
     max_words = len(word_dict)
-    embedding_matrix = np.zeros((max_words, embedding_dim))
+    embedding_matrix = np.random.randn(max_words, embedding_dim)
+    
+    unk_count = 0
     for word, i in word_dict.items():
         embedding_vector = embedding_index.get(word)
         if embedding_vector is not None:
             embedding_matrix[i] = embedding_vector
+        else:
+            unk_count += 1
     
-    return torch.FloatTensor(embedding_matrix)
+    print(f'Found {unk_count} words that did not exist in pre-trained word embeddings')
+    
+    return embedding_matrix
 
 def label_to_onehot(labels):
     """ Convert label to onehot .
@@ -127,7 +138,7 @@ def label_to_onehot(labels):
         onehot[label_dict[l]] = 1
     return onehot
         
-def sentence_to_indices(sentence, word_dict):
+def sentence_to_indices(sentence, word_dict, unk_idx):
     """ Convert sentence to its word indices.
 
     Args:
@@ -135,9 +146,9 @@ def sentence_to_indices(sentence, word_dict):
     Return:
         indices (list of int): List of word indices.
     """
-    return [word_dict.get(word,UNK_TOKEN) for word in word_tokenize(sentence)]
+    return [word_dict.get(word,unk_idx) for word in RegexpTokenizer(r'\w+|(?:\[NUM\])').tokenize(sentence)]
     
-def Get_dataset(data_path, word_dict, n_workers=4):
+def Get_dataset(data_path, word_dict, unk_idx, n_workers=4):
     """ Load data and return dataset for training and validating.
 
     Args:
@@ -155,7 +166,7 @@ def Get_dataset(data_path, word_dict, n_workers=4):
                 batch_end = (len(dataset) // n_workers) * (i + 1)
             
             batch = dataset[batch_start: batch_end]
-            results[i] = pool.apply_async(preprocess_samples, args=(batch,word_dict))
+            results[i] = pool.apply_async(preprocess_samples, args=(batch,word_dict, unk_idx))
 
         pool.close()
         pool.join()
@@ -165,7 +176,7 @@ def Get_dataset(data_path, word_dict, n_workers=4):
         processed += result.get()
     return processed
 
-def preprocess_samples(dataset, word_dict):
+def preprocess_samples(dataset, word_dict, unk_idx):
     """ Worker function.
 
     Args:
@@ -175,11 +186,11 @@ def preprocess_samples(dataset, word_dict):
     """
     processed = []
     for sample in tqdm(dataset.iterrows(), total=len(dataset)):
-        processed.append(preprocess_sample(sample[1], word_dict))
+        processed.append(preprocess_sample(sample[1], word_dict, unk_idx))
 
     return processed
 
-def preprocess_sample(data, word_dict):
+def preprocess_sample(data, word_dict, unk_idx):
     """
     Args:
         data (dict)
@@ -188,7 +199,7 @@ def preprocess_sample(data, word_dict):
     """
     ## clean abstracts by removing $$$
     processed = {}
-    processed['Abstract'] = [sentence_to_indices(sent, word_dict) for sent in data['Abstract'].split('$$$')]
+    processed['Abstract'] = [sentence_to_indices(sent, word_dict, unk_idx) for sent in data['Abstract'].split('$$$')]
     
     ## convert the labels into one-hot encoding
     if 'Task 1' in data:
